@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Analógico | Bit a bit</title>
+<meta name="description" content="Laboratorio 3.3: El sensor de luz y el joystick no dan solo 0 o 1: dan una tensión entre 0 V y la de V, y la micro:bit la convierte en un número de 0 a 1023. Por dentro, un divisor de tensión.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="3.3" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-3">Etapa 3: Entradas y salidas con el shield</a><span aria-hidden="true">/</span>
+  <span>Analógico</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 3.3</p>
+  <h1>Analógico</h1>
+  <p class="lab-sub">El sensor de luz y el joystick no dan solo 0 o 1: dan una tensión entre 0 V y la de V, y la micro:bit la convierte en un número de 0 a 1023. Por dentro, un divisor de tensión.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que ya ha hecho el laboratorio 3.2</dd></div><div><dt>Material</dt><dd>micro:bit, shield, el sensor de luz y el joystick de la caja</dd></div><div><dt>Programas</dt><dd>Una barra que sigue a la luz y un punto que sigue a la palanca</dd></div><div><dt>Referencia</dt><dd>Documentación de MakeCode y de los módulos de ACEBOTT</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit y, a la derecha, el sensor de luz en P1 con una luz encima, o el joystick con X en P1 e Y en P2. En transparente se ve el divisor de tensión de cada módulo.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="Lo que mide el módulo"></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Cambia la luz con los botones de abajo, o arrastra la palanca del joystick (cambia de módulo arriba, en el programa). Con «Transparente» ves la resistencia fija y la fotorresistencia.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <div class="segmento" id="selPrograma" aria-label="Programa de cada placa"><button type="button" data-i="0" aria-pressed="true">La luz</button><button type="button" data-i="1" aria-pressed="false">El joystick</button></div>
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. Cambia lo que mide el módulo</li><li data-fase="1">2. Cambia la tensión de S</li><li data-fase="2">3. La micro:bit la convierte en un número</li><li data-fase="3">4. El programa usa ese número</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="entrada"><span class="et">Lo que pasa fuera</span><span class="v num" data-m="entrada">—</span></div><div class="medida-item" data-mc="resistencia"><span class="et">Dentro del módulo</span><span class="v num" data-m="resistencia">—</span></div><div class="medida-item" data-mc="vs"><span class="et">Tensión en S</span><span class="v num" data-m="vs">—</span></div><div class="medida-item" data-mc="lectura"><span class="et">lectura analógica (0 a 1023)</span><span class="v num" data-m="lectura">—</span><span class="barra-vel"><i data-mb="lectura"></i></span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>El puente V1 (P0 a P9)</h3><div class="segmento" data-control="puente" data-defecto="3.3" aria-label="El puente V1 (P0 a P9)"><button type="button" data-valor="3.3" aria-pressed="true">3,3 V</button><button type="button" data-valor="5" aria-pressed="false">5 V</button></div></div><div class="rompelo-grupo"><h3>Cable de alimentación</h3><label class="interruptor" for="sinV"><input type="checkbox" id="sinV" data-control="sinV" data-defecto="false"> Soltar el cable V del módulo</label></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">Un sensor analógico cambia una resistencia, el divisor de tensión la convierte en una tensión entre 0 V y la de V, y la micro:bit la lee como un número de 0 a 1023.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Dar por hecho que más luz da un número más alto</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>En el sensor de luz de la caja, la fotorresistencia va entre S y G. Con más luz baja su resistencia, S se acerca a 0 V y el número baja: ACEBOTT lo dice así, «a más luz, menor valor».</p><p>Si programas «si luz > 600, enciende el faro» pensando que 600 es mucha luz, harás lo contrario de lo que quieres. Mide primero qué número da tu sensor con luz y a oscuras.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Pon la linterna encima del sensor y mira la barra de la pantalla. Después, tápalo.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Mide la luz de tu aula y calibra el joystick</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Con el puente V1 en 3,3 V, conecta el sensor de luz en P1 y pasa el programa de la barra desde <a href="https://makecode.microbit.org/" target="_blank" rel="noopener">MakeCode</a>.</span></li><li><span>Cambia la barra por «mostrar número» y apunta el valor con la luz del aula, tapándolo con el dedo y con la linterna del móvil.</span></li><li><span>Elige un número entre «luz» y «oscuridad» y haz un programa que enseñe una luna cuando esté oscuro.</span></li><li><span>Conecta el joystick: X en P1 e Y en P2 (y su V y G). Pasa el programa del punto y comprueba hacia dónde aumenta cada eje.</span></li><li><span>Apunta qué números da el joystick suelto. ¿Son exactamente 512?</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> Tengo los valores del sensor con luz, a oscuras y con linterna.</label></li><li><label><input type="checkbox"> Mi programa de la luna usa un umbral que he medido yo.</label></li><li><label><input type="checkbox"> Sé hacia dónde aumentan X e Y en mi joystick.</label></li><li><label><input type="checkbox"> He visto que el joystick suelto no da justo 512.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="La micro:bit reparte de 0 a 3,3 V en 1024 escalones (0 a 1023). 1,65 V es la mitad de 3,3 V: unos 512."><legend>1. ¿Qué número da «lectura analógica» con 1,65 V en el pin?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Unos 165.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Unos 512, la mitad de 1023.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>1, porque pasa de la mitad.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="a" data-explicacion="La fotorresistencia va de S a G: con más luz, menos resistencia, y en el divisor le toca menos tensión. S baja y el número también."><legend>2. En el sensor de luz de la caja, ¿qué pasa con el número cuando le das más luz?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Baja, porque la fotorresistencia baja y S se acerca a 0 V.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Sube, porque entra más energía.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>No cambia: la fotorresistencia solo cambia de color.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="b" data-explicacion="A oscuras, la fotorresistencia vale cientos de kΩ y se queda casi toda la tensión: con 5 V, S pasa de los 3,6 V que admite un pin."><legend>3. ¿Por qué con el puente V1 a 5 V el sensor de luz es peligroso a oscuras?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Porque a oscuras el sensor gasta más corriente.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Porque a oscuras la fotorresistencia es muy grande y S se acerca a 5 V, más de lo que admite un pin.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Porque la micro:bit se apaga con poca luz.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>«lectura analógica pin» da de 0 a 1023 y solo funciona en P0 a P4 y P10 (documentación de MakeCode).</li><li>La micro:bit mide de 0 a 3,3 V: lo que pase de 3,3 V se queda en 1023, y más de 3,6 V puede estropear el pin.</li><li>El sensor de luz de ACEBOTT da un valor menor cuanta más luz; el joystick tiene X, Y y un pulsador (SW).</li><li>«graficar barras» y «mapear» hacen lo mismo que en MakeCode.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>La fotorresistencia y la resistencia fija: valores típicos (15 kΩ con 10 lux y 10 kΩ), no los de vuestro módulo.</li><li>La luz de cada situación (penumbra, aula, linterna), en lux aproximados.</li><li>Hacia dónde aumentan X e Y en el joystick: ACEBOTT no lo dice. Comprobadlo.</li><li>El joystick real no da exactamente 512 en el centro ni llega siempre a 0 y 1023.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>Microsoft. <a href="https://makecode.microbit.org/reference/pins/analog-read-pin" target="_blank" rel="noopener">MakeCode: analog read pin</a> y <a href="https://makecode.microbit.org/reference/pins/map" target="_blank" rel="noopener">map</a>.</li><li>ACEBOTT. <a href="https://acebott.com/docs/light-sensor/" target="_blank" rel="noopener">Light Sensor</a> y <a href="https://acebott.com/docs/qb015-joystick-module/" target="_blank" rel="noopener">Joystick Module</a>.</li><li>Micro:bit Educational Foundation. <a href="https://tech.microbit.org/hardware/edgeconnector/" target="_blank" rel="noopener">Edge Connector &amp; micro:bit pinout</a>: los pines analógicos y el límite de tensión.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-3-2.html"><small>Anterior</small>3.2 Digital</a>
+  <a href="ruta.html#etapa-3"><small>Volver a</small>La etapa 3 de la ruta</a>
+  <a href="lab-3-4.html"><small>Siguiente</small>3.4 Notas con PWM</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l3-3.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

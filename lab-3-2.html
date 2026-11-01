@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Digital | Bit a bit</title>
+<meta name="description" content="Laboratorio 3.2: El botón, el sensor de inclinación y el de obstáculos solo dicen 0 o 1. Pero cada uno a su manera: el 1 no siempre significa «sí».">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="3.2" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-3">Etapa 3: Entradas y salidas con el shield</a><span aria-hidden="true">/</span>
+  <span>Digital</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 3.2</p>
+  <h1>Digital</h1>
+  <p class="lab-sub">El botón, el sensor de inclinación y el de obstáculos solo dicen 0 o 1. Pero cada uno a su manera: el 1 no siempre significa «sí».</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que ya conoce el shield (laboratorio 3.1)</dd></div><div><dt>Material</dt><dd>micro:bit, shield, y los módulos de botón, inclinación y obstáculos</dd></div><div><dt>Programa</dt><dd>La pantalla se llena cuando P1 vale 1</dd></div><div><dt>Referencia</dt><dd>Documentación de los módulos de ACEBOTT y de MakeCode</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <div class="segmento" id="vistas" aria-label="Vista"><button type="button" data-vista="boton" aria-pressed="true">Botón</button><button type="button" data-vista="inclinacion" aria-pressed="false">Inclinación</button><button type="button" data-vista="obstaculo" aria-pressed="false">Obstáculos</button></div>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit y, a la derecha, el módulo elegido conectado a P1: el botón, el sensor de inclinación o el de obstáculos por infrarrojos, con una mano que se acerca. Cada pieza está rotulada.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="Activar el módulo"></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Arriba eliges el módulo; abajo lo activas. La pantalla de la micro:bit enseña lo que lee: llena si es 1, un solo LED si es 0.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. Algo cambia en el módulo</li><li data-fase="1">2. El módulo pone S a 0 V o a 3,3 V</li><li data-fase="2">3. La micro:bit lee el pin: 0 o 1</li><li data-fase="3">4. El programa lo dibuja</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="modulo"><span class="et">Módulo en P1</span><span class="v num" data-m="modulo">—</span></div><div class="medida-item" data-mc="estado"><span class="et">Lo que le pasa</span><span class="v num" data-m="estado">—</span></div><div class="medida-item" data-mc="vs"><span class="et">Tensión en S</span><span class="v num" data-m="vs">—</span></div><div class="medida-item" data-mc="lectura"><span class="et">lectura digital pin P1</span><span class="v num" data-m="lectura">—</span></div><div class="medida-item" data-mc="significa"><span class="et">Para este módulo, eso es</span><span class="v num" data-m="significa">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Cable de señal</h3><label class="interruptor" for="suelto"><input type="checkbox" id="suelto" data-control="suelto" data-defecto="false"> Soltar el cable S</label></div><div class="rompelo-grupo"><h3>El puente V1 (P0 a P9)</h3><div class="segmento" data-control="puente" data-defecto="3.3" aria-label="El puente V1 (P0 a P9)"><button type="button" data-valor="3.3" aria-pressed="true">3,3 V</button><button type="button" data-valor="5" aria-pressed="false">5 V</button></div></div><div class="rompelo-grupo"><h3>Sensor de obstáculos</h3><label class="interruptor" for="negro"><input type="checkbox" id="negro" data-control="negro" data-defecto="false"> Ponerse un guante negro</label></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">Un módulo digital solo pone su señal a 0 V o a la tensión de V, y la micro:bit la lee como 0 o 1; qué significa cada número depende del módulo, así que hay que probarlo.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Dar por hecho que el 1 significa «pulsado» o «hay algo»</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>El botón de la caja da 1 cuando está suelto y 0 cuando lo pulsas. El de obstáculos da 0 cuando ve algo. El de inclinación, en cambio, da 1 inclinado.</p><p>Si escribes «si lectura digital = 1» pensando en «pulsado», el programa hará justo lo contrario. Antes de programar, mira qué da cada módulo en reposo y activado.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Elige el botón y fíjate en la pantalla de la micro:bit: ¿cuándo está llena, suelto o pulsado?</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">La tabla de verdad de tus módulos</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Con el puente V1 del shield en 3,3 V, conecta el botón en P1 (S con S, V con V y G con G).</span></li><li><span>Pasa a la micro:bit el programa de una línea desde <a href="https://makecode.microbit.org/" target="_blank" rel="noopener">MakeCode</a> y apunta qué enseña la pantalla con el botón suelto y pulsado.</span></li><li><span>Cambia el botón por el sensor de inclinación y después por el de obstáculos. Apunta, para cada uno, qué lee en reposo y activado.</span></li><li><span>Con el de obstáculos, mira su LED de aviso y gira con cuidado el potenciómetro: busca a qué distancia empieza a detectar tu mano. Prueba con algo negro.</span></li><li><span>Escribe un programa que enseñe un icono solo cuando el botón está pulsado. ¿Qué número pones en la condición?</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> Tengo la tabla con lo que da cada módulo en reposo y activado.</label></li><li><label><input type="checkbox"> He comprobado si mi sensor de inclinación da 1 inclinado, como dice ACEBOTT.</label></li><li><label><input type="checkbox"> He ajustado el alcance del sensor de obstáculos.</label></li><li><label><input type="checkbox"> Mi programa del icono funciona con el botón pulsado.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="El módulo lleva una resistencia que sube S hasta V: suelto da 1. Al pulsar, el botón une S con G, 0 V: da 0."><legend>1. ¿Qué valor da el botón de la caja mientras lo pulsas?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>1, porque está activado.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>0, porque une S con G.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>Depende de lo fuerte que lo pulses.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="a" data-explicacion="La micro:bit V2 baja por defecto sus entradas a 0 V con una resistencia interna de unos 13 kΩ: sin nada conectado, lee 0."><legend>2. Si se suelta el cable S, ¿qué lee la micro:bit en ese pin?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Un 0, porque su resistencia interna lo baja a 0 V.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Un 1, porque el pin queda libre.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>El último valor que leyó antes de soltarse.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="c" data-explicacion="El emisor lanza luz infrarroja y el receptor mide cuánta rebota. Una superficie negra y mate devuelve muy poca: para el módulo, no hay nada."><legend>3. ¿Por qué el sensor de obstáculos puede no ver una mano con guante negro?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Porque el negro es más frío y el sensor mide calor.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Porque el guante tapa el potenciómetro.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Porque el negro absorbe la luz infrarroja y no le vuelve bastante al receptor.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>El botón de ACEBOTT da 1 suelto y 0 pulsado; el de inclinación, 0 plano y 1 inclinado (según sus pruebas); el de obstáculos se programa como «0 = obstáculo».</li><li>La micro:bit V2 baja sus entradas a 0 V con una resistencia interna de unos 13 kΩ si nada tira del pin.</li><li>Los umbrales de lectura del procesador: 1 desde 0,7 × 3,3 V y 0 hasta 0,3 × 3,3 V.</li><li>«graficar barras» llena la pantalla de abajo arriba desde el centro; con 0 deja encendido el LED de abajo en el centro.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>El sensor de inclinación: el código de ejemplo de ACEBOTT dice lo contrario que sus pruebas. Comprobadlo con el vuestro.</li><li>El alcance del sensor de obstáculos: depende del potenciómetro, de la luz del aula y del objeto. Aquí, unos 15 cm.</li><li>Cómo absorbe el infrarrojo una superficie negra: aquí, nada de nada.</li><li>La distancia de la mano en el dibujo, que no está a escala.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>ACEBOTT. <a href="https://acebott.com/docs/qb038-qb067-button-module/" target="_blank" rel="noopener">Button Module</a>, <a href="https://acebott.com/docs/qb123-tilt-sensor/" target="_blank" rel="noopener">Tilt Sensor</a> y <a href="https://acebott.com/docs/qb096-infrared-obstacle-avoidance-sensor/" target="_blank" rel="noopener">Infrared Obstacle Avoidance Sensor</a>.</li><li>Micro:bit Educational Foundation. <a href="https://tech.microbit.org/hardware/edgeconnector/" target="_blank" rel="noopener">Edge Connector &amp; micro:bit pinout</a>: las resistencias internas de los pines.</li><li>Lancaster University. <a href="https://github.com/lancaster-university/codal-microbit-v2" target="_blank" rel="noopener">codal-microbit-v2</a>: la resistencia hacia GND por defecto.</li><li>Microsoft. <a href="https://github.com/microsoft/pxt-microbit" target="_blank" rel="noopener">pxt-microbit</a>: cómo dibuja «graficar barras» (libs/core/led.ts).</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-3-1.html"><small>Anterior</small>3.1 El shield por dentro</a>
+  <a href="ruta.html#etapa-3"><small>Volver a</small>La etapa 3 de la ruta</a>
+  <a href="lab-3-3.html"><small>Siguiente</small>3.3 Analógico</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l3-2.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

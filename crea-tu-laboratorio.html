@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crea tu laboratorio | Bit a bit</title>
+<meta name="description" content="Plantillas para hacer un laboratorio nuevo con Claude.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class=""><div class="marco">
+<header class="cabecera-pagina">
+  <h1>Crea tu laboratorio con Claude</h1>
+  <p class="entradilla">Los laboratorios de esta web se han hecho con Claude, el modelo de inteligencia artificial de Anthropic, a partir de la documentación oficial de cada pieza. Así puedes hacer uno nuevo.</p>
+</header>
+
+<section class="bloque">
+  <div class="nota ojo">
+    <h3>Quién escribe y quién revisa</h3>
+    <p>Claude es para mayores de 18 años, según su <a href="https://support.claude.com/en/articles/15171100-age-assurance-on-claude" target="_blank" rel="noopener">centro de ayuda</a>. En clase, el alumnado elige la pregunta, prepara la documentación y revisa el resultado; el profesorado escribe y lanza el encargo.</p>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPasos">
+  <h2 id="tPasos">Cinco pasos</h2>
+  <ol class="lista-pasos" style="margin-top:16px">
+    <li><span><strong>Elige una pregunta</strong> con una pieza que se mueve y un número que cambia. Por ejemplo: ¿cómo sabe un servo a qué ángulo ir?</span></li>
+    <li><span><strong>Reúne la documentación oficial</strong>: la ficha del kit, la wiki del fabricante y la extensión de MakeCode.</span></li>
+    <li><span><strong>Haz el encargo</strong> con la plantilla de abajo, cambiando lo que va entre corchetes.</span></li>
+    <li><span><strong>Revísalo como un crítico</strong> con la segunda plantilla. Corrige lo que falle.</span></li>
+    <li><span><strong>Pruébalo con el material real.</strong> Si la simulación y la mesa no coinciden, manda la mesa.</span></li>
+  </ol>
+</section>
+
+<section class="bloque" aria-labelledby="tPlantilla">
+  <div class="seccion-titulo"><h2 id="tPlantilla">Plantilla del encargo</h2><button type="button" class="boton sec peq" data-copiar="#plantilla1">Copiar</button></div>
+  <pre class="codigo bloque-texto" id="plantilla1">Laboratorio de la etapa [2]: [cómo sigue el Maqueen Plus V2 una línea negra].
+Para: [alumnado de 2º ESO que ya ha usado MakeCode].
+
+1. Documéntate antes de dibujar: [wiki del Maqueen Plus V2, su extensión de MakeCode y los tutoriales de iniciación de DFRobot].
+2. Una sola pieza interactiva: [el robot sobre una pista, visto desde abajo], con transparencia para ver el interior y cada componente rotulado.
+3. Botón de "siguiente paso" y modo automático: [los 5 sensores leen el suelo → la micro:bit decide → cada motor cambia de velocidad → el robot corrige el rumbo].
+4. Un control para estropearlo a propósito: [tapar un sensor, pista con reflejos, pilas gastadas], para ver qué falla y por qué.
+5. Al lado, el programa en bloques de MakeCode y en Python; la simulación ejecuta exactamente esa lógica.
+6. Debajo: la idea clave en una frase, el error común, la práctica con el robot real y tres preguntas.</pre>
+</section>
+
+<section class="bloque" aria-labelledby="tRevision">
+  <div class="seccion-titulo"><h2 id="tRevision">Plantilla de la revisión</h2><button type="button" class="boton sec peq" data-copiar="#plantilla2">Copiar</button></div>
+  <pre class="codigo bloque-texto" id="plantilla2">Revisa este laboratorio como un profesor de Tecnología exigente:
+1. ¿Pines, bloques y nombres coinciden con la documentación oficial y con nuestro material?
+2. ¿Algún montaje puede dañar la micro:bit (tensión, consumo, motor o bomba sin driver)?
+3. ¿Las cifras de la simulación son coherentes con el modelo?
+4. ¿Lo entiende un alumno de [2º ESO] sin ayuda?
+Corrige lo que falle y dime en una lista breve qué has cambiado.</pre>
+</section>
+
+<section class="bloque" aria-labelledby="tConsejos">
+  <h2 id="tConsejos">Lo que hace bueno un laboratorio</h2>
+  <div class="tres-col" style="margin-top:16px">
+    <div><h3>Una sola pieza</h3><p>Un objeto en el centro, no un collage. Si hay dos ideas, son dos laboratorios.</p></div>
+    <div><h3>Números de verdad</h3><p>Cada cifra de la pantalla sale del mismo cálculo que mueve la simulación.</p></div>
+    <div><h3>Lo dudoso, a la vista</h3><p>Lo que no se ha podido comprobar se marca como aproximado y se mide luego en la mesa.</p></div>
+  </div>
+  <p class="medida" style="margin-top:20px">La idea de convertir cada duda en un laboratorio viene de <a href="https://robotips.app/" target="_blank" rel="noopener">RobotVisual</a>, que lo hace con Arduino y ESP32.</p>
+</section>
+
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

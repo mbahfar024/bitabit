@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mezcla de colores | Bit a bit</title>
+<meta name="description" content="Laboratorio 3.5: El LED RGB son tres LED en uno: rojo, verde y azul. Con «escritura analógica», cada color brilla lo que le toca y el ojo mezcla las tres luces. Cada color gasta una salida PWM, y no hay infinitas.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="3.5" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-3">Etapa 3: Entradas y salidas con el shield</a><span aria-hidden="true">/</span>
+  <span>Mezcla de colores</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 3.5</p>
+  <h1>Mezcla de colores</h1>
+  <p class="lab-sub">El LED RGB son tres LED en uno: rojo, verde y azul. Con «escritura analógica», cada color brilla lo que le toca y el ojo mezcla las tres luces. Cada color gasta una salida PWM, y no hay infinitas.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que ya ha hecho el laboratorio 3.4</dd></div><div><dt>Material</dt><dd>micro:bit, shield y el módulo LED RGB de la caja (y dos módulos LED)</dd></div><div><dt>Programa</dt><dd>Un número de 0 a 1023 para cada color</dd></div><div><dt>Referencia</dt><dd>Documentación de MakeCode, del código de la micro:bit (CODAL) y del módulo de ACEBOTT</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit y, a la derecha, el módulo LED RGB con sus cables: R a P1, G a P2, B a P8 y el común a GND. Abajo aparecen dos LED más cuando se activa «Dos LED más con brillo».">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="Los tres colores"></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Los deslizadores de abajo cambian los números del programa. Con «Transparente» ves la pista de cada color.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. El programa da un número a cada color</li><li data-fase="1">2. Cada pin hace PWM</li><li data-fase="2">3. Cada color brilla en proporción</li><li data-fase="3">4. El ojo mezcla las tres luces</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="rojo"><span class="et">Rojo (P1)</span><span class="v num" data-m="rojo">—</span><span class="barra-vel"><i data-mb="rojo"></i></span></div><div class="medida-item" data-mc="verde"><span class="et">Verde (P2)</span><span class="v num" data-m="verde">—</span><span class="barra-vel"><i data-mb="verde"></i></span></div><div class="medida-item" data-mc="azul"><span class="et">Azul (P8)</span><span class="v num" data-m="azul">—</span><span class="barra-vel"><i data-mb="azul"></i></span></div><div class="medida-item" data-mc="mezcla"><span class="et">El color que vemos</span><span class="v num" data-m="mezcla">—</span></div><div class="medida-item" data-mc="canales"><span class="et">Canales PWM de la V2</span><span class="v num" data-m="canales">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Más salidas PWM</h3><label class="interruptor" for="extra"><input type="checkbox" id="extra" data-control="extra" data-defecto="false"> Añadir dos LED más con brillo (P13 y P14)</label></div><div class="rompelo-grupo"><h3>Un cable</h3><label class="interruptor" for="sueltoVerde"><input type="checkbox" id="sueltoVerde" data-control="sueltoVerde" data-defecto="false"> Soltar el cable del verde</label></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">Cada color del LED RGB necesita su propia salida PWM: el programa da a cada uno un número de 0 a 1023, cada color brilla en esa proporción y el ojo suma las tres luces en un solo color.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Pensar que todos los pines pueden tener PWM a la vez</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>La «escritura analógica» y los servos usan PWM, y la micro:bit solo tiene unas pocas salidas así. La documentación técnica habla de tres; en la V2, el código de la placa reparte cuatro canales por turnos.</p><p>El LED RGB ya gasta tres. Si además das brillo a dos LED, el quinto pin le quita su canal al primero y uno de los colores se apaga, sin ningún aviso. Cuenta las salidas PWM antes de montar.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Activa en la simulación «Dos LED más con brillo» y mira qué pasa con el color del LED RGB.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Busca los colores de un semáforo</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Conecta el módulo RGB: R a la S de P1, G a la S de P2, B a la S de P8 y el común (GND) a una G del shield. Comprueba la serigrafía de tu módulo.</span></li><li><span>Monta el programa en <a href="https://makecode.microbit.org/" target="_blank" rel="noopener">MakeCode</a> y pásalo a la micro:bit.</span></li><li><span>Busca los números para el verde, el ámbar y el rojo de un semáforo. Apúntalos: los usarás en el semáforo de la práctica de la etapa.</span></li><li><span>Con los tres colores a 1023, ¿sale blanco puro o tira hacia algún color?</span></li><li><span>Añade un módulo LED en P13 con «escritura analógica» a 512, y otro en P14. ¿Se apaga algún color? Anota cuántas salidas PWM aguanta tu placa.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> He montado el RGB con cada color en su pin.</label></li><li><label><input type="checkbox"> Tengo los números del verde, el ámbar y el rojo.</label></li><li><label><input type="checkbox"> He comprobado qué pasa con la quinta salida PWM.</label></li><li><label><input type="checkbox"> Sé por qué el blanco no sale perfecto.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="Son luces, no pinturas: rojo más verde dan amarillo. Con los tres a tope sale blanco."><legend>1. Con rojo a 1023, verde a 1023 y azul a 0, ¿qué color se ve?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Marrón.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Amarillo.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>Blanco.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="b" data-explicacion="Es PWM: el pin solo puede estar a 0 o a 3,3 V, pero alterna tan deprisa que el LED brilla en proporción, un 25 % aquí."><legend>2. ¿Qué significa «escritura analógica pin P1 a 256»?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Que P1 da 256 voltios.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Que P1 se enciende y apaga muy deprisa y está encendido unas 256 de cada 1023 partes del tiempo.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Que P1 envía el número 256 al LED.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="c" data-explicacion="La V2 tiene cuatro canales para la escritura analógica y los reparte por turnos: el quinto se queda con el del primero. La documentación habla incluso de tres."><legend>3. Tienes el RGB en tres pines y das brillo a dos LED más. ¿Qué puede pasar en una micro:bit V2?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Nada: cada pin tiene su propio PWM.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Que la micro:bit se reinicia.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Que el quinto pin le quita su canal PWM a otro y ese color deja de brillar.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>«escritura analógica pin» va de 0 a 1023 (documentación de MakeCode).</li><li>En la V2, la escritura analógica y los servos comparten un periférico PWM de 4 canales que se dan por turnos; el quinto pin le quita el canal al más antiguo (codal-nrf52, NRF52Pin.cpp). La documentación técnica de la micro:bit habla de 3 pines a la vez.</li><li>Cada escritura analógica ocupa un canal, aunque el valor sea 0.</li><li>El módulo RGB de ACEBOTT tiene cuatro pines: R, G, B y el común a GND.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>El color que se ve: la simulación suma las tres luces en proporción; los LED reales no brillan igual en cada color y el blanco suele tirar a azul o a rosa.</li><li>Qué hace un pin cuando pierde su canal: aquí se apaga.</li><li>Los pines R, G y B: el orden y el pin común de vuestro módulo pueden cambiar; mirad la serigrafía.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>Microsoft. <a href="https://makecode.microbit.org/reference/pins/analog-write-pin" target="_blank" rel="noopener">MakeCode: analog write pin</a>.</li><li>Lancaster University. <a href="https://github.com/lancaster-university/codal-nrf52" target="_blank" rel="noopener">codal-nrf52</a>: los 4 canales PWM de la escritura analógica y su reparto por turnos (NRF52Pin.cpp).</li><li>Micro:bit Educational Foundation. <a href="https://tech.microbit.org/hardware/edgeconnector/" target="_blank" rel="noopener">Edge Connector &amp; micro:bit pinout</a>: «PWM solo en 3 pines a la vez».</li><li>ACEBOTT. <a href="https://acebott.com/docs/qb014-qb082-rgb-module/" target="_blank" rel="noopener">RGB Module</a>.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-3-4.html"><small>Anterior</small>3.4 Notas con PWM</a>
+  <a href="ruta.html#etapa-3"><small>Volver a</small>La etapa 3 de la ruta</a>
+  <a href="lab-4-1.html"><small>Siguiente</small>4.1 Tres termómetros</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l3-5.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

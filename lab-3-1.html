@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El shield por dentro | Bit a bit</title>
+<meta name="description" content="Laboratorio 3.1: Cada conector del shield tiene tres patas: S, la señal, que va a un pin de la micro:bit; V, la alimentación; y G, la tierra. Dos puentes deciden si V da 3,3 V o 5 V, V1 para P0 a P9 y V2 para P10 a P20, y no todos los pines quedan libres.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="3.1" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-3">Etapa 3: Entradas y salidas con el shield</a><span aria-hidden="true">/</span>
+  <span>El shield por dentro</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 3.1</p>
+  <h1>El shield por dentro</h1>
+  <p class="lab-sub">Cada conector del shield tiene tres patas: S, la señal, que va a un pin de la micro:bit; V, la alimentación; y G, la tierra. Dos puentes deciden si V da 3,3 V o 5 V, V1 para P0 a P9 y V2 para P10 a P20, y no todos los pines quedan libres.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que empieza con la caja de sensores</dd></div><div><dt>Material</dt><dd>micro:bit, el shield de la caja, el módulo de botón y un módulo LED</dd></div><div><dt>Programa</dt><dd>El LED de P1 se enciende mientras pulsas el botón de P2</dd></div><div><dt>Referencia</dt><dd>Documentación técnica de la micro:bit y de los módulos de ACEBOTT</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield visto desde arriba, con la micro:bit de pie en su ranura, la entrada de alimentación, los reguladores, los puentes V1 y V2 de 3,3 o 5 V y los conectores S, V y G: P0 a P9 en la fila de arriba y P10 a P20 en la de abajo. A la derecha, un módulo LED en P1 y un módulo de botón en P2, cada uno con sus tres cables.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="El botón del módulo"><button type="button" class="boton peq" data-pulsar>Mantener pulsado el botón</button></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Mantén pulsado el botón del módulo (en el dibujo o abajo). Con «Transparente» ves las pistas: 5 V en rojo, 3,3 V en naranja, tierra en gris y la señal en amarillo.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. La alimentación entra en el shield</li><li data-fase="1">2. Los reguladores dan 5 V y 3,3 V</li><li data-fase="2">3. El puente V1 elige la tensión de V</li><li data-fase="3">4. El botón devuelve su señal por S</li><li data-fase="4">5. La micro:bit enciende el LED por S</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="vfila"><span class="et">V de P0 a P9 (puente V1)</span><span class="v num" data-m="vfila">—</span></div><div class="medida-item" data-mc="vs2"><span class="et">Señal del botón (S en P2)</span><span class="v num" data-m="vs2">—</span></div><div class="medida-item" data-mc="lect2"><span class="et">lectura digital pin P2</span><span class="v num" data-m="lect2">—</span></div><div class="medida-item" data-mc="vs1"><span class="et">Señal del LED (S en P1)</span><span class="v num" data-m="vs1">—</span></div><div class="medida-item" data-mc="iled"><span class="et">Corriente por el LED</span><span class="v num" data-m="iled">—</span></div><div class="medida-item" data-mc="libres"><span class="et">Pines libres de la micro:bit</span><span class="v num" data-m="libres">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>El puente V1 (P0 a P9)</h3><div class="segmento" data-control="puente" data-defecto="3.3" aria-label="El puente V1 (P0 a P9)"><button type="button" data-valor="3.3" aria-pressed="true">3,3 V</button><button type="button" data-valor="5" aria-pressed="false">5 V</button></div></div><div class="rompelo-grupo"><h3>Un módulo al revés (V y G cambiados)</h3><div class="segmento" data-control="reves" data-defecto="" aria-label="Un módulo al revés (V y G cambiados)"><button type="button" data-valor="" aria-pressed="true">Los dos bien</button><button type="button" data-valor="boton" aria-pressed="false">El botón</button><button type="button" data-valor="led" aria-pressed="false">El LED</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">El shield reparte la alimentación por V y G y lleva cada señal S a un pin de la micro:bit; con su puente a 5 V, lo que devuelve un sensor por S también puede llegar a 5 V.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Conectar un módulo al revés, con V y G cambiados</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>Los cables de un módulo se pueden enchufar girados: V queda en la tierra y G en la alimentación. El módulo recibe la tensión al revés.</p><p>Un botón al revés funciona «al contrario», un LED no se enciende y un sensor con un chip dentro se puede estropear. Antes de enchufar, mira la serigrafía del módulo y la del shield: la S con la S, la V con la V y la G con la G.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Conecta en la simulación el botón con V y G cambiados y mira qué hace el LED sin tocar nada.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Conoce tu shield antes de enchufar nada</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Sin alimentación, busca en tu shield la entrada DC, el micro USB, el LED de encendido y los dos puentes, V1 y V2, de 3,3 V y 5 V. Busca también qué pines van en cada columna.</span></li><li><span>Mira la serigrafía de un conector: ¿en qué orden van S, V y G? Comprueba que coincide con la del módulo.</span></li><li><span>Pon los dos puentes en 3,3 V. Conecta el LED en P1 y el botón en P2, la S con la S, la V con la V y la G con la G.</span></li><li><span>Inserta la micro:bit con la pantalla hacia ti, descarga el programa desde <a href="https://makecode.microbit.org/" target="_blank" rel="noopener">MakeCode</a> y alimenta el shield por su USB.</span></li><li><span>Mantén pulsado el botón: el LED se enciende. Si tenéis polímetro, medid con el profesor la tensión entre V y G de un conector.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> He encontrado los puentes V1 y V2 y sé en qué posición dan 3,3 V.</label></li><li><label><input type="checkbox"> He comprobado el orden S, V, G en el shield y en los módulos.</label></li><li><label><input type="checkbox"> El LED se enciende mientras pulso el botón.</label></li><li><label><input type="checkbox"> Sé decir qué pines usan la pantalla y los botones.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="a" data-explicacion="S es la señal (va o viene de un pin), V la alimentación que elige el puente y G la tierra, 0 V. El módulo necesita las tres."><legend>1. ¿Qué lleva cada uno de los tres contactos de un conector del shield?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>S la señal que va a un pin de la micro:bit, V la alimentación y G la tierra.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>S el sonido, V el volumen y G la ganancia.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>Los tres llevan la misma señal, para que no se suelte.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="c" data-explicacion="Un sensor alimentado a 5 V puede poner su salida a 5 V. La micro:bit trabaja a 3,3 V y sus pines no admiten más de 0,3 V por encima: unos 3,6 V."><legend>2. ¿Por qué el puente a 5 V puede estropear la micro:bit si conectas un sensor?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Porque a 5 V el sensor gasta tanta corriente que funde el shield.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Porque el shield deja de alimentar la micro:bit.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Porque el sensor puede devolver 5 V por S, y un pin no admite más de 3,6 V.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="b" data-explicacion="P3, P4, P6, P7 y P10 son de la pantalla, y P5 y P11, de los botones A y B. P0, P1, P2, P8 y P13 a P16 quedan libres."><legend>3. ¿Qué conectores conviene usar primero?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>P3, P4 y P10, porque leen valores analógicos.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>P0, P1, P2 y P8, porque la micro:bit no los usa para nada más.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>P5 y P11, porque están junto a los botones.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>La micro:bit trabaja a 3,3 V y un pin no admite más de 0,3 V por encima (documentación técnica de la micro:bit).</li><li>P3, P4, P6, P7 y P10 son de la pantalla; P5 y P11, de los botones; P12, del modo de accesibilidad de la V2; P19 y P20, del bus I2C.</li><li>El procesador de la micro:bit (nRF52833) lee un 1 desde 0,7 × 3,3 V y un 0 hasta 0,3 × 3,3 V; en medio, el resultado no está asegurado.</li><li>El botón de ACEBOTT da 1 suelto y 0 pulsado; el LED se enciende con su señal a 1.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>El dibujo del shield. El de la caja, según la foto de su ficha (L3P10), es un micro:bit Shield de ACEBOTT como el Keyestudio KS0360: DC de 7 a 9 V, micro USB de 5 V y dos puentes, V1 (P0 a P9) y V2 (P10 a P20 y los conectores I2C y SPI). En el vuestro los conectores van en dos columnas; aquí, en dos filas.</li><li>El orden de S, V y G y la serigrafía, que cambian de un shield a otro.</li><li>La resistencia y el LED de dentro de los módulos, y la corriente que se calcula con ellos.</li><li>La resistencia interna de la micro:bit (unos 13 kΩ hacia GND): aquí solo cuenta cuando nada más tira del pin.</li><li>El recorrido de las pistas del dibujo.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>Micro:bit Educational Foundation. <a href="https://tech.microbit.org/hardware/edgeconnector/" target="_blank" rel="noopener">Edge Connector &amp; micro:bit pinout</a>: el uso de cada pin, los 3,6 V y las resistencias internas.</li><li>Lancaster University. <a href="https://github.com/lancaster-university/codal-microbit-v2" target="_blank" rel="noopener">codal-microbit-v2</a>: la resistencia interna hacia GND por defecto (target.json).</li><li>Keyestudio. <a href="https://docs.keyestudio.com/projects/KS0360/en/latest/docs/Keyestudio%20Sensor%20Shield%20V2%20for%20BBC%20microbit.html" target="_blank" rel="noopener">Sensor Shield V2 for BBC micro:bit (KS0360)</a>: un shield como el de la ficha, con DC de 7 a 9 V, micro USB y los puentes V1 y V2.</li><li>ACEBOTT. <a href="https://acebott.com/docs/qb038-qb067-button-module/" target="_blank" rel="noopener">Button Module</a> y <a href="https://acebott.com/docs/qb007-qb081-led-module/" target="_blank" rel="noopener">LED Module</a>.</li><li>Nordic Semiconductor. <a href="https://devzone.nordicsemi.com/f/nordic-q-a/70617/nrf52832-vih-and-vil" target="_blank" rel="noopener">nRF52: VIH and VIL</a>: los umbrales de 0,7 × VDD y 0,3 × VDD de los pines.</li><li>Microsoft. <a href="https://makecode.microbit.org/reference/pins" target="_blank" rel="noopener">MakeCode: pins</a>, bloques de lectura y escritura digital.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-2-6.html"><small>Anterior</small>2.6 Mando a distancia</a>
+  <a href="ruta.html#etapa-3"><small>Volver a</small>La etapa 3 de la ruta</a>
+  <a href="lab-3-2.html"><small>Siguiente</small>3.2 Digital</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l3-1.js"></script><script src="assets/site.js"></script>
+</body>
+</html>
