@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Botones A, B y logo táctil | Bit a bit</title>
+<meta name="description" content="Laboratorio 1.2: Qué pasa por dentro cuando pulsas un botón: el pin baja a 0 V, la placa filtra los rebotes y, al soltar, lanza el evento que espera tu programa.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="1.2" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-1">Etapa 1: La micro:bit por dentro</a><span aria-hidden="true">/</span>
+  <span>Botones A, B y logo táctil</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 1.2</p>
+  <h1>Botones A, B y logo táctil</h1>
+  <p class="lab-sub">Qué pasa por dentro cuando pulsas un botón: el pin baja a 0 V, la placa filtra los rebotes y, al soltar, lanza el evento que espera tu programa.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que empieza con la micro:bit</dd></div><div><dt>Material</dt><dd>micro:bit GO</dd></div><div><dt>Programa</dt><dd>Un contador de pulsaciones</dd></div><div><dt>Referencia</dt><dd>Código de la micro:bit (CODAL) y de MakeCode</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="La micro:bit por delante. Los botones A y B y el logo se pueden pulsar; en transparente se ve el circuito de cada botón.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="Pulsar la placa"><button type="button" class="boton peq" data-pulsar="A">Pulsar A</button><button type="button" class="boton peq" data-pulsar="B">Pulsar B</button><button type="button" class="boton peq sec" data-pulsar="logo">Tocar el logo</button></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Pulsa los botones del dibujo o los de abajo; puedes mantenerlos apretados. Con «Transparente» ves el circuito de cada botón.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. Pulsas el botón</li><li data-fase="1">2. El pin baja de 3,3 V a 0 V</li><li data-fase="2">3. La placa vigila el pin cada 6 ms</li><li data-fase="3">4. Sueltas y se lanza el evento</li><li data-fase="4">5. Tu programa responde</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div><h3>Osciloscopio del botón A</h3><canvas class="osc" id="osc" aria-label="Gráfica de la tensión de P5 y del contador del filtro en los últimos 400 ms"></canvas></div><div class="medidas"><div class="medida-item" data-mc="vP5"><span class="et">Tensión en P5</span><span class="v num" data-m="vP5">—</span></div><div class="medida-item" data-mc="sigma"><span class="et">Contador del filtro</span><span class="v num" data-m="sigma">—</span><span class="barra-vel"><i data-mb="sigma"></i></span></div><div class="medida-item" data-mc="estadoA"><span class="et">Botón A, según la placa</span><span class="v num" data-m="estadoA">—</span></div><div class="medida-item" data-mc="cuenta"><span class="et">Variable pulsaciones</span><span class="v num" data-m="cuenta">—</span></div><div class="medida-item" data-mc="evento"><span class="et">Último evento</span><span class="v num" data-m="evento">—</span></div><div class="medida-item" data-mc="clicks"><span class="et">Clicks contados</span><span class="v num" data-m="clicks">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Rebotes del contacto</h3><div class="segmento" data-control="rebotes" data-defecto="" aria-label="Rebotes del contacto"><button type="button" data-valor="" aria-pressed="true">Contacto limpio</button><button type="button" data-valor="filtro" aria-pressed="false">Rebota, con filtro</button><button type="button" data-valor="sinFiltro" aria-pressed="false">Rebota, sin filtro</button></div></div><div class="rompelo-grupo"><h3>Resistencia de 10 kΩ</h3><label class="interruptor" for="pullup"><input type="checkbox" id="pullup" data-control="pullup" data-defecto="false"> Quitar la resistencia del botón A</label></div><div class="rompelo-grupo"><h3>Logo táctil</h3><label class="interruptor" for="guante"><input type="checkbox" id="guante" data-control="guante" data-defecto="false"> Tocar el logo con un guante</label></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">Un botón solo baja su pin de 3,3 V a 0 V; la placa vigila ese pin cada 6 ms, ignora los rebotes y, al soltar, lanza el evento que ejecuta tu programa.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Mantener el botón pulsado y esperar que cuente</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>«al presionarse el botón A» no se lanza al apretar, sino al soltar. Y solo si el botón ha estado pulsado menos de un segundo: si lo mantienes más, la placa lo cuenta como «click largo» y ese bloque no se entera.</p><p>Si quieres que algo pase mientras el botón está apretado, usa «botón A presionado» dentro de un «si», en un «para siempre».</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Mantén el botón A pulsado un segundo y medio en la simulación y mira si la cuenta cambia.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Pon a prueba tu contador</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Monta el contador en <a href="https://makecode.microbit.org/" target="_blank" rel="noopener">MakeCode</a> (o pega su JavaScript) y descárgalo en la micro:bit.</span></li><li><span>Pulsa A diez veces seguidas, sin prisa. ¿Llega a 10? Después pulsa B tres veces.</span></li><li><span>Mantén A pulsado dos segundos y suelta. ¿Cambia la cuenta?</span></li><li><span>Toca el logo con la yema del dedo. Después prueba con la uña, con un lápiz y con un guante.</span></li><li><span>Pulsa A muy deprisa, varias veces seguidas: si pulsas mientras la pantalla aún enseña el número anterior, la cuenta sigue bien aunque la pantalla se retrase.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> El contador sube con A, baja con B y vuelve a 0 con el logo.</label></li><li><label><input type="checkbox"> He comprobado qué pasa al mantener A pulsado dos segundos.</label></li><li><label><input type="checkbox"> He probado el logo con el dedo y con otro objeto.</label></li><li><label><input type="checkbox"> Sé explicar por qué el botón suelto deja el pin a 3,3 V.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="El botón une P5 con GND (0 V). Suelto, la resistencia de 10 kΩ lo deja a 3,3 V: funciona «al revés»."><legend>1. ¿Qué tensión tiene P5 mientras mantienes pulsado el botón A?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>3,3 V, porque el botón le da corriente.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>0 V, porque el botón une P5 con GND.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>5 V, como el cable USB.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="c" data-explicacion="La placa espera a que sueltes y lo cuenta como «click» si ha durado menos de un segundo. Si dura más, es un «click largo»."><legend>2. ¿Cuándo se ejecuta «al presionarse el botón A»?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Justo al empezar a pulsar.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Cada 20 ms mientras lo mantienes apretado.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Al soltarlo, si ha estado pulsado menos de un segundo.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="a" data-explicacion="El logo es táctil capacitivo: no hay contacto que se cierre. El dedo, que conduce, cambia la capacidad que mide la placa; el guante, que aísla, casi no."><legend>3. ¿Por qué el logo no nota el dedo a través de un guante grueso?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Porque mide cómo cambia su capacidad eléctrica, y el guante apenas la cambia.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Porque el guante no deja cerrar el contacto metálico del logo.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Porque el logo mide la temperatura del dedo.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>El botón A está en P5 y el B en P11; pulsados, unen su pin con GND.</li><li>Cada botón tiene una resistencia de 10 kΩ que sube su pin a 3,3 V.</li><li>La placa mira los botones cada 6 ms y usa un contador de 0 a 12: pulsado si pasa de 8, suelto si baja de 2.</li><li>«al presionarse el botón» se lanza al soltar si el botón ha estado pulsado menos de 1 s; si no, es un «click largo».</li><li>«al presionar el logotipo» funciona igual, con el logo táctil.</li><li>«mostrar número» con una sola cifra la deja en pantalla 750 ms.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>Cuánto duran los rebotes y cómo saltan: en un pulsador real dependen del botón y de cómo lo aprietes.</li><li>El pin «al aire» sin resistencia: en la simulación lee 0 o 1 al azar.</li><li>El efecto del guante: en la simulación no detecta nada; en la realidad depende del guante.</li><li>El recorrido de las pistas en el dibujo.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>Lancaster University. <a href="https://github.com/lancaster-university/codal-core" target="_blank" rel="noopener">codal-core</a>: el filtro de los botones (source/drivers/Button.cpp, inc/driver-models/AbstractButton.h) y la vigilancia cada 6 ms (inc/core/CodalConfig.h).</li><li>Lancaster University. <a href="https://github.com/lancaster-university/codal-microbit-v2" target="_blank" rel="noopener">codal-microbit-v2</a>: botones en P5 y P11, activos a nivel bajo (model/MicroBit.cpp).</li><li>Micro:bit Educational Foundation. <a href="https://tech.microbit.org/hardware/edgeconnector/" target="_blank" rel="noopener">Edge Connector &amp; micro:bit pinout</a>: las resistencias de 10 kΩ de los botones.</li><li>Microsoft. <a href="https://github.com/microsoft/pxt-microbit" target="_blank" rel="noopener">pxt-microbit</a>: «al presionarse el botón» escucha el click (libs/core/input.cpp) y el logo (libs/core/logo.cpp).</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-1-1.html"><small>Anterior</small>1.1 25 luces con pocos pines</a>
+  <a href="ruta.html#etapa-1"><small>Volver a</small>La etapa 1 de la ruta</a>
+  <a href="lab-1-3.html"><small>Siguiente</small>1.3 Dónde está abajo</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l1-2.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

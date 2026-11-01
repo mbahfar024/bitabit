@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>25 luces con pocos pines | Bit a bit</title>
+<meta name="description" content="Laboratorio 1.1: Cómo enciende la micro:bit 25 LED con solo 10 pines: una fila cada vez, tan deprisa que no ves el parpadeo.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="1.1" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-1">Etapa 1: La micro:bit por dentro</a><span aria-hidden="true">/</span>
+  <span>25 luces con pocos pines</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 1.1</p>
+  <h1>25 luces con pocos pines</h1>
+  <p class="lab-sub">Cómo enciende la micro:bit 25 LED con solo 10 pines: una fila cada vez, tan deprisa que no ves el parpadeo.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que empieza con la micro:bit</dd></div><div><dt>Material</dt><dd>micro:bit GO</dd></div><div><dt>Programa</dt><dd>Un corazón que late</dd></div><div><dt>Referencia</dt><dd>Documentación técnica de la micro:bit</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <div class="segmento" id="vistas" aria-label="Vista"><button type="button" data-vista="frente" aria-pressed="true">Por delante</button><button type="button" data-vista="detras" aria-pressed="false">Por detrás</button></div>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="La micro:bit vista por delante, con la pantalla de 25 LED y, en transparente, las pistas de filas y columnas.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Activa «Transparente» para ver las pistas de filas y columnas. Toca un rótulo para saber qué hace cada pieza.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. El programa pide un dibujo</li><li data-fase="1">2. La imagen se guarda en la memoria</li><li data-fase="2">3. El procesador enciende una fila cada vez</li><li data-fase="3">4. Tu ojo junta las filas</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div><h3>La memoria de la pantalla: 25 casillas de 0 a 255</h3><div class="memoria" data-m="memoria" aria-live="off"></div></div><div class="medidas"><div class="medida-item" data-mc="fila"><span class="et">Fila encendida ahora</span><span class="v num" data-m="fila">—</span></div><div class="medida-item" data-mc="columnas"><span class="et">Columnas a 0 V</span><span class="v num" data-m="columnas">—</span></div><div class="medida-item" data-mc="frecuencia"><span class="et">Imágenes por segundo</span><span class="v num" data-m="frecuencia">—</span></div><div class="medida-item" data-mc="tfila"><span class="et">Tiempo de cada fila</span><span class="v num" data-m="tfila">—</span></div><div class="medida-item" data-mc="fantasmas"><span class="et">LED que no cuadran con el dibujo</span><span class="v num" data-m="fantasmas">—</span></div><div class="medida-item" data-mc="tiempo"><span class="et">Tiempo simulado</span><span class="v num" data-m="tiempo">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Velocidad del barrido</h3><div class="segmento" data-control="barrido" data-defecto="60" aria-label="Velocidad del barrido"><button type="button" data-valor="60" aria-pressed="true">60 por segundo (la real)</button><button type="button" data-valor="10" aria-pressed="false">10 por segundo</button><button type="button" data-valor="2" aria-pressed="false">2 por segundo</button></div></div><div class="rompelo-grupo"><h3>Algo conectado en P3</h3><div class="segmento" data-control="p3" data-defecto="" aria-label="Algo conectado en P3"><button type="button" data-valor="" aria-pressed="true">Nada</button><button type="button" data-valor="gnd" aria-pressed="false">P3 a 0 V</button><button type="button" data-valor="3v" aria-pressed="false">P3 a 3,3 V</button></div></div><div class="rompelo-grupo"><h3>Sin barrido</h3><label class="interruptor" for="sinBarrido"><input type="checkbox" id="sinBarrido" data-control="sinBarrido" data-defecto="false"> Encender las cinco filas a la vez</label></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">Los 25 LED no tienen un pin cada uno: comparten 5 filas y 5 columnas, y la placa enciende una fila cada vez, 300 veces por segundo, tan deprisa que tu ojo ve el dibujo entero.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Usar P3, P4, P6, P7 o P10 con la pantalla encendida</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>Esos cinco contactos del conector son también las columnas de la pantalla. Si conectas un pulsador, un LED o un sensor en uno de ellos, la pantalla y tu circuito se pisan: aparecen LED encendidos que no tocaban, o tu circuito lee valores raros.</p><p>Para tus montajes usa primero P0, P1 y P2, las anillas grandes. Si necesitas uno de esos pines, MakeCode tiene el bloque «activar leds falso» para apagar la pantalla antes.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Conecta en la simulación un pulsador pulsado en P3, que lo lleva a 0 V, y mira la columna 3.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Caza el barrido de tu micro:bit</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>En <a href="https://makecode.microbit.org/" target="_blank" rel="noopener">MakeCode</a>, monta el programa del laboratorio (o pega su JavaScript) y descárgalo en la micro:bit del kit.</span></li><li><span>Conecta el portapilas para que la placa funcione sin el cable.</span></li><li><span>Graba la pantalla con la cámara lenta del móvil. Si tu móvil graba muy deprisa, verás que en algunas imágenes solo hay filas encendidas a medias.</span></li><li><span>Apaga la luz de la clase y mueve la placa deprisa de lado a lado: el corazón se rompe en trocitos, porque las filas se encienden en momentos distintos.</span></li><li><span>Busca en el conector los contactos P3, P4, P6, P7 y P10 con la imagen del conector de la página de material. No conectes nada en ellos todavía.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> He visto filas a medias en la grabación a cámara lenta.</label></li><li><label><input type="checkbox"> He visto el corazón roto en trocitos al mover la placa a oscuras.</label></li><li><label><input type="checkbox"> Sé explicar por qué bastan 10 pines para 25 LED.</label></li><li><label><input type="checkbox"> Sé qué contactos del conector comparte la pantalla.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="Cada LED está en el cruce de una fila y una columna. Con 5 filas y 5 columnas hay 25 cruces: basta con 10 pines."><legend>1. ¿Cuántos pines usa la micro:bit V2 para manejar sus 25 LED?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>25, uno por LED.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>10: cinco filas y cinco columnas.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>5, uno por fila.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="c" data-explicacion="La placa barre las cinco filas 60 veces por segundo. Cada fila dura unos 3 ms: demasiado poco para que el ojo note que se apaga."><legend>2. Si en cada momento solo hay una fila encendida, ¿por qué ves el dibujo entero?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Porque los LED guardan la luz hasta la siguiente vez.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Porque la pantalla tiene memoria y no hace falta refrescarla.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Porque la imagen se repite 60 veces por segundo y el ojo junta las filas.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="a" data-explicacion="P3 está unido a la columna 3. Al pulsar, el pulsador lleva P3 a 0 V, y eso basta para que se enciendan los LED de esa columna cuando les toca su fila."><legend>3. Conectas un pulsador en P3 y, al pulsarlo, se encienden LED de la columna 3 que el dibujo no tenía. ¿Por qué?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Porque P3 es también la columna 3 de la pantalla.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Porque el pulsador da más corriente a la pantalla.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Porque P3 solo sirve para leer valores analógicos.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>La pantalla tiene 25 LED en 5 filas y 5 columnas.</li><li>Las filas van a pines internos del procesador; las columnas son P4, P7, P3, P6 y P10, que también están en el conector.</li><li>Un LED se enciende cuando su fila está a 3,3 V y su columna a 0 V.</li><li>La placa enciende una fila cada vez y repite la imagen 60 veces por segundo.</li><li>«mostrar icono» guarda el dibujo en la memoria de la pantalla y espera 600 ms.</li><li>«para siempre» espera 20 ms entre una vuelta y la siguiente.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>El recorrido de las pistas en el dibujo: es un esquema, no la placa por dentro.</li><li>Cómo junta el ojo las filas: un modelo sencillo de persistencia.</li><li>El brillo de cada LED y el reparto de los contactos pequeños del conector.</li><li>Qué pasa con P3 conectado: en la placa real depende del circuito; la simulación lo lleva justo a 0 V o a 3,3 V.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>Micro:bit Educational Foundation. <a href="https://tech.microbit.org/hardware/edgeconnector/" target="_blank" rel="noopener">Edge Connector &amp; micro:bit pinout</a>: P3, P4, P6, P7 y P10 son columnas de la pantalla.</li><li>Microsoft MakeCode. <a href="https://makecode.microbit.org/device/screen" target="_blank" rel="noopener">LED screen</a>: la memoria de la pantalla y los pines compartidos.</li><li>Lancaster University. <a href="https://github.com/lancaster-university/codal-microbit-v2" target="_blank" rel="noopener">codal-microbit-v2</a>: filas y columnas (model/MicroBit.cpp) y las 60 imágenes por segundo (inc/NRF52LedMatrix.h).</li><li>Microsoft. <a href="https://github.com/microsoft/pxt-microbit" target="_blank" rel="noopener">pxt-microbit</a>: los dibujos de los iconos (icons.ts) y la espera de «mostrar icono».</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <div><small>Anterior</small>Es el primero</div>
+  <a href="ruta.html#etapa-1"><small>Volver a</small>La etapa 1 de la ruta</a>
+  <a href="lab-1-2.html"><small>Siguiente</small>1.2 Botones A, B y logo táctil</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l1-1.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

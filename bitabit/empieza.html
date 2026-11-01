@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Empieza | Bit a bit</title>
+<meta name="description" content="Qué necesitas y cómo empezar.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html" aria-current=page>Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class=""><div class="marco">
+<header class="cabecera-pagina">
+  <h1>Empieza</h1>
+  <p class="entradilla">Qué necesitas, cómo se pasa un programa a la micro:bit y cómo se usan los laboratorios de esta web.</p>
+</header>
+
+<section class="bloque dos-col" aria-labelledby="tNecesitas">
+  <div>
+    <h2 id="tNecesitas">Lo que necesitas</h2>
+    <p class="medida" style="margin-top:12px">Para las primeras etapas basta con un kit micro:bit GO y un ordenador con navegador. El kit trae:</p>
+    <ul style="margin-top:10px;display:grid;gap:4px">
+      <li>la placa micro:bit V2,</li>
+      <li>un cable USB,</li>
+      <li>un portapilas para dos pilas AAA, con sus dos pilas,</li>
+      <li>una tarjeta de inicio.</li>
+    </ul>
+    <p class="medida" style="margin-top:12px">El Maqueen Plus V2 trae su propia micro:bit y funciona con cuatro pilas AA. La caja de sensores llega en la etapa 3.</p>
+  </div>
+  <div class="panel">
+    <h3>Cómo se coge la placa</h3>
+    <p style="margin-top:8px">Por los bordes, sin tocar los componentes. Antes de cambiar un cable, desconecta la alimentación. Y nunca juntes los anillos 3V y GND: es un cortocircuito.</p>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tProgramar">
+  <h2 id="tProgramar">Pasar un programa a la micro:bit</h2>
+  <ol class="lista-pasos" style="margin-top:18px">
+    <li><span>Abre <a href="https://makecode.microbit.org/" target="_blank" rel="noopener">makecode.microbit.org</a> y crea un proyecto nuevo.</span></li>
+    <li><span>Programa con bloques. Arriba puedes cambiar a Python o a JavaScript: es el mismo programa escrito de otra forma.</span></li>
+    <li><span>Pruébalo en el simulador de la izquierda antes de descargarlo.</span></li>
+    <li><span>Conecta la micro:bit por USB y pulsa Descargar. Con Chrome o Edge puedes emparejarla y el programa se envía solo; si no, arrastra el archivo .hex a la unidad MICROBIT.</span></li>
+    <li><span>Para el Maqueen: en Extensiones busca «maqueen» y añade la extensión de DFRobot (maqueenPlusV2). Sin ella no aparecen sus bloques.</span></li>
+  </ol>
+  <div class="nota" style="margin-top:22px">
+    <h3>Python de MakeCode no es MicroPython</h3>
+    <p>En esta web el Python es el de MakeCode, el que ves al cambiar de pestaña en el editor. El editor <a href="https://python.microbit.org/" target="_blank" rel="noopener">python.microbit.org</a> usa MicroPython, con otras funciones, y los programas no se pueden pegar de uno a otro.</p>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tUsar">
+  <h2 id="tUsar">Cómo se usa un laboratorio</h2>
+  <div class="tres-col" style="margin-top:18px">
+    <div>
+      <h3>Mira y toca</h3>
+      <p>El robot se ve desde abajo, a través de un suelo de cristal. Arrastra la escena para girarla o elige otra vista, y toca un rótulo para saber qué hace cada pieza.</p>
+    </div>
+    <div>
+      <h3>Siguiente paso o automático</h3>
+      <p>«Siguiente paso» avanza una fase del programa cada vez y la explica. «Automático» lo deja correr en tiempo real, más lento o más rápido.</p>
+    </div>
+    <div>
+      <h3>Estropéalo y a la mesa</h3>
+      <p>Estropéalo a propósito y mira qué falla y por qué. Después, la práctica con el material real y tres preguntas.</p>
+    </div>
+  </div>
+  <p class="medida" style="margin-top:20px">Tu avance se guarda en este navegador. Si cambias de ordenador, o si se borran los datos del navegador, empieza de cero. No se envía nada a ningún sitio.</p>
+  <div class="botones" style="margin-top:22px">
+    <a class="boton" href="ruta.html">Ver la ruta</a>
+    <a class="boton sec" href="lab-siguelineas.html">Probar el laboratorio del siguelíneas</a>
+  </div>
+</section>
+
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

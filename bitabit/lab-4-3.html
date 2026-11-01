@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Hay que regar? | Bit a bit</title>
+<meta name="description" content="Laboratorio 4.3: El sensor de humedad no mide «porcentaje de agua»: da una tensión que sube cuanto más mojada está la tierra. El número que sirve para decidir solo lo sabes si calibras con tu sensor y tu tierra.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="4.3" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-4">Etapa 4: Medir el mundo</a><span aria-hidden="true">/</span>
+  <span>¿Hay que regar?</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 4.3</p>
+  <h1>¿Hay que regar?</h1>
+  <p class="lab-sub">El sensor de humedad no mide «porcentaje de agua»: da una tensión que sube cuanto más mojada está la tierra. El número que sirve para decidir solo lo sabes si calibras con tu sensor y tu tierra.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que ya sabe leer un pin analógico (laboratorio 3.3)</dd></div><div><dt>Material</dt><dd>micro:bit V2, shield, el sensor de humedad de la caja y una maceta</dd></div><div><dt>Programa</dt><dd>Lee la humedad cada 2 segundos y enseña una cara: triste si hay que regar</dd></div><div><dt>Referencia</dt><dd>Extensión y ficha de ACEBOTT, y el proyecto de humedad del suelo de MakeCode</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit y, a la derecha, una maceta con una planta. El sensor de humedad está clavado en la tierra, con su conector arriba unido a P1.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="Regar la maceta"></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">La tierra se seca poco a poco (aquí, en minutos; de verdad, en días). Riega con el botón de abajo.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. La tierra tiene agua</li><li data-fase="1">2. La sonda da una tensión</li><li data-fase="2">3. P1 la lee: de 0 a 1023</li><li data-fase="3">4. El programa compara con el umbral</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="agua"><span class="et">Agua en la tierra (del modelo)</span><span class="v num" data-m="agua">—</span></div><div class="medida-item" data-mc="tension"><span class="et">Tensión en S</span><span class="v num" data-m="tension">—</span></div><div class="medida-item" data-mc="lectura"><span class="et">Lectura de P1</span><span class="v num" data-m="lectura">—</span></div><div class="medida-item" data-mc="umbral"><span class="et">Umbral del programa</span><span class="v num" data-m="umbral">—</span></div><div class="medida-item" data-mc="decision"><span class="et">La micro:bit dice</span><span class="v num" data-m="decision">—</span></div><div class="medida-item" data-mc="planta"><span class="et">La planta</span><span class="v num" data-m="planta">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>El umbral</h3><div class="segmento" data-control="umbral" data-defecto="250" aria-label="El umbral"><button type="button" data-valor="250" aria-pressed="true">250, calibrado aquí</button><button type="button" data-valor="500" aria-pressed="false">500, copiado de Internet</button></div></div><div class="rompelo-grupo"><h3>El puente V1 (P0 a P9)</h3><div class="segmento" data-control="puente" data-defecto="3.3" aria-label="El puente V1 (P0 a P9)"><button type="button" data-valor="3.3" aria-pressed="true">3,3 V, como al calibrar</button><button type="button" data-valor="5" aria-pressed="false">5 V</button></div></div><div class="rompelo-grupo"><h3>La sonda</h3><div class="segmento" data-control="sonda" data-defecto="nueva" aria-label="La sonda"><button type="button" data-valor="nueva" aria-pressed="true">Nueva</button><button type="button" data-valor="corroida" aria-pressed="false">Tras meses encendida</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">La lectura del sensor de humedad es un número que depende de tu sensor, de tu tierra y de la tensión con que lo alimentas. Para decidir cuándo regar hay que calibrar: medir con la tierra seca y con la tierra mojada, y poner el umbral entre las dos.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Copiar el umbral de otro proyecto sin calibrar</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>En Internet hay programas con «si la humedad es menor que 500, regar». Ese número salió de otro sensor, con otra tierra y casi siempre con una placa de 5 V.</p><p>Con este sensor a 3,3 V, la lectura casi nunca pasa de 450: con el umbral en 500, la micro:bit pide agua siempre, aunque la maceta esté encharcada. Mide tú la tierra seca y la mojada, y pon el umbral entre medias.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Pon el umbral de Internet en la simulación y riega.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Calibra el sensor con tu maceta</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Conecta el sensor en P1 con el puente V1 en 3,3 V: S con S, V con V y G con G. Clávalo en la tierra solo por la horquilla dorada: la parte de arriba, con los componentes, no se puede mojar.</span></li><li><span>Monta un programa que enseñe la lectura: «mostrar número (Mosisture Sensor at P1 get value)» (el bloque de ACEBOTT se llama así, con esa errata). Apunta lo que da con la tierra seca.</span></li><li><span>Riega bien, espera un minuto y apunta lo que da con la tierra mojada. Prueba también en el aire y en un vaso de agua, sin mojar la parte de los componentes.</span></li><li><span>Pon el umbral entre la tierra seca y la mojada y monta el programa de las caras.</span></li><li><span>Para que la sonda dure, no la tengas siempre alimentada: el proyecto de MakeCode la enciende solo al medir, desde otro pin, y mide cada pocos minutos.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> He apuntado la lectura con la tierra seca y con la mojada.</label></li><li><label><input type="checkbox"> Mi umbral está entre esas dos lecturas.</label></li><li><label><input type="checkbox"> La micro:bit pone la cara triste cuando la tierra está seca.</label></li><li><label><input type="checkbox"> Sé por qué el umbral cambia si cambio el puente V1.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="La lectura es la parte de 3,3 V que hay en P1. No es un porcentaje. Con tu calibración (por ejemplo, 140 seca y 440 mojada) sabrás que 380 es tierra bastante húmeda."><legend>1. El sensor da 380 en tu maceta. ¿Qué significa?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Que la tierra tiene un 38 % de agua.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Nada por sí solo: hay que compararlo con lo que da tu sensor en tierra seca y en tierra mojada.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>Que hay que regar, porque es menor que 500.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="b" data-explicacion="Con más tensión, el sensor da más tensión en S para la misma tierra. El umbral calibrado a 3,3 V se queda bajo y la micro:bit tarda más en pedir agua. Con este sensor la salida no llega a 3,3 V, así que el pin no corre peligro."><legend>2. Calibraste con el puente V1 en 3,3 V y luego lo cambias a 5 V. ¿Qué pasa?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Nada: la lectura no depende de la alimentación.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Todas las lecturas suben y el umbral ya no sirve.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>La micro:bit se estropea.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="a" data-explicacion="Entre las dos patas pasa corriente por la tierra mojada, y con el tiempo se corroen. El proyecto de MakeCode solo la enciende para medir: ahorra pilas y la sonda dura más."><legend>3. ¿Por qué conviene no tener la sonda alimentada todo el día?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Porque la corriente por la tierra la va corroyendo, y entonces da lecturas más bajas.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Porque se descarga la tierra.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Porque la micro:bit se calienta.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>El bloque de ACEBOTT «Mosisture Sensor at … get value» (con esa errata) devuelve la lectura analógica tal cual, de 0 a 1023. Solo deja elegir P0, P1 o P2.</li><li>Según ACEBOTT, el sensor funciona de 3,3 a 5 V, su salida va de 0 a 2,3 V y sube cuanto más mojada está la tierra; y la parte con componentes no debe tocar el agua (ficha QB040).</li><li>El proyecto de humedad del suelo de MakeCode alimenta la sonda desde un pin solo al medir: así gasta menos y la sonda no se corroe tanto.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>Cómo sube la tensión con el agua (una curva que se aplana con la tierra muy mojada).</li><li>La salida con 3,3 V: aquí, la de 5 V multiplicada por 3,3 ÷ 5. Comprobadlo con vuestro sensor.</li><li>Lo que baja la lectura una sonda corroída.</li><li>Lo deprisa que se seca la tierra: minutos aquí, días de verdad.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>ACEBOTT. <a href="https://github.com/ACEBOTTteam/Acebott" target="_blank" rel="noopener">Extensión de MakeCode</a> (Acebott.ts) y <a href="https://acebott.com/docs/qb040-qb073-moisture-sensor/" target="_blank" rel="noopener">QB040 Moisture Sensor</a>.</li><li>Microsoft. <a href="https://makecode.microbit.org/projects/soil-moisture" target="_blank" rel="noopener">MakeCode: Soil Moisture</a>.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-4-2.html"><small>Anterior</small>4.2 Presión y altura</a>
+  <a href="ruta.html#etapa-4"><small>Volver a</small>La etapa 4 de la ruta</a>
+  <div><small>Siguiente</small>Es el último</div>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l4-3.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

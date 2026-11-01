@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sensores escondidos | Bit a bit</title>
+<meta name="description" content="Laboratorio 1.4: La micro:bit mide la luz con su propia pantalla, el sonido con un micrófono diminuto y la temperatura dentro del procesador. Ninguno es lo que parece.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="1.4" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-1">Etapa 1: La micro:bit por dentro</a><span aria-hidden="true">/</span>
+  <span>Sensores escondidos</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 1.4</p>
+  <h1>Sensores escondidos</h1>
+  <p class="lab-sub">La micro:bit mide la luz con su propia pantalla, el sonido con un micrófono diminuto y la temperatura dentro del procesador. Ninguno es lo que parece.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que empieza con la micro:bit</dd></div><div><dt>Material</dt><dd>micro:bit GO</dd></div><div><dt>Programa</dt><dd>Un medidor de luz, sonido y temperatura</dd></div><div><dt>Referencia</dt><dd>Documentación de MakeCode y de la micro:bit</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <div class="segmento" id="vistas" aria-label="Vista"><button type="button" data-vista="frente" aria-pressed="true">Por delante</button><button type="button" data-vista="detras" aria-pressed="false">Por detrás</button></div>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="La micro:bit por delante y por detrás, con un sol, ondas de sonido y un termómetro del aire alrededor.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="Ambiente"><label class="amb">Luz <select class="campo" data-ambiente="luz"><option value="oscuro">Casi a oscuras</option><option value="clase" selected>Luz de clase</option><option value="ventana">Junto a la ventana</option></select></label><label class="amb">Ruido <select class="campo" data-ambiente="ruido"><option value="silencio">Silencio</option><option value="charla" selected>Charla</option><option value="aplauso">Aplausos</option></select></label><label class="amb">Aire <select class="campo" data-ambiente="aire"><option value="15">15 °C</option><option value="22" selected>22 °C</option><option value="30">30 °C</option></select></label></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Cambia el ambiente con los selectores de abajo. Toca A, B o el logo del dibujo para elegir sensor.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. La luz, el sonido o el calor llega a la placa</li><li data-fase="1">2. Un componente lo convierte en electricidad</li><li data-fase="2">3. El procesador lo mide y da un número</li><li data-fase="3">4. El programa lo enseña</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="sensor"><span class="et">Sensor elegido</span><span class="v num" data-m="sensor">—</span></div><div class="medida-item" data-mc="luz"><span class="et">Nivel de luz (0–255)</span><span class="v num" data-m="luz">—</span><span class="barra-vel"><i data-mb="luz"></i></span></div><div class="medida-item" data-mc="sonido"><span class="et">Nivel de sonido (0–255)</span><span class="v num" data-m="sonido">—</span><span class="barra-vel"><i data-mb="sonido"></i></span></div><div class="medida-item" data-mc="temp"><span class="et">Temperatura que da la placa</span><span class="v num" data-m="temp">—</span></div><div class="medida-item" data-mc="aire"><span class="et">Temperatura del aire</span><span class="v num" data-m="aire">—</span></div><div class="medida-item" data-mc="diferencia"><span class="et">Diferencia</span><span class="v num" data-m="diferencia">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Luz</h3><label class="interruptor" for="tapar"><input type="checkbox" id="tapar" data-control="tapar" data-defecto="false"> Tapar la fila de arriba con el dedo</label></div><div class="rompelo-grupo"><h3>Sonido</h3><label class="interruptor" for="cinta"><input type="checkbox" id="cinta" data-control="cinta" data-defecto="false"> Poner cinta sobre el agujero del micrófono</label></div><div class="rompelo-grupo"><h3>Temperatura</h3><label class="interruptor" for="calor"><input type="checkbox" id="calor" data-control="calor" data-defecto="false"> Dejar la placa al sol (o en la mano)</label></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">La micro:bit V2 no tiene un sensor para cada cosa: mide la luz con la fila de arriba de su pantalla, el sonido con un micrófono y la temperatura con un sensor dentro del procesador.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Creer que «temperatura» mide el aire</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>«temperatura (°C)» mide el procesador, no la clase. El chip trabaja y se calienta, así que suele marcar uno o dos grados más que el aire; al sol o en la mano, bastantes más.</p><p>Para medir el aire, deja la placa un rato quieta, a la sombra y sin tocarla, o usa un sensor externo (laboratorio 4.1).</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Deja la placa al sol en la simulación y compara la temperatura de la placa con la del aire.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Tres sensores en la clase</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Monta el programa en <a href="https://makecode.microbit.org/" target="_blank" rel="noopener">MakeCode</a> y descárgalo en la micro:bit con el portapilas.</span></li><li><span>Con A, mide la luz: acerca la placa a la ventana, al suelo y a una lámpara. Después tapa solo la fila de arriba con un dedo.</span></li><li><span>Con B, mide el sonido: habla, aplaude y quédate en silencio. Busca el LED pequeño junto al agujero del micrófono.</span></li><li><span>Con el logo, mira la temperatura. Apúntala, coge la placa con la mano un par de minutos y vuelve a mirar.</span></li><li><span>Compara la temperatura de la placa con la de un termómetro de la clase.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> He visto que tapar la fila de arriba baja el nivel de luz.</label></li><li><label><input type="checkbox"> He encontrado el agujero y el LED del micrófono.</label></li><li><label><input type="checkbox"> He visto cómo sube la temperatura al calentar la placa.</label></li><li><label><input type="checkbox"> Sé decir de dónde sale cada uno de los tres números.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="No tiene sensor de luz: carga los LED de la fila de arriba y mide cuánto tarda en escaparse la carga. Con más luz, se escapa antes."><legend>1. ¿Con qué mide la luz la micro:bit V2?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Con una cámara pequeña junto al logo.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Con los LED de la fila de arriba de la pantalla.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>Con el micrófono.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="a" data-explicacion="La documentación de MakeCode lo avisa: la primera lectura enciende el sensor y devuelve 0; las siguientes ya dan la luz real."><legend>2. La primera vez que el programa pide el nivel de luz, la placa da 0. ¿Por qué?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Porque el sensor se enciende al pedirlo por primera vez y aún no ha medido.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Porque la clase está a oscuras.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Porque la pantalla está encendida.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="c" data-explicacion="«temperatura» mide el procesador. Al trabajar se calienta un poco, y más si le da el sol o lo coges con la mano."><legend>3. La placa marca 25 °C y el termómetro de la clase, 22 °C. ¿Qué pasa?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>La placa está estropeada.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>El termómetro de la clase está mal.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>La placa mide su procesador, que está algo más caliente que el aire.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>La micro:bit V2 usa los LED de la fila de arriba para medir la luz; tapar esa fila da 0.</li><li>El nivel de luz va de 0 a 255 y la primera lectura da 0.</li><li>El nivel de sonido va de 0 a 255 y necesita una micro:bit V2.</li><li>La temperatura sale del procesador, en grados enteros.</li><li>«mostrar número» deja una cifra sola 750 ms; si hay más, las pasa de lado a lado.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>Qué nivel corresponde a cada ambiente: la escala de 0 a 255 no son luxes ni decibelios, y depende de cada placa.</li><li>Cuánto se calienta el procesador y cuánto tarda.</li><li>Cuánto baja el sonido con la cinta.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>Micro:bit Educational Foundation. <a href="https://support.microbit.org/support/solutions/articles/19000024023-how-does-the-light-sensing-feature-on-the-micro-bit-work-" target="_blank" rel="noopener">How does the light sensing feature on the micro:bit work?</a>: la fila de arriba en la V2.</li><li>Microsoft MakeCode. <a href="https://makecode.microbit.org/reference/input/light-level" target="_blank" rel="noopener">light level</a>, <a href="https://makecode.microbit.org/reference/input/sound-level" target="_blank" rel="noopener">sound level</a> y <a href="https://makecode.microbit.org/reference/input/temperature" target="_blank" rel="noopener">temperature</a>.</li><li>Lancaster University. <a href="https://github.com/lancaster-university/codal-microbit-v2" target="_blank" rel="noopener">codal-microbit-v2</a>: la medida de luz en un hueco del refresco de la pantalla (inc/NRF52LedMatrix.h).</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-1-3.html"><small>Anterior</small>1.3 Dónde está abajo</a>
+  <a href="ruta.html#etapa-1"><small>Volver a</small>La etapa 1 de la ruta</a>
+  <a href="lab-1-5.html"><small>Siguiente</small>1.5 Radio entre placas</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l1-4.js"></script><script src="assets/site.js"></script>
+</body>
+</html>
