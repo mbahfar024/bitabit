@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿De qué color es? | Bit a bit</title>
+<meta name="description" content="Laboratorio 4.5: El sensor de color no ve colores: ilumina la tarjeta con dos LED blancos y mide cuánta luz roja, verde y azul vuelve. El nombre del color lo pone la extensión, con unas cuentas y unas reglas.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="4.5" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-4">Etapa 4: Medir el mundo</a><span aria-hidden="true">/</span>
+  <span>¿De qué color es?</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 4.5</p>
+  <h1>¿De qué color es?</h1>
+  <p class="lab-sub">El sensor de color no ve colores: ilumina la tarjeta con dos LED blancos y mide cuánta luz roja, verde y azul vuelve. El nombre del color lo pone la extensión, con unas cuentas y unas reglas.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que ya ha conectado un módulo I2C (laboratorio 4.1)</dd></div><div><dt>Material</dt><dd>micro:bit V2, shield, el sensor de color de la caja y tarjetas de colores</dd></div><div><dt>Programa</dt><dd>Enseña R, V o A según el color que diga la extensión, y ? si no sabe</dd></div><div><dt>Referencia</dt><dd>Extensión y ficha de ACEBOTT</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit y el sensor de color en el conector IIC. Arriba a la derecha, el sensor visto de lado con una tarjeta encima y la luz de sus dos LED blancos.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="Tarjeta de color"></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Elige la tarjeta con los botones de abajo. En «Estropéalo» puedes alejarla, cambiar la luz o probar con otro chip.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. Los LED iluminan la tarjeta</li><li data-fase="1">2. El sensor mide rojo, verde y azul</li><li data-fase="2">3. La extensión los pasa a 0–255</li><li data-fase="3">4. Las reglas ponen el nombre</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="tarjeta"><span class="et">Tarjeta y distancia</span><span class="v num" data-m="tarjeta">—</span></div><div class="medida-item" data-mc="crudo"><span class="et">Lo que mide el sensor (R, G, B)</span><span class="v num" data-m="crudo">—</span></div><div class="medida-item" data-mc="cuenta"><span class="et">La cuenta de la extensión (de 0 a 255)</span><span class="v num" data-m="cuenta">—</span></div><div class="medida-item" data-mc="nombre"><span class="et">El color que dice la extensión</span><span class="v num" data-m="nombre">—</span></div><div class="medida-item" data-mc="pantalla"><span class="et">En la pantalla</span><span class="v num" data-m="pantalla">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Distancia a la tarjeta</h3><div class="segmento" data-control="distancia" data-defecto="5" aria-label="Distancia a la tarjeta"><button type="button" data-valor="5" aria-pressed="true">5 mm</button><button type="button" data-valor="15" aria-pressed="false">1,5 cm</button><button type="button" data-valor="40" aria-pressed="false">4 cm</button></div></div><div class="rompelo-grupo"><h3>La luz de alrededor</h3><div class="segmento" data-control="luz" data-defecto="aula" aria-label="La luz de alrededor"><button type="button" data-valor="aula" aria-pressed="true">La del aula</button><button type="button" data-valor="ventana" aria-pressed="false">Sol de la ventana</button><button type="button" data-valor="oscuro" aria-pressed="false">A oscuras</button></div></div><div class="rompelo-grupo"><h3>El chip del sensor</h3><div class="segmento" data-control="chip" data-defecto="bh1745" aria-label="El chip del sensor"><button type="button" data-valor="bh1745" aria-pressed="true">BH1745 (0x38)</button><button type="button" data-valor="tcs" aria-pressed="false">TCS34725 (0x29)</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">El sensor da tres números: la luz roja, verde y azul que vuelve de la tarjeta. La extensión los reparte según el mayor (de 0 a 255) y compara con unas reglas fijas. Por eso hay que acercarlo (de 3 a 10 mm, dice ACEBOTT) y taparlo de la luz de alrededor.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Creer que el sensor «ve» el color desde lejos</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>De cerca, casi toda la luz que llega al sensor es la de sus LED rebotada en la tarjeta. A unos centímetros, manda la luz del aula, que es casi blanca: los tres números se parecen y las reglas ya no reconocen el rojo.</p><p>Y la extensión reparte los números según el mayor: una tarjeta negra da números pequeños, pero repartidos se parecen a los de una blanca. Por eso casi nunca dice «negro».</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Aleja la tarjeta a 1,5 cm en la simulación y mira qué dice con la roja.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Haz tu tabla de colores</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Conecta el sensor de color al conector IIC (SDA al 20, SCL al 19, VCC a V2 y GND a G), con V2 en 3,3 V.</span></li><li><span>Con la extensión de ACEBOTT, haz un programa que enseñe «Color sensor detect color» con «mostrar cadena»: salen el nombre y los tres números.</span></li><li><span>Pon cada tarjeta a menos de 1 cm, siempre a la misma distancia, y apunta los números. Prueba también a 3 cm.</span></li><li><span>Tapa el sensor y la tarjeta con la mano o con una caja, y repite. ¿Cambian los números?</span></li><li><span>Monta el programa de las letras y comprueba qué colores reconoce bien y cuáles no.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> Tengo la tabla con los tres números de cada tarjeta.</label></li><li><label><input type="checkbox"> Sé a qué distancia funciona mejor mi sensor.</label></li><li><label><input type="checkbox"> He visto lo que hace la luz de alrededor.</label></li><li><label><input type="checkbox"> Si sale siempre «Negro», sé qué revisar.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="Mide tres cantidades de luz. El nombre lo decide la extensión con sus cuentas y sus reglas."><legend>1. ¿Qué mide de verdad el sensor de color?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>El nombre del color.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Cuánta luz roja, verde y azul le llega.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>La temperatura de la tarjeta.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="a" data-explicacion="La luz de los LED rebotada en la tarjeta se debilita mucho con la distancia. Lo que queda es la luz de alrededor, que no es roja."><legend>2. Alejas la tarjeta roja a 4 cm y la extensión ya no dice «Rojo». ¿Por qué?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Porque le llega sobre todo la luz del aula, casi blanca, y los tres números se parecen.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Porque a 4 cm el rojo se vuelve verde.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Porque el cable I2C es corto.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="b" data-explicacion="Con ceros en los tres colores, la cuenta de la extensión da 0, 0 y 0, que su regla llama «Negro». Revisa los cuatro cables y el chip: la extensión solo sabe hablar con el de la dirección 0x38."><legend>3. El sensor da «Negro» con cualquier tarjeta. ¿Qué es lo primero que miras?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Que la tarjeta no esté sucia.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Que el sensor conteste por I2C: si no contesta, la micro:bit lee ceros y la extensión los toma por negro.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Que la pantalla esté encendida.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>La extensión de ACEBOTT lee el sensor como un BH1745NUC en la dirección 0x38 y hace estas cuentas: verde − 75; el mayor de los tres más 50; cada color, dividido entre ese número y multiplicado por 255 (al azul le resta antes 40); y de 0 a 255 (AcebottColor.ts).</li><li>Sus reglas, en orden: rojo si R > 240, B < 120 y G < 160; verde si R < 100, B < 200 y G > 100; azul si R < 100, B > 240 y G < 200; y así con amarillo, púrpura, cian, blanco (los tres > 250) y negro (los tres < 50). Si no cumple ninguna, «Desconocido».</li><li>Según ACEBOTT, el sensor funciona de 3,3 a 5 V, detecta de 3 a 10 mm y lleva dos LED blancos (ficha QB105).</li><li>Cuando no contesta nadie en la 0x38, la micro:bit lee ceros (código de MakeCode), y la cuenta da «Negro».</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>Cuánta luz devuelve cada tarjeta y los números del sensor (no conocemos los de vuestro módulo).</li><li>Cómo baja la luz de los LED con la distancia y cuánta luz de alrededor se cuela.</li><li>Que la luz de los LED y la del aula sean blancas por igual.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>ACEBOTT. <a href="https://github.com/ACEBOTTteam/Acebott" target="_blank" rel="noopener">Extensión de MakeCode</a> (AcebottColor.ts y Acebott.ts) y <a href="https://acebott.com/docs/qb105-color-sensor/" target="_blank" rel="noopener">QB105 Color Sensor</a>.</li><li>Microsoft. <a href="https://github.com/microsoft/pxt-microbit" target="_blank" rel="noopener">pxt-microbit</a>: pins.cpp (la lectura I2C sin respuesta da ceros).</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-4-4.html"><small>Anterior</small>4.4 ¿Cuánto ruido hay?</a>
+  <a href="ruta.html#etapa-4"><small>Volver a</small>La etapa 4 de la ruta</a>
+  <a href="lab-4-6.html"><small>Siguiente</small>4.6 Pantallas</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l4-5.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El mismo pulso, otra respuesta | Bit a bit</title>
+<meta name="description" content="Laboratorio 5.2: El servo de 360° recibe el mismo pulso que el de 180°, pero no sabe dónde está su eje. Para él, el número no es un ángulo: es una velocidad. 90 es parar, 0 y 180 son girar a tope, cada uno hacia un lado.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="5.2" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-5">Etapa 5: Mover cosas</a><span aria-hidden="true">/</span>
+  <span>El mismo pulso, otra respuesta</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 5.2</p>
+  <h1>El mismo pulso, otra respuesta</h1>
+  <p class="lab-sub">El servo de 360° recibe el mismo pulso que el de 180°, pero no sabe dónde está su eje. Para él, el número no es un ángulo: es una velocidad. 90 es parar, 0 y 180 son girar a tope, cada uno hacia un lado.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que ya ha hecho el laboratorio 5.1</dd></div><div><dt>Material</dt><dd>micro:bit V2, shield, un servo de 360° de la caja (comprobar con el material) y un cargador o batería USB de 5 V</dd></div><div><dt>Programa</dt><dd>El servo gira hacia un lado, para, gira hacia el otro y vuelve a parar, dos segundos cada vez</dd></div><div><dt>Referencia</dt><dd>Documentación de MakeCode, código de la micro:bit (CODAL) y extensión de ACEBOTT</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit y, a la derecha, un servo de 360° conectado a P0, con una rueda que lleva una marca roja para contar las vueltas. Con «Transparente» se ve que su potenciómetro no va unido al eje.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Cuenta las vueltas con la marca roja de la rueda. El osciloscopio de abajo enseña el pulso de P0.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. El programa pide un número</li><li data-fase="1">2. P0 da el mismo pulso que en el 5.1</li><li data-fase="2">3. Este servo no sabe dónde está</li><li data-fase="3">4. La diferencia es la velocidad</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div><h3>Osciloscopio de P0</h3><canvas class="osc" id="osc" aria-label="Gráfica de la tensión de P0 en los últimos 40 milisegundos"></canvas></div><div class="medidas"><div class="medida-item" data-mc="pedido"><span class="et">Número que pide el programa</span><span class="v num" data-m="pedido">—</span></div><div class="medida-item" data-mc="pulso"><span class="et">Pulso en P0</span><span class="v num" data-m="pulso">—</span></div><div class="medida-item" data-mc="velocidad"><span class="et">Velocidad de la rueda (aproximada)</span><span class="v num" data-m="velocidad">—</span></div><div class="medida-item" data-mc="vueltas"><span class="et">Vueltas desde que empezó</span><span class="v num" data-m="vueltas">—</span></div><div class="medida-item" data-mc="alimentacion"><span class="et">Alimentación del servo</span><span class="v num" data-m="alimentacion">—</span></div><div class="medida-item" data-mc="microbit"><span class="et">La micro:bit</span><span class="v num" data-m="microbit">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Los números del programa</h3><div class="segmento" data-control="numeros" data-defecto="tope" aria-label="Los números del programa"><button type="button" data-valor="tope" aria-pressed="true">0 y 180</button><button type="button" data-valor="cerca" aria-pressed="false">80 y 100</button><button type="button" data-valor="angulos" aria-pressed="false">45 y 135</button></div></div><div class="rompelo-grupo"><h3>Punto de parada del servo</h3><div class="segmento" data-control="ajuste" data-defecto="bien" aria-label="Punto de parada del servo"><button type="button" data-valor="bien" aria-pressed="true">Ajustado</button><button type="button" data-valor="mal" aria-pressed="false">Desajustado</button></div></div><div class="rompelo-grupo"><h3>De dónde come el servo</h3><div class="segmento" data-control="alimentacion" data-defecto="shield5" aria-label="De dónde come el servo"><button type="button" data-valor="shield5" aria-pressed="true">USB del shield, V1 a 5 V</button><button type="button" data-valor="mb33" aria-pressed="false">De la micro:bit, V1 a 3,3 V</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">El servo de 360° recibe el mismo pulso que el de 180°, pero su potenciómetro no va unido al eje: el circuito cree que siempre está en el centro. Por eso el pulso no le dice a qué ángulo ir, sino a qué velocidad girar: cuanto más se aleja de 1,5 ms, más rápido, y el sentido depende de si es más largo o más corto.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Pedirle un ángulo a un servo de 360°</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>«servo escribir pin P0 a 45» no lleva el servo de 360° a 45°: lo pone a girar sin parar hacia un lado, tan rápido como con 0 (o casi). No hay forma de pedirle que vaya a un ángulo, porque no sabe dónde está.</p><p>Para que se pare hay que pedir 90, el centro. Si aun así gira despacio, su punto de parada está desajustado: se corrige con su tornillo de ajuste, si lo tiene, o buscando el número cercano a 90 con el que para (88, 89, 91…).</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Cambia los números del programa a 45 y 135 en la simulación y mira qué hace la rueda.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Un tiovivo que arranca y para</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Enchufa el cargador o la batería USB de 5 V al shield y pon el puente V1 en 5 V, como en el 5.1.</span></li><li><span>Conecta el servo de 360° en P0 (naranja con S) y ponle una rueda o un disco de cartón con una marca.</span></li><li><span>Pasa un programa que solo haga «servo escribir pin P0 a 90». Si la rueda gira despacio, busca el número que la para (o gira con cuidado su tornillo de ajuste, si tiene: comprobar con el material).</span></li><li><span>Haz que A ponga el servo a 180 y B a 90 (parar). ¿Hacia dónde gira con 180? ¿Y con 0?</span></li><li><span>Prueba 100, 120 y 150 y cuenta las vueltas en 10 segundos. Apunta cuántas da con cada número.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> El servo va con su propia alimentación de 5 V.</label></li><li><label><input type="checkbox"> Sé con qué número se para mi servo.</label></li><li><label><input type="checkbox"> El tiovivo arranca con A y para con B.</label></li><li><label><input type="checkbox"> Sé por qué no puedo pedirle 45°.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="El pulso de 2,5 ms es el más alejado del centro: el servo de 360° lo entiende como «a tope hacia un lado». 0 es a tope hacia el otro, y 90 es parar."><legend>1. Con un servo de 360°, «servo escribir pin P0 a 180» hace que…</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Gire media vuelta y pare.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Gire sin parar, a toda velocidad, hacia un lado.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>Se quede quieto en 180°.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="b" data-explicacion="El pulso de 45° sale igual que en el 5.1. Lo que cambia es el servo: sin saber dónde está su eje, la diferencia con el centro se convierte en velocidad."><legend>2. ¿Por qué un servo de 360° no puede quedarse en 45°?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Porque es más barato.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Porque su potenciómetro no va unido al eje: no sabe dónde está, solo compara el pulso con el centro.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Porque la micro:bit no sabe dar el pulso de 45°.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="b" data-explicacion="El centro del servo no coincide justo con el pulso que le llega. Además, el pulso de 90 sale de 1,48 ms y no de 1,50 ms, por los pasos del PWM."><legend>3. Pides 90 y la rueda sigue girando muy despacio. ¿Qué haces?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Cambiar la micro:bit.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Ajustar su punto de parada: con su tornillo, o buscando el número cercano a 90 con el que para.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Poner el puente V1 en 3,3 V.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>«servo escribir pin» da el mismo pulso que en el 5.1: 500 + número × 2000 ÷ 180 µs, cada 20 ms. Por los pasos del PWM (1024 en 20 ms), 90 sale de 1,48 ms (código de CODAL).</li><li>La extensión de ACEBOTT tiene bloques para este servo que dan un pulso de 1500 + velocidad × 5 µs (Acebott.ts).</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>El punto de parada (1,5 ms) y el margen alrededor en el que no se mueve (20 µs a cada lado); el desajuste es de 30 µs.</li><li>La velocidad: crece con la distancia al centro hasta unas 100 vueltas por minuto a 5 V, a 0,4 ms o más del centro.</li><li>El sentido de giro de cada lado: depende del servo (comprobar con el material).</li><li>Las corrientes y el reinicio de la micro:bit, como en el 5.1.</li><li>Si el servo de la caja tiene tornillo de ajuste (comprobar con el material).</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>Microsoft. <a href="https://makecode.microbit.org/reference/pins/servo-write-pin" target="_blank" rel="noopener">MakeCode: servo write pin</a>.</li><li>Lancaster University. <a href="https://github.com/lancaster-university/codal-nrf52" target="_blank" rel="noopener">codal-nrf52</a> (NRF52Pin.cpp: setServoValue y setServoPulseUs).</li><li>ACEBOTT. <a href="https://github.com/ACEBOTTteam/Acebott" target="_blank" rel="noopener">Extensión de MakeCode</a> (Acebott.ts).</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-5-1.html"><small>Anterior</small>5.1 El ángulo es un pulso</a>
+  <a href="ruta.html#etapa-5"><small>Volver a</small>La etapa 5 de la ruta</a>
+  <a href="lab-5-3.html"><small>Siguiente</small>5.3 Puente H</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l5-2.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

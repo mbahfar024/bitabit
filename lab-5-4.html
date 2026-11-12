@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Relé y bomba | Bit a bit</title>
+<meta name="description" content="Laboratorio 5.4: Un pin de la micro:bit da unos pocos miliamperios; la bomba de agua pide cientos. El relé es un interruptor que se mueve con un imán: la micro:bit solo enciende el imán, y el contacto del relé enciende la bomba con su propia corriente.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="5.4" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-5">Etapa 5: Mover cosas</a><span aria-hidden="true">/</span>
+  <span>Relé y bomba</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 5.4</p>
+  <h1>Relé y bomba</h1>
+  <p class="lab-sub">Un pin de la micro:bit da unos pocos miliamperios; la bomba de agua pide cientos. El relé es un interruptor que se mueve con un imán: la micro:bit solo enciende el imán, y el contacto del relé enciende la bomba con su propia corriente.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que conoce los puentes V1 y V2 del shield (laboratorio 3.1)</dd></div><div><dt>Material</dt><dd>micro:bit V2, shield con un cargador o batería USB de 5 V, el relé y la microbomba de la caja, cables, un vaso con agua y una maceta</dd></div><div><dt>Programa</dt><dd>Cada cinco segundos, el relé se cierra dos segundos y la bomba riega</dd></div><div><dt>Referencia</dt><dd>Hoja del relé SRD-05VDC-SL-C (Songle), ficha L3P10 del kit y extensión de ACEBOTT</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit y, a la derecha, el módulo relé en el conector 13. Debajo, la bomba dentro de un vaso de agua, con un tubo hasta una maceta. La bomba come de la V y la G del conector 14, a través de los bornes COM y NO del relé. Con «Transparente» se ven la bobina y la lámina del relé.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="El vaso de agua"></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Activa «Transparente» para ver cómo la bobina mueve la lámina de NC a NO. Rellena el vaso con el botón de abajo.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. P13 da la orden</li><li data-fase="1">2. La bobina recibe su corriente</li><li data-fase="2">3. El imán mueve el contacto</li><li data-fase="3">4. La bomba recibe la suya</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="p13"><span class="et">P13</span><span class="v num" data-m="p13">—</span></div><div class="medida-item" data-mc="bobina"><span class="et">Bobina del relé</span><span class="v num" data-m="bobina">—</span></div><div class="medida-item" data-mc="contacto"><span class="et">Contacto</span><span class="v num" data-m="contacto">—</span></div><div class="medida-item" data-mc="bomba"><span class="et">Bomba</span><span class="v num" data-m="bomba">—</span></div><div class="medida-item" data-mc="corrientes"><span class="et">Quién da cada corriente (aproximada)</span><span class="v num" data-m="corrientes">—</span></div><div class="medida-item" data-mc="agua"><span class="et">Agua</span><span class="v num" data-m="agua">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>El puente V2 (la V del conector 13)</h3><div class="segmento" data-control="puente" data-defecto="5" aria-label="El puente V2 (la V del conector 13)"><button type="button" data-valor="5" aria-pressed="true">V2 a 5 V</button><button type="button" data-valor="33" aria-pressed="false">V2 a 3,3 V</button></div></div><div class="rompelo-grupo"><h3>Dónde va la bomba</h3><div class="segmento" data-control="contacto" data-defecto="NO" aria-label="Dónde va la bomba"><button type="button" data-valor="NO" aria-pressed="true">En NO</button><button type="button" data-valor="NC" aria-pressed="false">En NC</button></div></div><div class="rompelo-grupo"><h3>Cómo se enciende la bomba</h3><div class="segmento" data-control="conexion" data-defecto="rele" aria-label="Cómo se enciende la bomba"><button type="button" data-valor="rele" aria-pressed="true">A través del relé</button><button type="button" data-valor="directa" aria-pressed="false">Directa a P13</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">El relé es un interruptor movido por un imán. La micro:bit pone 3,3 V en S; un transistor del módulo deja pasar la corriente de la bobina, que sale de V a 5 V. El imán tira de la lámina, que pasa de NC a NO, y el circuito de la bomba se cierra con su propia corriente. La micro:bit da la orden; la fuerza sale de otro sitio.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">El LED se enciende, pero el relé no hace clic</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>La bobina del relé de la caja es de 5 V. Si el puente de su V está en 3,3 V, la bobina recibe poco más de 3 V, y el fabricante solo asegura que cierra a partir de 3,75 V: el LED del módulo se enciende, pero el contacto no se mueve y la bomba no arranca.</p><p>Pon el relé en un conector cuyo puente esté en 5 V (con el cargador o la batería en el shield). La señal no corre peligro: S solo va a la entrada del transistor y no devuelve 5 V al pin.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Pon el puente V2 en 3,3 V en la simulación y mira el LED, el contacto y la bomba.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Riego con un botón (y luego, solo)</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Enchufa el cargador o la batería USB al shield y pon el puente V2 en 5 V. Deja V1 en 3,3 V.</span></li><li><span>Conecta el relé al conector 13: S, V y G. Busca en su placa cuál de los bornes es COM, cuál NO y cuál NC (comprobar con el material).</span></li><li><span>Con un cable, la V del conector 14 al borne COM. El rojo de la bomba al borne NO y su negro a la G del conector 14.</span></li><li><span>Mete la bomba en un vaso con agua (no la hagas funcionar en seco) y el tubo en la maceta. Aleja el shield del agua.</span></li><li><span>Cambia el programa para que A riegue dos segundos. Después, júntalo con el sensor de humedad del laboratorio 4.3 en P1, con V1 en 3,3 V: que riegue solo cuando la tierra esté seca.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> El relé está en un conector con el puente en 5 V.</label></li><li><label><input type="checkbox"> He oído el clic y la bomba se enciende con A.</label></li><li><label><input type="checkbox"> Sé qué pasaría con la bomba en NC.</label></li><li><label><input type="checkbox"> Nunca conecto el relé a los 230 V del enchufe.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="P13 solo da unos pocos miliamperios al transistor del módulo. La bobina come de la V del conector 13, y la bomba, de la V del conector 14 a través de COM y NO."><legend>1. ¿De dónde sale la corriente que mueve la bomba?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Del pin P13.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>De la V del conector 14, a través del contacto del relé.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>De la bobina del relé.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="b" data-explicacion="NC está unido a COM en reposo. Al activar el relé, la lámina se va a NO y NC se queda suelto."><legend>2. Conectas la bomba en NC en lugar de NO. ¿Qué pasa?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Nada distinto.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Funciona al revés: riega todo el rato y se para cuando el programa activa el relé.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>No funciona nunca.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="b" data-explicacion="Para eso está el relé (o un transistor, o el L298N del 5.3): la micro:bit manda la orden y otra fuente da la corriente."><legend>3. ¿Por qué no se conecta la bomba directamente a P13?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Porque P13 no sabe dar 1.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Porque un pin da unos pocos miliamperios y la bomba pide cientos: no se movería y el pin correría peligro.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Porque la bomba es de 230 V.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>El relé de la caja es un SRD-05VDC-SL-C: bobina de 5 V y 70 Ω, que gasta 71,4 mA. El fabricante asegura que cierra a partir de 3,75 V (el 75 %) y que suelta por debajo de 0,5 V, y tarda unos 10 ms en moverse (hoja del relé y LCSC).</li><li>Sus contactos aguantan mucho más de lo que hace falta aquí, pero en clase solo se usan con pilas o con 5 V: nunca con la red de 230 V.</li><li>El bloque «Relay at … set ON» de la extensión de ACEBOTT hace lo mismo que «escritura digital … a 1» (Acebott.ts): su relé se activa con 1.</li><li>Según la ficha del kit, la microbomba funciona de 3 a 6 V y mueve de 80 a 100 litros por hora: unos 25 mL por segundo.</li><li>V2 da la V de los conectores de P10 a P20; V1, la de P0 a P9.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>Que con 3,3 V la bobina no cierre: el fabricante solo asegura que cierra con 3,75 V o más. Algunos relés cierran con menos y otros no.</li><li>Lo que da P13 (unos pocos miliamperios: depende de la resistencia del módulo) y lo que pide la bomba (unos 180 mA a 5 V).</li><li>El caudal de la bomba (25 mL por segundo a 5 V, menos con menos tensión) y el vaso de 250 mL.</li><li>El orden de los bornes NO, COM y NC y cuándo se enciende el LED del módulo: comprobar con el material.</li><li>La bomba directa a P13: aquí no se mueve y el pin queda en peligro.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>Songle Relay. Hoja del SRD-05VDC-SL-C, resumida en <a href="https://lcsc.com/product-detail/Power-Relays_Ningbo-Songle-Relay-SRD-05VDC-SL-C_C35449.html" target="_blank" rel="noopener">LCSC</a> y <a href="https://www.electrokit.com/en/rela-srd-1-pol-vaxlande-5v" target="_blank" rel="noopener">Electrokit</a>.</li><li>ACEBOTT. <a href="https://github.com/ACEBOTTteam/Acebott" target="_blank" rel="noopener">Extensión de MakeCode</a> (Acebott.ts: setRelay).</li><li>Microsoft. <a href="https://makecode.microbit.org/reference/pins/digital-write-pin" target="_blank" rel="noopener">MakeCode: digital write pin</a>.</li><li>Código Escuela 4.0. Ficha L3P10 de la caja de ACEBOTT y su foto.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-5-3.html"><small>Anterior</small>5.3 Puente H</a>
+  <a href="ruta.html#etapa-5"><small>Volver a</small>La etapa 5 de la ruta</a>
+  <a href="lab-6-1.html"><small>Siguiente</small>6.1 Invernadero que se riega solo</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l5-4.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 (() => {
-  // ../../../../tmp/bitabit-myq0224i/mk/programa.js
+  // ../../../../tmp/bitabit-drfee7xs/mk/programa.js
   var E = (es, en, py, js) => ({ es, en, py, js });
   var ENUMS = {
     Button: { A: E("A", "A", "Button.A", "Button.A"), B: E("B", "B", "Button.B", "Button.B"), AB: E("A+B", "A+B", "Button.AB", "Button.AB") },
@@ -683,7 +683,7 @@ ${filas.join("\n")}
     };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/mk/maquina.js
+  // ../../../../tmp/bitabit-drfee7xs/mk/maquina.js
   var PASO = { paso: true };
   var Mundo = class {
     constructor({ fisica = null, pasoFisica = 2 } = {}) {
@@ -1092,7 +1092,7 @@ ${filas.join("\n")}
     }
   };
 
-  // ../../../../tmp/bitabit-myq0224i/mk/microbit.js
+  // ../../../../tmp/bitabit-drfee7xs/mk/microbit.js
   var FUENTE = [0, 0, 0, 0, 0, 8, 8, 8, 0, 8, 10, 74, 64, 0, 0, 10, 95, 234, 95, 234, 14, 217, 46, 211, 110, 25, 50, 68, 137, 51, 12, 146, 76, 146, 77, 8, 8, 0, 0, 0, 4, 136, 8, 8, 4, 8, 4, 132, 132, 136, 0, 10, 68, 138, 64, 0, 4, 142, 196, 128, 0, 0, 0, 4, 136, 0, 0, 14, 192, 0, 0, 0, 0, 8, 0, 1, 34, 68, 136, 16, 12, 146, 82, 82, 76, 4, 140, 132, 132, 142, 28, 130, 76, 144, 30, 30, 194, 68, 146, 76, 6, 202, 82, 95, 226, 31, 240, 30, 193, 62, 2, 68, 142, 209, 46, 31, 226, 68, 136, 16, 14, 209, 46, 209, 46, 14, 209, 46, 196, 136, 0, 8, 0, 8, 0, 0, 4, 128, 4, 136, 2, 68, 136, 4, 130, 0, 14, 192, 14, 192, 8, 4, 130, 68, 136, 14, 209, 38, 192, 4, 14, 209, 53, 179, 108, 12, 146, 94, 210, 82, 28, 146, 92, 146, 92, 14, 208, 16, 16, 14, 28, 146, 82, 82, 92, 30, 208, 28, 144, 30, 30, 208, 28, 144, 16, 14, 208, 19, 113, 46, 18, 82, 94, 210, 82, 28, 136, 8, 8, 28, 31, 226, 66, 82, 76, 18, 84, 152, 20, 146, 16, 16, 16, 16, 30, 17, 59, 117, 177, 49, 17, 57, 53, 179, 113, 12, 146, 82, 82, 76, 28, 146, 92, 144, 16, 12, 146, 82, 76, 134, 28, 146, 92, 146, 81, 14, 208, 12, 130, 92, 31, 228, 132, 132, 132, 18, 82, 82, 82, 76, 17, 49, 49, 42, 68, 17, 49, 53, 187, 113, 18, 82, 76, 146, 82, 17, 42, 68, 132, 132, 30, 196, 136, 16, 30, 14, 200, 8, 8, 14, 16, 8, 4, 130, 65, 14, 194, 66, 66, 78, 4, 138, 64, 0, 0, 0, 0, 0, 0, 31, 8, 4, 128, 0, 0, 0, 14, 210, 82, 79, 16, 16, 28, 146, 92, 0, 14, 208, 16, 14, 2, 66, 78, 210, 78, 12, 146, 92, 144, 14, 6, 200, 28, 136, 8, 14, 210, 78, 194, 76, 16, 16, 28, 146, 82, 8, 0, 8, 8, 8, 2, 64, 2, 66, 76, 16, 20, 152, 20, 146, 8, 8, 8, 8, 6, 0, 27, 117, 177, 49, 0, 28, 146, 82, 82, 0, 12, 146, 82, 76, 0, 28, 146, 92, 144, 0, 14, 210, 78, 194, 0, 14, 208, 16, 16, 0, 6, 200, 4, 152, 8, 8, 14, 200, 7, 0, 18, 82, 82, 79, 0, 17, 49, 42, 68, 0, 17, 49, 53, 187, 0, 18, 76, 140, 146, 0, 17, 42, 68, 152, 0, 30, 196, 136, 30, 6, 196, 140, 132, 134, 8, 8, 8, 8, 8, 24, 8, 12, 136, 24, 0, 0, 12, 131, 96];
   function columnasCaracter(ch) {
     let c = ch.charCodeAt(0);
@@ -1529,7 +1529,7 @@ ${filas.join("\n")}
     return placa;
   }
 
-  // ../../../../tmp/bitabit-myq0224i/progreso.js
+  // ../../../../tmp/bitabit-drfee7xs/progreso.js
   var CLAVE = "bitabit.progreso.v1";
   function leerProgreso() {
     try {
@@ -1556,7 +1556,7 @@ ${filas.join("\n")}
     return guardarProgreso(p);
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/base.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/base.js
   var $ = (s, el = document) => el.querySelector(s);
   var $$ = (s, el = document) => [...el.querySelectorAll(s)];
   var nf0 = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 0 });
@@ -1880,7 +1880,7 @@ ${filas.join("\n")}
     return { lab, ui };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/rotulos.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/rotulos.js
   var NS = "http://www.w3.org/2000/svg";
   var MARGEN = 6;
   var SEP = 18;
@@ -2121,7 +2121,7 @@ ${filas.join("\n")}
     return { definir, colocar, colocarCerca, items };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/escena2d.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/escena2d.js
   function crearEscena2D({ contenedor, ancho, alto, svg: marcado, rotulos = [], caja, alPulsar, alDibujar, valores, lados, vistaInicial = null, alCambiarVista, modoRotulos = "columnas", prohibidas = [], alinear = "centro" }) {
     var _a, _b;
     const NS2 = "http://www.w3.org/2000/svg";
@@ -2224,7 +2224,7 @@ ${filas.join("\n")}
     };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/dibujos.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/dibujos.js
   var CONECTOR = [
     { p: "P3" },
     { p: "P0", anilla: "0" },
@@ -2368,7 +2368,7 @@ ${filas.join("\n")}
   .cota { fill: #c7ccc8; font: 600 14px/1 "Atkinson Hyperlegible Next", system-ui, sans-serif; }
 </style>`;
 
-  // ../../../../tmp/bitabit-myq0224i/labs/l1-2.js
+  // ../../../../tmp/bitabit-drfee7xs/labs/l1-2.js
   var sumar = P.cambiar("pulsaciones", 1);
   var mostrarA = P.c("basic.showNumber", P.v("pulsaciones"));
   var restar = P.cambiar("pulsaciones", -1);

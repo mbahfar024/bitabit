@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Robot explorador | Bit a bit</title>
+<meta name="description" content="Laboratorio 6.2: El Maqueen lleva el ultrasonidos encima de un servo. Cuando tiene algo delante, se para, mira a la izquierda y a la derecha, y gira hacia el lado que tiene más sitio. Junta el eco del 2.4, el giro por tiempo del 2.1 y el servo del 5.1.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="6.2" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-6">Etapa 6: Proyecto final y crea tu laboratorio</a><span aria-hidden="true">/</span>
+  <span>Robot explorador</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 6.2</p>
+  <h1>Robot explorador</h1>
+  <p class="lab-sub">El Maqueen lleva el ultrasonidos encima de un servo. Cuando tiene algo delante, se para, mira a la izquierda y a la derecha, y gira hacia el lado que tiene más sitio. Junta el eco del 2.4, el giro por tiempo del 2.1 y el servo del 5.1.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Grupos de ESO que han hecho los laboratorios 2.1, 2.4 y 5.1</dd></div><div><dt>Material</dt><dd>Maqueen Plus V2 con su micro:bit, un servo de 180° de la caja, cuatro cables hembra-hembra, cinta adhesiva de doble cara y cajas para hacer un corral</dd></div><div><dt>Programa</dt><dd>Avanza; si hay algo a menos de 25 cm, para, mira a los dos lados y gira hacia el que tiene más sitio</dd></div><div><dt>Referencia</dt><dd>Extensión del Maqueen Plus V2 (DFRobot) y laboratorios 2.1, 2.4 y 5.1</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <div class="segmento" id="vistas" aria-label="Vista"><button type="button" data-vista="mesa" aria-pressed="true">Todo el corral</button><button type="button" data-vista="perfil" aria-pressed="false">De perfil</button><button type="button" data-vista="arriba" aria-pressed="false">Desde arriba</button><button type="button" data-vista="lado" aria-pressed="false">De cerca</button></div>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="Un corral de cartón con dos cajas dentro. El Maqueen lleva un servo delante de la micro:bit y, encima, el ultrasonidos, que gira con el servo. El arco verde es el sonido que sale y el amarillo, el eco.">
+        <canvas id="lienzo" role="img" aria-label="Un corral de cartón con dos cajas dentro. El Maqueen lleva un servo delante de la micro:bit y, encima, el ultrasonidos, que gira con el servo. El arco verde es el sonido que sale y el amarillo, el eco."></canvas>
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Mira hacia dónde apunta el ultrasonidos en cada medida: el arco del eco sale en esa dirección.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. Mira delante</li><li data-fase="1">2. Para y mira a los lados</li><li data-fase="2">3. Compara los dos lados</li><li data-fase="3">4. Gira hacia el lado más libre</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="delante"><span class="et">Variable delante</span><span class="v num" data-m="delante">—</span><span class="barra-vel"><i data-mb="delante"></i></span></div><div class="medida-item" data-mc="lados"><span class="et">Variables izquierda y derecha</span><span class="v num" data-m="lados">—</span></div><div class="medida-item" data-mc="servo"><span class="et">Servo (P1)</span><span class="v num" data-m="servo">—</span></div><div class="medida-item" data-mc="decision"><span class="et">Lo que hace</span><span class="v num" data-m="decision">—</span></div><div class="medida-item" data-mc="choques"><span class="et">Choques</span><span class="v num" data-m="choques">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Después de mover el servo</h3><div class="segmento" data-control="esperaServo" data-defecto="500" aria-label="Después de mover el servo"><button type="button" data-valor="500" aria-pressed="true">Esperar 500 ms</button><button type="button" data-valor="0" aria-pressed="false">Medir enseguida</button></div></div><div class="rompelo-grupo"><h3>El primer obstáculo</h3><div class="segmento" data-control="obstaculo" data-defecto="caja" aria-label="El primer obstáculo"><button type="button" data-valor="caja" aria-pressed="true">Una caja de frente</button><button type="button" data-valor="tabla" aria-pressed="false">Una tabla en diagonal</button></div></div><div class="rompelo-grupo"><h3>Las pilas del robot</h3><div class="segmento" data-control="pilas" data-defecto="100" aria-label="Las pilas del robot"><button type="button" data-valor="100" aria-pressed="true">Nuevas</button><button type="button" data-valor="40" aria-pressed="false">Gastadas (40 %)</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">El programa junta tres cosas que ya conoces: el ultrasonidos mide en la dirección en la que mira, el servo lo gira y el robot gira dando un rato a cada rueda en sentido contrario. Cada una tiene su tiempo: el servo tarda en llegar, el eco tarda en volver y el giro dura lo que dure la pausa. Si no se respetan esos tiempos, el robot decide con datos equivocados.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Medir antes de que llegue el servo</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>«servo escribir pin P1 a 170» no espera a que el servo llegue: manda el pulso y sigue. Si el bloque siguiente mide enseguida, el ultrasonidos todavía apunta casi hacia delante, y la medida de la «izquierda» no es de la izquierda.</p><p>Después de mover el servo hay que esperar lo que tarda en girar (un servo de 9 g tarda unos 0,1 s en girar 60°; con 80° y algo de margen, medio segundo va sobrado). Y al revés: el robot gira por tiempo, así que con pilas gastadas gira menos.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Quita la espera después de mover el servo y mira hacia dónde apunta el sensor en cada medida.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">El explorador en el corral</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Pega el servo de 180° delante de la micro:bit con cinta de doble cara, con el eje hacia arriba, y conéctalo al puerto P1 del robot (el de 5 V): naranja con la señal, rojo con V y marrón con G (comprobar el orden en vuestro robot).</span></li><li><span>Pega el ultrasonidos al brazo del servo. Saca el sensor de su zócalo y únelo al zócalo con cuatro cables hembra-hembra, cada uno en el mismo pin que tenía (comprobar con el material).</span></li><li><span>Con «servo escribir pin P1 a 90», recoloca el brazo para que el sensor mire justo delante. Comprueba que 170 mira a la izquierda; si mira a la derecha, cambia los números del programa.</span></li><li><span>Haz un corral con cajas y pon el robot dentro. Pasa el programa y mira si elige bien el lado.</span></li><li><span>Mide cuántos milisegundos de giro dan un cuarto de vuelta con vuestras pilas y cambia la pausa del giro.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> Con 90, el sensor mira de frente.</label></li><li><label><input type="checkbox"> Con 170 mira a la izquierda y con 10, a la derecha.</label></li><li><label><input type="checkbox"> El robot elige el lado con más sitio.</label></li><li><label><input type="checkbox"> Hemos ajustado la pausa del giro con nuestras pilas.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="El bloque solo cambia el pulso. El servo tarda en girar, y el ultrasonidos mide hacia donde esté apuntando en ese momento."><legend>1. ¿Por qué hay una pausa de 500 ms después de «servo escribir pin P1 a 170»?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Para que la micro:bit descanse.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Porque el bloque no espera a que el servo llegue: sin la pausa, el sensor mide antes de estar mirando a la izquierda.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>Porque el ultrasonidos solo puede medir dos veces por segundo.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="b" data-explicacion="Es lo del laboratorio 2.4: una superficie muy inclinada manda el eco hacia otro sitio. Un robot de verdad combina varias medidas o varios sensores."><legend>2. Delante de una tabla en diagonal, el robot no frena y choca. ¿Por qué?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Porque la tabla es demasiado fina.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Porque el sonido rebota de lado y el eco no vuelve al sensor: la medida sale de 300 cm, como si no hubiera nada.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Porque el servo está mal.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="b" data-explicacion="Girar por tiempo solo sale bien con las mismas pilas y el mismo suelo, como en el 2.1. Hay que volver a ajustar la pausa."><legend>3. Con pilas gastadas, el robot gira menos de un cuarto de vuelta. ¿Por qué?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Porque el servo pesa más.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Porque el giro dura un tiempo fijo y, con menos tensión, las ruedas van más despacio.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Porque el ultrasonidos mide peor.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>Los bloques del Maqueen son los de la extensión oficial de DFRobot. El ultrasonidos va en TRIG P13 y ECHO P14, y la extensión divide el tiempo del eco entre 59,259 µs por centímetro, como en el 2.4.</li><li>En los robots del instituto (Maqueen Plus V2.1.0), los puertos P0, P1 y P2 tienen versión de 5 V; P0 es también el del zumbador. Por eso el servo va en P1.</li><li>«servo escribir pin» manda un pulso cada 20 ms y sigue con el programa sin esperar al servo (código de la micro:bit, como en el 5.1).</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>Hacia dónde gira el servo con 170 y con 10: depende de cómo lo montéis.</li><li>Lo deprisa que gira el servo (unos 600° por segundo a 5 V), como en el 5.1.</li><li>La velocidad de las ruedas y cuánto giran en la pausa, como en el 2.1. La pausa del giro está calculada para que, con pilas nuevas, dé un cuarto de vuelta en la simulación.</li><li>El eco: el haz de unos ±12° y que una superficie muy inclinada no lo devuelva, como en el 2.4. Aquí, sin eco, la medida sale de 300 cm.</li><li>Desde dónde sale el eco: aquí, desde el sitio del zócalo y a su altura, aunque el sensor vaya encima del servo.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>DFRobot. <a href="https://github.com/DFRobot/pxt-DFRobot_MaqueenPlus_v20" target="_blank" rel="noopener">pxt-DFRobot_MaqueenPlus_v20</a> (motores y ultrasonidos).</li><li>Microsoft. <a href="https://makecode.microbit.org/reference/pins/servo-write-pin" target="_blank" rel="noopener">MakeCode: servo write pin</a>.</li><li>Bit a bit. Laboratorios 2.1, 2.4 y 5.1, con sus fuentes.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-6-1.html"><small>Anterior</small>6.1 Invernadero que se riega solo</a>
+  <a href="ruta.html#etapa-6"><small>Volver a</small>La etapa 6 de la ruta</a>
+  <a href="lab-6-3.html"><small>Siguiente</small>6.3 Semáforo de ruido del aula</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l6-2.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

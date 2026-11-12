@@ -66,7 +66,7 @@
   <p class="medida" style="margin-top:12px">Las fichas oficiales no lo aclaran. Conviene revisarlo con una caja y un robot antes de la etapa 3.</p>
   <ol class="lista-pasos" style="margin-top:16px">
     <li><span><strong>El shield de la micro:bit.</strong> Según la foto de la ficha L3P10, es el micro:bit Shield de ACEBOTT, como el Keyestudio KS0360, con dos puentes: V1 para P0 a P9 y V2 para P10 a P20, el I2C y el SPI. Falta mirar en el de verdad qué pin va en cada fila de sus dos columnas.</span></li>
-    <li><span><strong>El sensor de color.</strong> La lista de la ficha dice TCS34725 (dirección 0x29), pero su foto enseña el Color Sensor V2.0 de ACEBOTT, que su extensión lee como un BH1745NUC (0x38). Decide qué bloques sirven.</span></li>
+    <li><span><strong>El sensor de color (laboratorio 4.5).</strong> La lista de la ficha dice TCS34725 (dirección 0x29), pero su foto enseña el Color Sensor V2.0 de ACEBOTT, que su extensión lee como un BH1745NUC (0x38). Si con la extensión de ACEBOTT sale siempre «Negro», el vuestro no contesta en la 0x38.</span></li>
     <li><span><strong>El mando de infrarrojos.</strong> El kit no lo menciona. Si no hay, el laboratorio del mando usará la radio.</span></li>
     <li><span><strong>El módulo RGB de la caja.</strong> La lista habla de tres pines, pero en la foto salen cuatro módulos RGB de ACEBOTT, de cuatro pines (GND, R, G y B), que se programan con un pin por color. Si el vuestro tuviera tres (direccionable, tipo NeoPixel), se programa distinto.</span></li>
     <li><span><strong>La pantalla OLED de 1,3".</strong> La extensión de ACEBOTT la maneja como SH1106; la extensión de OLED más conocida es para el SSD1306. Hay que probarla.</span></li>

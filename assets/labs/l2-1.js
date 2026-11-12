@@ -5,7 +5,7 @@
       __defProp(target, name, { get: all[name], enumerable: true });
   };
 
-  // ../../../../tmp/bitabit-myq0224i/mk/programa.js
+  // ../../../../tmp/bitabit-drfee7xs/mk/programa.js
   var E = (es2, en2, py, js2) => ({ es: es2, en: en2, py, js: js2 });
   var ENUMS = {
     Button: { A: E("A", "A", "Button.A", "Button.A"), B: E("B", "B", "Button.B", "Button.B"), AB: E("A+B", "A+B", "Button.AB", "Button.AB") },
@@ -701,7 +701,7 @@ ${filas.join("\n")}
     };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/mk/maquina.js
+  // ../../../../tmp/bitabit-drfee7xs/mk/maquina.js
   var PASO = { paso: true };
   var Mundo = class {
     constructor({ fisica = null, pasoFisica = 2 } = {}) {
@@ -1110,7 +1110,7 @@ ${filas.join("\n")}
     }
   };
 
-  // ../../../../tmp/bitabit-myq0224i/progreso.js
+  // ../../../../tmp/bitabit-drfee7xs/progreso.js
   var CLAVE = "bitabit.progreso.v1";
   function leerProgreso() {
     try {
@@ -1137,7 +1137,7 @@ ${filas.join("\n")}
     return guardarProgreso(p2);
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/base.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/base.js
   var $ = (s2, el2 = document) => el2.querySelector(s2);
   var $$ = (s2, el2 = document) => [...el2.querySelectorAll(s2)];
   var nf0 = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 0 });
@@ -1461,7 +1461,7 @@ ${filas.join("\n")}
     return { lab, ui: ui2 };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/mk/microbit.js
+  // ../../../../tmp/bitabit-drfee7xs/mk/microbit.js
   var FUENTE = [0, 0, 0, 0, 0, 8, 8, 8, 0, 8, 10, 74, 64, 0, 0, 10, 95, 234, 95, 234, 14, 217, 46, 211, 110, 25, 50, 68, 137, 51, 12, 146, 76, 146, 77, 8, 8, 0, 0, 0, 4, 136, 8, 8, 4, 8, 4, 132, 132, 136, 0, 10, 68, 138, 64, 0, 4, 142, 196, 128, 0, 0, 0, 4, 136, 0, 0, 14, 192, 0, 0, 0, 0, 8, 0, 1, 34, 68, 136, 16, 12, 146, 82, 82, 76, 4, 140, 132, 132, 142, 28, 130, 76, 144, 30, 30, 194, 68, 146, 76, 6, 202, 82, 95, 226, 31, 240, 30, 193, 62, 2, 68, 142, 209, 46, 31, 226, 68, 136, 16, 14, 209, 46, 209, 46, 14, 209, 46, 196, 136, 0, 8, 0, 8, 0, 0, 4, 128, 4, 136, 2, 68, 136, 4, 130, 0, 14, 192, 14, 192, 8, 4, 130, 68, 136, 14, 209, 38, 192, 4, 14, 209, 53, 179, 108, 12, 146, 94, 210, 82, 28, 146, 92, 146, 92, 14, 208, 16, 16, 14, 28, 146, 82, 82, 92, 30, 208, 28, 144, 30, 30, 208, 28, 144, 16, 14, 208, 19, 113, 46, 18, 82, 94, 210, 82, 28, 136, 8, 8, 28, 31, 226, 66, 82, 76, 18, 84, 152, 20, 146, 16, 16, 16, 16, 30, 17, 59, 117, 177, 49, 17, 57, 53, 179, 113, 12, 146, 82, 82, 76, 28, 146, 92, 144, 16, 12, 146, 82, 76, 134, 28, 146, 92, 146, 81, 14, 208, 12, 130, 92, 31, 228, 132, 132, 132, 18, 82, 82, 82, 76, 17, 49, 49, 42, 68, 17, 49, 53, 187, 113, 18, 82, 76, 146, 82, 17, 42, 68, 132, 132, 30, 196, 136, 16, 30, 14, 200, 8, 8, 14, 16, 8, 4, 130, 65, 14, 194, 66, 66, 78, 4, 138, 64, 0, 0, 0, 0, 0, 0, 31, 8, 4, 128, 0, 0, 0, 14, 210, 82, 79, 16, 16, 28, 146, 92, 0, 14, 208, 16, 14, 2, 66, 78, 210, 78, 12, 146, 92, 144, 14, 6, 200, 28, 136, 8, 14, 210, 78, 194, 76, 16, 16, 28, 146, 82, 8, 0, 8, 8, 8, 2, 64, 2, 66, 76, 16, 20, 152, 20, 146, 8, 8, 8, 8, 6, 0, 27, 117, 177, 49, 0, 28, 146, 82, 82, 0, 12, 146, 82, 76, 0, 28, 146, 92, 144, 0, 14, 210, 78, 194, 0, 14, 208, 16, 16, 0, 6, 200, 4, 152, 8, 8, 14, 200, 7, 0, 18, 82, 82, 79, 0, 17, 49, 42, 68, 0, 17, 49, 53, 187, 0, 18, 76, 140, 146, 0, 17, 42, 68, 152, 0, 30, 196, 136, 30, 6, 196, 140, 132, 134, 8, 8, 8, 8, 8, 24, 8, 12, 136, 24, 0, 0, 12, 131, 96];
   function columnasCaracter(ch2) {
     let c2 = ch2.charCodeAt(0);
@@ -1898,7 +1898,7 @@ ${filas.join("\n")}
     return placa;
   }
 
-  // ../../../../tmp/bitabit-myq0224i/engine.js
+  // ../../../../tmp/bitabit-drfee7xs/engine.js
   var DOC = {
     sensores: ["L2", "L1", "M", "R1", "R2"],
     // El chip del Maqueen (dirección I2C 0x10) responde en el registro 0x1D con
@@ -1965,7 +1965,7 @@ ${filas.join("\n")}
     return vmax * (orden - zonaMuerta) / (255 - zonaMuerta);
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/maqueen.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/maqueen.js
   var NS = { ns: "maqueenPlusV2" };
   definirEnum("MyEnumMotor", { LeftMotor: ["motor izquierdo", "left motor"], RightMotor: ["motor derecho", "right motor"], AllMotor: ["dos motores", "all motor"] }, NS);
   definirEnum("MyEnumDir", { Forward: ["hacia adelante", "rotate forward"], Backward: ["hacia atrás", "backward"] }, NS);
@@ -2270,15 +2270,16 @@ ${filas.join("\n")}
       return { x: rob.x + 88 * c2, y: rob.y + 88 * s2 };
     }
     function medirEco(trig, echo) {
-      var _a2, _b, _c2;
+      var _a2, _b, _c2, _d2, _e2;
       const p2 = posUltrasonidos();
       const T3 = (_b = (_a2 = entorno.temperaturaAire) == null ? void 0 : _a2.call(entorno)) != null ? _b : 20;
       const c2 = (331.3 + 0.606 * T3) / 1e3;
-      let base = { x: p2.x, y: p2.y, rumbo: rob.rumbo, temperatura: T3 };
+      const rumbo = rob.rumbo + ((_d2 = (_c2 = entorno.giroSensor) == null ? void 0 : _c2.call(entorno)) != null ? _d2 : 0);
+      let base = { x: p2.x, y: p2.y, rumbo, temperatura: T3 };
       if (!ajustes.usConectado || trig !== "P13" || echo !== "P14" || !ajustes.encendido) {
         return { ...base, sinSensor: true, ecoUs: 0, lectura: 0, duracionMs: 2 * MAQ.timeoutUs / 1e3 + 0.02, d: null };
       }
-      const r2 = ((_c2 = entorno.eco) == null ? void 0 : _c2.call(entorno, p2.x, p2.y, rob.rumbo)) || null;
+      const r2 = ((_e2 = entorno.eco) == null ? void 0 : _e2.call(entorno, p2.x, p2.y, rumbo)) || null;
       let ecoUs;
       let sinEco = false;
       if (!r2 || r2.tipo === "blando" || r2.tipo === "inclinado" || r2.d > MAQ.alcanceMm) {
@@ -2368,7 +2369,7 @@ ${filas.join("\n")}
     return { v: v2, w: w2, radio };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/vendor/three.module.min.js
+  // ../../../../tmp/bitabit-drfee7xs/vendor/three.module.min.js
   var three_module_min_exports = {};
   __export(three_module_min_exports, {
     ACESFilmicToneMapping: () => nt,
@@ -15793,7 +15794,7 @@ ${filas.join("\n")}
   };
   "undefined" != typeof __THREE_DEVTOOLS__ && __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent("register", { detail: { revision: t } })), "undefined" != typeof window && (window.__THREE__ ? console.warn("WARNING: Multiple instances of Three.js being imported.") : window.__THREE__ = t);
 
-  // ../../../../tmp/bitabit-myq0224i/lab/maqueen-modelo.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/maqueen-modelo.js
   var PUNTOS = {
     microbit: { x: 50, y: 82, z: 0 },
     pantalla: { x: 52, y: 55, z: 0 },
@@ -16207,7 +16208,7 @@ ${filas.join("\n")}
     for (const b2 of m2.bordes) b2.visible = tr2;
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/maqueen3d.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/maqueen3d.js
   function leerColor(nombre, defecto) {
     const v2 = getComputedStyle(document.documentElement).getPropertyValue(nombre).trim();
     return v2 || defecto;
@@ -17127,7 +17128,7 @@ ${filas.join("\n")}
     };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/labmaqueen.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/labmaqueen.js
   var PIEZAS_MAQUEEN = {
     microbit: ["micro:bit", "El cerebro: ejecuta el programa. Va de pie en su ranura, justo detrás del ultrasonidos, con la pantalla hacia delante. Habla con el chip del robot por el bus I2C (pines P19 y P20)."],
     chip: ["Chip del Maqueen", "El microcontrolador del robot, en la dirección I2C 0x10. Guarda las órdenes de la micro:bit y con ellas mueve los motores, enciende los faros y lee los sensores de línea."],
@@ -17205,7 +17206,7 @@ ${filas.join("\n")}
     bytes: (b2) => b2.map((x2) => "0x" + x2.toString(16).toUpperCase().padStart(2, "0")).join(" ")
   };
 
-  // ../../../../tmp/bitabit-myq0224i/labs/l2-1.js
+  // ../../../../tmp/bitabit-drfee7xs/labs/l2-1.js
   var init = P.c("maqueenPlusV2.I2CInit");
   var ordI = P.c("maqueenPlusV2.controlMotor", "LeftMotor", "Forward", 255);
   var ordD = P.c("maqueenPlusV2.controlMotor", "RightMotor", "Forward", 50);

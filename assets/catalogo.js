@@ -1,5 +1,5 @@
 (() => {
-  // ../../../../tmp/bitabit-myq0224i/catalogo.js
+  // ../../../../tmp/bitabit-drfee7xs/catalogo.js
   var fichas = [...document.querySelectorAll("#catalogo [data-etapa-f]")];
   var botones = [...document.querySelectorAll("[data-etapa-filtro]")];
   var comp = document.getElementById("filtroComp");

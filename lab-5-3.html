@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Puente H | Bit a bit</title>
+<meta name="description" content="Laboratorio 5.3: Un motor de corriente continua cambia de sentido si le das la vuelta a la corriente. El L298N lo hace con cuatro interruptores puestos en forma de H: la micro:bit elige cuáles se cierran y cuánto rato, y la fuerza sale de las pilas.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="5.3" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-5">Etapa 5: Mover cosas</a><span aria-hidden="true">/</span>
+  <span>Puente H</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 5.3</p>
+  <h1>Puente H</h1>
+  <p class="lab-sub">Un motor de corriente continua cambia de sentido si le das la vuelta a la corriente. El L298N lo hace con cuatro interruptores puestos en forma de H: la micro:bit elige cuáles se cierran y cuánto rato, y la fuerza sale de las pilas.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que ya conoce el PWM (laboratorio 3.4) y ha hecho el 5.1</dd></div><div><dt>Material</dt><dd>micro:bit V2, shield, el controlador L298N y el motor amarillo de la caja, cables hembra-hembra y un portapilas de 4 pilas AA (comprobar si lo tenéis)</dd></div><div><dt>Programa</dt><dd>El motor gira hacia un lado a tope, para, gira hacia el otro más despacio y vuelve a parar</dd></div><div><dt>Referencia</dt><dd>Hoja de datos del L298 (STMicroelectronics) y documentación de MakeCode</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit, el controlador L298N (la placa roja), el motor amarillo con una rueda y un portapilas. ENA va a P1, IN1 a P13, IN2 a P14 y el cable G del shield al borne GND del L298N. Con «Transparente» se ven los cuatro interruptores del puente H.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Activa «Transparente» para ver qué dos interruptores se cierran y por dónde va la corriente del motor.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. IN1 e IN2 eligen el sentido</li><li data-fase="1">2. ENA da la velocidad con PWM</li><li data-fase="2">3. Se cierran dos interruptores en diagonal</li><li data-fase="3">4. El motor gira (o para)</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="entradas"><span class="et">IN1 e IN2</span><span class="v num" data-m="entradas">—</span></div><div class="medida-item" data-mc="ena"><span class="et">ENA (P1)</span><span class="v num" data-m="ena">—</span></div><div class="medida-item" data-mc="interruptores"><span class="et">Interruptores cerrados</span><span class="v num" data-m="interruptores">—</span></div><div class="medida-item" data-mc="tension"><span class="et">Tensión media en el motor (aproximada)</span><span class="v num" data-m="tension">—</span></div><div class="medida-item" data-mc="velocidad"><span class="et">Velocidad de la rueda (aproximada)</span><span class="v num" data-m="velocidad">—</span></div><div class="medida-item" data-mc="p1"><span class="et">El pin P1</span><span class="v num" data-m="p1">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>La tierra común</h3><div class="segmento" data-control="tierra" data-defecto="unida" aria-label="La tierra común"><button type="button" data-valor="unida" aria-pressed="true">G del shield al GND del L298N</button><button type="button" data-valor="sin" aria-pressed="false">Sin ese cable</button></div></div><div class="rompelo-grupo"><h3>De dónde come el motor</h3><div class="segmento" data-control="alimentacion" data-defecto="pilas" aria-label="De dónde come el motor"><button type="button" data-valor="pilas" aria-pressed="true">4 pilas AA (6 V)</button><button type="button" data-valor="shield" aria-pressed="false">5 V del shield</button><button type="button" data-valor="ninguna" aria-pressed="false">Sin pilas</button></div></div><div class="rompelo-grupo"><h3>El puente de ENA</h3><div class="segmento" data-control="puenteEna" data-defecto="quitado" aria-label="El puente de ENA"><button type="button" data-valor="quitado" aria-pressed="true">Quitado, ENA en P1</button><button type="button" data-valor="puesto" aria-pressed="false">Puesto, y ENA también en P1</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">Un puente H son cuatro interruptores alrededor del motor. IN1 e IN2 eligen qué dos se cierran, en diagonal, y con eso hacia dónde va la corriente: el sentido de giro. ENA, con PWM, decide qué parte del tiempo están cerrados: la velocidad. La fuerza sale de las pilas; la micro:bit solo da órdenes de 3,3 V, y el L298N se queda unos 2 V por el camino.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Olvidar la tierra común</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>La micro:bit manda 3,3 V por IN1, pero una tensión siempre se mide respecto a algo: a su GND. Si el GND del L298N no está unido al de la micro:bit, el L298N no sabe qué es 3,3 V: sus entradas quedan al aire, y el motor no hace caso o hace cosas raras.</p><p>Hace falta un cable de G del shield al borne GND del L298N, el mismo donde va el negro de las pilas. Las pilas no se unen a la micro:bit por ningún otro sitio: solo por la tierra.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Quita en la simulación el cable de tierra común y mira qué hace el motor.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Un motor que va y vuelve</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Quita el puente (el capuchón) de ENA y guárdalo. Con cables hembra-hembra, ENA al S del conector 1, IN1 al S del 13 e IN2 al S del 14. Mira los nombres en la serigrafía de tu placa (comprobar con el material).</span></li><li><span>Un cable de G del shield al borne GND del L298N. Las pilas: el rojo a 12V y el negro a GND, junto con el cable del shield.</span></li><li><span>Los dos hilos del motor, a OUT1 y OUT2. Pon una rueda en el eje.</span></li><li><span>Pasa el programa. ¿Gira primero hacia un lado y luego hacia el otro? Si va al revés de lo que quieres, cambia entre sí los dos hilos del motor.</span></li><li><span>Cambia 600 por números más pequeños y busca el más bajo con el que arranca la rueda.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> Sé por qué hay que quitar el puente de ENA.</label></li><li><label><input type="checkbox"> El G del shield está unido al GND del L298N.</label></li><li><label><input type="checkbox"> El motor gira hacia los dos lados.</label></li><li><label><input type="checkbox"> He encontrado el número más bajo con el que arranca.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="IN1 e IN2 deciden a qué borne del motor le llega el + de las pilas. Si se cambian, la corriente cruza el motor en sentido contrario y el motor gira al revés."><legend>1. El motor gira hacia delante con IN1 = 1 e IN2 = 0. Pones IN1 = 0 e IN2 = 1. ¿Qué pasa?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Se para.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Gira hacia el otro lado: se cierran los otros dos interruptores y la corriente pasa por el motor al revés.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>Va más rápido.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="b" data-explicacion="Con 1023 están cerrados todo el rato; con 600, algo más de la mitad. El motor recibe de media una parte de la tensión y gira más despacio."><legend>2. ¿Para qué sirve «escritura analógica» en ENA?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Para elegir el sentido.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Para la velocidad: con PWM, los interruptores están cerrados solo una parte del tiempo.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Para que la micro:bit dé más corriente.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="a" data-explicacion="Sin tierra común, el L298N no entiende las órdenes de la micro:bit. Luego, el puente de ENA y que los cables estén en los pines que dice el programa."><legend>3. Las pilas están bien y el programa también, pero el motor no hace nada. ¿Qué miras primero?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Que el G del shield esté unido al GND del L298N.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Que la micro:bit tenga pilas nuevas.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Que el motor esté en OUT3 y OUT4.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>Las entradas del L298 entienden como 1 cualquier tensión de 2,3 V o más, y como 0 hasta 1,5 V (hoja de datos de ST): los 3,3 V de la micro:bit bastan.</li><li>Con ENA a 1, IN1 = 1 e IN2 = 0 hacen girar el motor hacia un lado e IN1 = 0 e IN2 = 1, hacia el otro; con IN1 igual a IN2 el motor se frena de golpe, y con ENA a 0 queda suelto y para poco a poco (tabla de la hoja de datos).</li><li>Los interruptores del L298 se quedan parte de la tensión: entre los dos, 1,8 V típicos y hasta 3,2 V con 1 A (hoja de datos).</li><li>Según la ficha del kit, el controlador funciona de 5 a 35 V.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>Los 2 V que se queda el L298N, siempre iguales: de verdad dependen de la corriente.</li><li>La velocidad de la rueda: unas 150 vueltas por minuto con 4 V, y nada por debajo de unos 0,8 V. Depende del motor y de lo que cargue.</li><li>Lo que tarda en arrancar y en parar.</li><li>Sin tierra común, aquí el motor no se mueve. En la realidad puede moverse a ratos o hacer cosas raras.</li><li>Con el puente de ENA puesto y ENA en P1, aquí el motor va siempre a tope y P1 queda unido a 5 V. Que el L298N funcione con 5 V en su entrada (su parte lógica pide 4,5 V o más): comprobar con el material.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>STMicroelectronics. <a href="https://www.st.com/resource/en/datasheet/l298.pdf" target="_blank" rel="noopener">L298: Dual full-bridge driver</a> (hoja de datos).</li><li>Microsoft. <a href="https://makecode.microbit.org/reference/pins/analog-write-pin" target="_blank" rel="noopener">MakeCode: analog write pin</a> y <a href="https://makecode.microbit.org/reference/pins/digital-write-pin" target="_blank" rel="noopener">digital write pin</a>.</li><li>Código Escuela 4.0. Ficha L3P10 de la caja de ACEBOTT y su foto.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-5-2.html"><small>Anterior</small>5.2 El mismo pulso, otra respuesta</a>
+  <a href="ruta.html#etapa-5"><small>Volver a</small>La etapa 5 de la ruta</a>
+  <a href="lab-5-4.html"><small>Siguiente</small>5.4 Relé y bomba</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l5-3.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

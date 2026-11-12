@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El ángulo es un pulso | Bit a bit</title>
+<meta name="description" content="Laboratorio 5.1: Para mover un servo, la micro:bit no le manda «90 grados»: le manda un pulso cada 20 ms. El servo mide lo que dura y gira hasta que su potenciómetro interno dice que está en ese ángulo.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="5.1" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-5">Etapa 5: Mover cosas</a><span aria-hidden="true">/</span>
+  <span>El ángulo es un pulso</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 5.1</p>
+  <h1>El ángulo es un pulso</h1>
+  <p class="lab-sub">Para mover un servo, la micro:bit no le manda «90 grados»: le manda un pulso cada 20 ms. El servo mide lo que dura y gira hasta que su potenciómetro interno dice que está en ese ángulo.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que ya conoce el shield y el PWM (laboratorios 3.1 y 3.4)</dd></div><div><dt>Material</dt><dd>micro:bit V2, shield, un servo de 180° de la caja y un cargador o batería USB de 5 V</dd></div><div><dt>Programa</dt><dd>El servo va a 0°, 90° y 180°, un segundo en cada sitio</dd></div><div><dt>Referencia</dt><dd>Documentación de MakeCode y código de la micro:bit (CODAL)</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit y, a la derecha, un servo de 180° conectado a P0 con su cable de tres hilos. Con «Transparente» se ven su motor, sus engranajes y el potenciómetro unido al eje.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Mira el pulso de P0 en el osciloscopio de abajo: cuanto más largo, más ángulo.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. El programa pide un ángulo</li><li data-fase="1">2. P0 da un pulso cada 20 ms</li><li data-fase="2">3. El servo compara pulso y potenciómetro</li><li data-fase="3">4. El motor gira hasta que coinciden</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div><h3>Osciloscopio de P0</h3><canvas class="osc" id="osc" aria-label="Gráfica de la tensión de P0 en los últimos 40 milisegundos"></canvas></div><div class="medidas"><div class="medida-item" data-mc="pedido"><span class="et">Ángulo que pide el programa</span><span class="v num" data-m="pedido">—</span></div><div class="medida-item" data-mc="pulso"><span class="et">Pulso en P0</span><span class="v num" data-m="pulso">—</span></div><div class="medida-item" data-mc="angulo"><span class="et">Ángulo del eje</span><span class="v num" data-m="angulo">—</span></div><div class="medida-item" data-mc="alimentacion"><span class="et">Alimentación del servo</span><span class="v num" data-m="alimentacion">—</span></div><div class="medida-item" data-mc="corriente"><span class="et">Corriente del servo (aproximada)</span><span class="v num" data-m="corriente">—</span></div><div class="medida-item" data-mc="microbit"><span class="et">La micro:bit</span><span class="v num" data-m="microbit">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>De dónde come el servo</h3><div class="segmento" data-control="alimentacion" data-defecto="shield5" aria-label="De dónde come el servo"><button type="button" data-valor="shield5" aria-pressed="true">USB del shield, V1 a 5 V</button><button type="button" data-valor="mb33" aria-pressed="false">De la micro:bit, V1 a 3,3 V</button><button type="button" data-valor="mb5" aria-pressed="false">De la micro:bit, V1 a 5 V</button></div></div><div class="rompelo-grupo"><h3>Una carga</h3><label class="interruptor" for="dedo"><input type="checkbox" id="dedo" data-control="dedo" data-defecto="false"> Sujetar el brazo con el dedo</label></div><div class="rompelo-grupo"><h3>El conector del servo</h3><div class="segmento" data-control="conector" data-defecto="bien" aria-label="El conector del servo"><button type="button" data-valor="bien" aria-pressed="true">Naranja en S</button><button type="button" data-valor="reves" aria-pressed="false">Al revés (marrón en S)</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">El ángulo viaja como la duración de un pulso: cada 20 ms, P0 da un pulso de entre 0,5 y 2,5 ms, y 1,5 ms es el centro. El servo compara ese pulso con su potenciómetro interno y mueve el motor hasta que coinciden. La fuerza para moverse no sale del pin: sale de V, y tiene que ser una fuente que aguante.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Alimentar el servo desde la micro:bit</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>Un servo de 9 g puede pedir varios cientos de miliamperios al arrancar o si algo lo frena, y la micro:bit no debería dar más de unos 270 mA a todo lo que cuelga de ella. Con el puente en 3,3 V y sin otra fuente, al arrancar el servo la tensión se hunde y la micro:bit se reinicia: el programa vuelve a empezar, el servo vuelve a arrancar… y así una y otra vez.</p><p>Con el puente en 5 V tampoco va: si el shield no tiene su propia alimentación, en V no hay 5 V y el servo ni se mueve. El servo va con un cargador o una batería USB de 5 V en el shield y el puente V1 en 5 V; la micro:bit solo pone la señal.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Alimenta el servo desde la micro:bit con V1 a 3,3 V en la simulación.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Una barrera que sube y baja</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Enchufa un cargador o una batería USB de 5 V al micro USB del shield y pon el puente V1 en 5 V.</span></li><li><span>Conecta el servo en P0: naranja con S, rojo con V y marrón con G. Pon el brazo largo en el eje, sin apretar el tornillo.</span></li><li><span>Monta el programa en <a href="https://makecode.microbit.org/" target="_blank" rel="noopener">MakeCode</a> y pásalo. Si 0° no queda donde quieres, saca el brazo y vuelve a ponerlo girado.</span></li><li><span>Cambia el programa para que A suba la barrera (90°) y B la baje (0°).</span></li><li><span>Mide con un transportador los ángulos de verdad: ¿llega a 0° y a 180°, o se queda antes y zumba?</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> El servo va con su propia alimentación de 5 V.</label></li><li><label><input type="checkbox"> El cable está bien: naranja en S y marrón en G.</label></li><li><label><input type="checkbox"> Mi barrera sube con A y baja con B.</label></li><li><label><input type="checkbox"> Sé qué hace el pulso de 1,5 ms.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="MakeCode convierte el ángulo en un pulso: 500 + 90 × 2000 ÷ 180 = 1500 µs, una vez cada 20 ms. 0° son 0,5 ms y 180° son 2,5 ms."><legend>1. «servo escribir pin P0 a 90», ¿qué hace salir por P0?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Una tensión de 90 mV.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Un pulso de 1,5 ms cada 20 ms.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>El número 90 por I2C.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="a" data-explicacion="El potenciómetro va unido al eje: su tensión dice dónde está. El circuito del servo la compara con el pulso y mueve el motor hasta que coinciden."><legend>2. ¿Para qué tiene el servo un potenciómetro dentro?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Para saber en qué ángulo está el eje y parar el motor cuando llega al que pide el pulso.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Para regular el volumen del motor.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Para que la micro:bit lea su posición.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="b" data-explicacion="Al arrancar, el servo pide más corriente de la que puede dar la micro:bit: la tensión se hunde y la placa se reinicia. Necesita su propia fuente de 5 V."><legend>3. Conectas el servo con el puente V1 en 3,3 V y sin cargador. ¿Qué es lo más probable?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Que vaya más rápido.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Que la micro:bit se reinicie cada vez que el servo arranca.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Nada: el servo gasta muy poco.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>«servo escribir pin» da un pulso cada 20 ms de 500 + ángulo × 2000 ÷ 180 µs: 0° son 0,5 ms, 90° son 1,5 ms y 180° son 2,5 ms; más de 180 se queda en 180 (código de CODAL, Pin.h y NRF52Pin.cpp).</li><li>El pulso sale del mismo PWM que la «escritura analógica», en pasos de unos 19,5 µs, y gasta uno de sus canales.</li><li>Todo lo que cuelga de la micro:bit V2 debería consumir menos de unos 270 mA (documentación técnica de la micro:bit, dato que la propia fundación marca como pendiente de confirmar).</li><li>Según la ficha del kit, los servos de 180° funcionan de 4,8 a 6 V.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>Qué ángulo da cada pulso: aquí, de 0° a 180° justos. Cada servo es un poco distinto, y muchos no llegan a los extremos.</li><li>La velocidad (unos 60° en 0,1 s a 5 V) y las corrientes del servo (unos 200 mA en marcha y 650 mA frenado o al arrancar).</li><li>El límite a partir del cual se reinicia la micro:bit y lo que tarda en volver a arrancar.</li><li>Lo que pasa con el conector al revés: aquí, el servo no se mueve y P0 corre peligro.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>Microsoft. <a href="https://makecode.microbit.org/reference/pins/servo-write-pin" target="_blank" rel="noopener">MakeCode: servo write pin</a>.</li><li>Lancaster University. <a href="https://github.com/lancaster-university/codal-core" target="_blank" rel="noopener">codal-core</a> (Pin.h) y <a href="https://github.com/lancaster-university/codal-nrf52" target="_blank" rel="noopener">codal-nrf52</a> (NRF52Pin.cpp: setServoValue y setServoPulseUs).</li><li>Micro:bit Educational Foundation. <a href="https://tech.microbit.org/hardware/powersupply/" target="_blank" rel="noopener">Power supply</a>.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-4-6.html"><small>Anterior</small>4.6 Pantallas</a>
+  <a href="ruta.html#etapa-5"><small>Volver a</small>La etapa 5 de la ruta</a>
+  <a href="lab-5-2.html"><small>Siguiente</small>5.2 El mismo pulso, otra respuesta</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l5-1.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

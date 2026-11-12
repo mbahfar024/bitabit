@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pantallas | Bit a bit</title>
+<meta name="description" content="Laboratorio 4.6: La LCD de 16 × 2 y la OLED de la caja se conectan a los mismos dos cables I2C. Cada una contesta solo a su dirección, y cada una entiende «dónde escribo» a su manera: en casillas la LCD, en puntos la OLED.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="4.6" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-4">Etapa 4: Medir el mundo</a><span aria-hidden="true">/</span>
+  <span>Pantallas</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 4.6</p>
+  <h1>Pantallas</h1>
+  <p class="lab-sub">La LCD de 16 × 2 y la OLED de la caja se conectan a los mismos dos cables I2C. Cada una contesta solo a su dirección, y cada una entiende «dónde escribo» a su manera: en casillas la LCD, en puntos la OLED.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Alumnado de ESO que ya ha usado un módulo I2C (laboratorio 4.1)</dd></div><div><dt>Material</dt><dd>micro:bit V2, shield y, de la caja, la pantalla LCD y la OLED</dd></div><div><dt>Programa</dt><dd>Una cuenta atrás de 10 a 0, en la LCD o en la OLED</dd></div><div><dt>Referencia</dt><dd>Extensión de ACEBOTT (bloques LCD1602 y OLED)</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit y, a la derecha, la pantalla que elijas arriba del programa: la LCD de 16 × 2 caracteres o la OLED de 128 × 64 puntos, las dos en el conector IIC.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Cambia de pantalla con los botones de encima del programa. La cuenta atrás va de 10 a 0, una vez por segundo.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <div class="segmento" id="selPrograma" aria-label="Programa de cada placa"><button type="button" data-i="0" aria-pressed="true">Con la LCD</button><button type="button" data-i="1" aria-pressed="false">Con la OLED</button></div>
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. La micro:bit llama a la pantalla</li><li data-fase="1">2. Le dice dónde escribir</li><li data-fase="2">3. Le manda los caracteres</li><li data-fase="3">4. Lo de antes no se borra solo</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="pantalla"><span class="et">Pantalla y dirección I2C</span><span class="v num" data-m="pantalla">—</span></div><div class="medida-item" data-mc="mensaje"><span class="et">Último mensaje por I2C</span><span class="v num" data-m="mensaje">—</span></div><div class="medida-item" data-mc="n"><span class="et">Valor de n</span><span class="v num" data-m="n">—</span></div><div class="medida-item" data-mc="linea"><span class="et">Lo que se ve en la línea del número</span><span class="v num" data-m="linea">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Antes de escribir el número</h3><div class="segmento" data-control="borrar" data-defecto="si" aria-label="Antes de escribir el número"><button type="button" data-valor="si" aria-pressed="true">Borrar la línea</button><button type="button" data-valor="no" aria-pressed="false">Sin borrar</button></div></div><div class="rompelo-grupo"><h3>Dirección de la pantalla</h3><div class="segmento" data-control="dir" data-defecto="bien" aria-label="Dirección de la pantalla"><button type="button" data-valor="bien" aria-pressed="true">La de la extensión</button><button type="button" data-valor="otra" aria-pressed="false">Otra (0x3F o 0x3D)</button></div></div><div class="rompelo-grupo"><h3>Contraste de la LCD (su potenciómetro)</h3><div class="segmento" data-control="contraste" data-defecto="bien" aria-label="Contraste de la LCD (su potenciómetro)"><button type="button" data-valor="bien" aria-pressed="true">Bien ajustado</button><button type="button" data-valor="min" aria-pressed="false">Al mínimo</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">Por los dos cables I2C (SDA y SCL) la micro:bit habla con varios módulos: llama a una dirección y solo contesta el que la tiene. Luego dice dónde escribir y manda los caracteres, que se quedan ahí hasta que algo los tape. Lo que no se borra, se sigue viendo.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Escribir un número más corto encima de otro sin borrar</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>Las pantallas no borran solas: escribir «9» donde ponía «10» solo tapa la primera casilla. Queda «90», y la cuenta atrás parece ir 10, 90, 80…</p><p>Antes de escribir un número que puede encoger, escribe espacios en esa línea (en la LCD) o bórrala con «OLED clear line» (en la OLED). Borrar toda la pantalla también sirve, pero parpadea.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Quita el borrado en la simulación y mira la cuenta atrás al pasar de 10 a 9.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">Una cuenta atrás en cada pantalla</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Con el puente V2 en 3,3 V (ACEBOTT dice que la LCD funciona de 3,3 a 5 V), conecta la LCD al conector IIC: GND a G, VCC a V2, SDA al 20 y SCL al 19. Mira los nombres en el adaptador de detrás.</span></li><li><span>Monta el programa de la LCD con la extensión de ACEBOTT. Si se enciende la luz pero no salen letras, gira despacio el potenciómetro azul de detrás: es el contraste.</span></li><li><span>Quita el bloque que escribe los espacios y mira qué pasa al pasar de 10 a 9.</span></li><li><span>Cambia la LCD por la OLED y monta su programa. Prueba Y = 10 en lugar de Y = 16: ¿dónde sale el número?</span></li><li><span>Conecta las dos pantallas a la vez (la segunda, con cables a los conectores 19 y 20) y escribe en las dos: tienen direcciones distintas.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> La cuenta atrás sale bien en la LCD.</label></li><li><label><input type="checkbox"> Sé para qué sirve el potenciómetro de la LCD.</label></li><li><label><input type="checkbox"> La cuenta atrás sale bien en la OLED.</label></li><li><label><input type="checkbox"> Sé por qué las dos pantallas pueden ir en los mismos cables.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="Así funciona el bus I2C: muchos aparatos en dos cables, cada uno con su dirección. Por eso no pueden tener dos la misma."><legend>1. La LCD y la OLED van conectadas a los mismos cables SDA y SCL. ¿Cómo sabe cada una qué mensaje es para ella?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Por el color del cable.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Cada mensaje empieza con una dirección, y solo contesta la pantalla que la tiene (0x27 la LCD, 0x3C la OLED).</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>No lo saben: las dos escriben lo mismo.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="b" data-explicacion="La extensión de ACEBOTT divide Y entre 8 y se queda con la fila de texto (de 0 a 7). Y = 8, 10 o 15 caen en la misma fila."><legend>2. En la OLED escribes en Y = 10. ¿Dónde sale el texto?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>10 puntos más abajo, justo donde dices.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>En la segunda fila de texto, la que empieza en Y = 8: la extensión escribe por filas de 8 puntos.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>No sale: Y tiene que ser 0.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="a" data-explicacion="La luz solo dice que llega corriente. Si no salen letras: el contraste mal ajustado, un cable de SDA o SCL mal puesto, o un adaptador en otra dirección (la extensión de ACEBOTT solo usa la 0x27)."><legend>3. La LCD se enciende (se ve la luz azul) pero no sale ningún carácter. ¿Qué pruebas primero?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Girar el potenciómetro del contraste y revisar los cables y la dirección.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Cambiar la micro:bit.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Escribir el texto en mayúsculas.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>Los bloques LCD1602 de la extensión de ACEBOTT siempre hablan con la dirección 0x27 (Acebott.ts: LCD1602_Init). X va de 0 a 15 e Y de 0 a 1; el texto se escribe desde ahí, sin borrar lo que había.</li><li>Según ACEBOTT, la LCD funciona de 3,3 a 5 V, y su potenciómetro azul se ajusta si no se ven bien los caracteres (ficha QB059).</li><li>La extensión maneja la OLED como un SH1106 en la dirección 0x3C (AcebottOled.ts). Escribe con letras de 6 puntos de ancho; Y se divide entre 8 para elegir una de sus 8 filas de texto, y «OLED clear line» borra la fila entera.</li><li>La forma de las letras de la OLED es la de la tipografía de la extensión.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>La forma de las letras de la LCD (aquí, la misma que en la OLED).</li><li>Lo que se ve si la LCD no recibe nada: una fila de cuadros, como suele pasar.</li><li>El tiempo que tarda cada mensaje I2C: aquí, nada.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>ACEBOTT. <a href="https://github.com/ACEBOTTteam/Acebott" target="_blank" rel="noopener">Extensión de MakeCode</a> (Acebott.ts y AcebottOled.ts) y <a href="https://acebott.com/docs/qb059-lcd-1602-i2c-module/" target="_blank" rel="noopener">QB059 LCD 1602 I2C Module</a>.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-4-5.html"><small>Anterior</small>4.5 ¿De qué color es?</a>
+  <a href="ruta.html#etapa-4"><small>Volver a</small>La etapa 4 de la ruta</a>
+  <a href="lab-5-1.html"><small>Siguiente</small>5.1 El ángulo es un pulso</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l4-6.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

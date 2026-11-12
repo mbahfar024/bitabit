@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Invernadero que se riega solo | Bit a bit</title>
+<meta name="description" content="Laboratorio 6.1: El sensor de humedad del 4.3, la pantalla OLED del 4.6 y el relé con la bomba del 5.4, juntos en un mismo shield. Cada parte ya funcionaba sola; el reto está en juntarlas: los puentes, el umbral y el tiempo que tarda el agua en llegar al sensor.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="6.1" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-6">Etapa 6: Proyecto final y crea tu laboratorio</a><span aria-hidden="true">/</span>
+  <span>Invernadero que se riega solo</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 6.1</p>
+  <h1>Invernadero que se riega solo</h1>
+  <p class="lab-sub">El sensor de humedad del 4.3, la pantalla OLED del 4.6 y el relé con la bomba del 5.4, juntos en un mismo shield. Cada parte ya funcionaba sola; el reto está en juntarlas: los puentes, el umbral y el tiempo que tarda el agua en llegar al sensor.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Grupos de ESO que han hecho los laboratorios 4.3, 4.6 y 5.4</dd></div><div><dt>Material</dt><dd>micro:bit V2, shield con un cargador o batería USB de 5 V, y de la caja: el sensor de humedad, la OLED, el relé y la microbomba. Una maceta, un vaso con agua y una bandeja</dd></div><div><dt>Programa</dt><dd>Mide la humedad cada segundo, la enseña en la OLED con la temperatura y, si la tierra está seca, riega dos segundos y espera</dd></div><div><dt>Referencia</dt><dd>Extensión de ACEBOTT y laboratorios 4.3, 4.6 y 5.4</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <span></span>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="El shield con la micro:bit. Arriba, la OLED en el conector IIC; en medio, el relé en el conector 8; a la derecha, la maceta con el sensor de humedad unido a P1 y, a su lado, el vaso con la bomba, que come de la V y la G del conector 9 a través del relé. V1 está a 5 V y V2 a 3,3 V.">
+        
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="El vaso de agua"></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">La tierra se seca en segundos (de verdad, en días). Mira la OLED, el color de la tierra y el agua que va de camino hacia el sensor.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. Medir la humedad</li><li data-fase="1">2. Enseñarla en la OLED</li><li data-fase="2">3. Decidir</li><li data-fase="3">4. Regar y esperar</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="lectura"><span class="et">Variable humedad</span><span class="v num" data-m="lectura">—</span><span class="barra-vel"><i data-mb="lectura"></i></span></div><div class="medida-item" data-mc="agua"><span class="et">Agua en la tierra (aproximada)</span><span class="v num" data-m="agua">—</span></div><div class="medida-item" data-mc="rele"><span class="et">Relé (P8)</span><span class="v num" data-m="rele">—</span></div><div class="medida-item" data-mc="bomba"><span class="et">Bomba</span><span class="v num" data-m="bomba">—</span></div><div class="medida-item" data-mc="camino"><span class="et">Agua de camino hacia el sensor</span><span class="v num" data-m="camino">—</span></div><div class="medida-item" data-mc="vaso"><span class="et">Agua en el vaso</span><span class="v num" data-m="vaso">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>El umbral del programa</h3><div class="segmento" data-control="umbral" data-defecto="400" aria-label="El umbral del programa"><button type="button" data-valor="400" aria-pressed="true">400, medido a 5 V</button><button type="button" data-valor="250" aria-pressed="false">250, el del 4.3 (a 3,3 V)</button></div></div><div class="rompelo-grupo"><h3>Espera después de regar</h3><div class="segmento" data-control="espera" data-defecto="10000" aria-label="Espera después de regar"><button type="button" data-valor="10000" aria-pressed="true">10 s</button><button type="button" data-valor="1000" aria-pressed="false">1 s</button></div></div><div class="rompelo-grupo"><h3>El vaso</h3><div class="segmento" data-control="vaso" data-defecto="lleno" aria-label="El vaso"><button type="button" data-valor="lleno" aria-pressed="true">Con agua</button><button type="button" data-valor="vacio" aria-pressed="false">Vacío</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">Un proyecto es juntar partes que ya funcionan, pero al juntarlas cambian cosas: el sensor de humedad va ahora a 5 V y su umbral hay que volver a medirlo; el relé pide V a 5 V y la OLED se queda a 3,3 V en V2; y el agua tarda en llegar al sensor, así que después de regar hay que esperar antes de volver a medir.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Montarlo todo de golpe</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>Si se conecta todo y no funciona, no se sabe qué falla: el umbral, el relé, la bomba, la pantalla o un cable. Hay que probar cada parte sola con un programa pequeño (el del 4.3, el del 4.6 y el del 5.4) y juntarlas de una en una.</p><p>Al juntarlas, revisa lo que cada parte daba por supuesto. Aquí el sensor de humedad pasa a 5 V y su lectura cambia: el umbral de 250 del 4.3 ya no vale. Y el agua tarda unos segundos en llegar al sensor: si el programa vuelve a medir enseguida, sigue viendo la tierra seca y riega otra vez.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Pon la espera después de regar a 1 s en la simulación y mira cuánta agua acaba echando.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">El invernadero de la clase</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Prueba cada parte sola: el sensor de humedad con el programa del 4.3, la OLED con el del 4.6 y el relé con la bomba con el del 5.4.</span></li><li><span>Con el cargador o la batería en el shield, pon V1 a 5 V y V2 a 3,3 V. El sensor de humedad va a P1, el relé al conector 8 y la OLED al conector IIC.</span></li><li><span>La bomba: V del conector 9 al borne COM del relé, el rojo de la bomba a NO y su negro a la G del conector 9. La bomba dentro del vaso y el tubo en la maceta. Pon la placa en alto y lejos del agua, y la maceta en una bandeja.</span></li><li><span>Mide la lectura con la tierra seca y recién regada (a 5 V) y elige vuestro umbral entre las dos.</span></li><li><span>Monta el programa y mide cuánto tarda el agua en llegar al sensor. Ajusta la espera después de regar.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> Cada parte funcionaba sola antes de juntarlas.</label></li><li><label><input type="checkbox"> Hemos medido nuestro umbral a 5 V.</label></li><li><label><input type="checkbox"> La OLED enseña la humedad y la temperatura.</label></li><li><label><input type="checkbox"> Riega una sola vez cada vez que la tierra se seca.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="b" data-explicacion="Un umbral solo vale con el mismo sensor, la misma tierra y la misma tensión. Al cambiar el puente, hay que volver a medir."><legend>1. ¿Por qué no sirve el umbral de 250 del laboratorio 4.3?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Porque la OLED cambia la lectura.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>Porque el sensor va ahora a 5 V y da más tensión con la misma tierra: la lectura sube y 250 corresponde a una tierra mucho más seca.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>Porque la bomba gasta mucho.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="b" data-explicacion="Entre regar y que el sensor lo note hay un retraso. Hay que esperar más que ese retraso antes de volver a decidir."><legend>2. Con una espera de 1 s después de regar, la bomba se enciende varias veces seguidas. ¿Por qué?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Porque el relé se queda pegado.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Porque el agua tarda unos segundos en llegar al sensor: el programa vuelve a medir, todavía ve la tierra seca y riega otra vez.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Porque la micro:bit se reinicia.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="b" data-explicacion="El relé solo recibe la orden por S y no devuelve tensión al pin; la OLED, en cambio, comparte SDA y SCL con la micro:bit."><legend>3. ¿Por qué la OLED va en V2 a 3,3 V y no a 5 V como el relé?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Porque así brilla menos.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>Porque sus líneas SDA y SCL van a pines de la micro:bit y no se sabe si a 5 V subirían también a 5 V: mejor no arriesgar (comprobar con el material).</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Porque la OLED no funciona con 3,3 V.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>Según su ficha, el sensor de humedad de ACEBOTT da de 0 a 2,3 V alimentado a 5 V: a 5 V no pasa de 3,3 V y el pin no corre peligro.</li><li>La OLED se maneja con los bloques de ACEBOTT (SH1106 en la 0x3C), con letras de 6 puntos de ancho y filas de 8 puntos, como en el 4.6.</li><li>El relé SRD-05VDC-SL-C necesita unos 5 V en su bobina (el fabricante solo asegura que cierra a partir de 3,75 V), como en el 5.4.</li><li>«temperatura» es la del procesador de la micro:bit, en grados enteros, como en el 4.1.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>Lo deprisa que se seca la tierra (aquí, en segundos) y la curva entre el agua y la tensión del sensor, como en el 4.3.</li><li>Que el agua tarde 8 s en llegar al sensor: depende de la tierra, de la maceta y de dónde caiga el agua.</li><li>El caudal de la bomba (25 mL por segundo) y cuánto moja cada mililitro.</li><li>Si las líneas I2C de la OLED subirían a 5 V con V2 a 5 V: comprobar con el material.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>ACEBOTT. <a href="https://github.com/ACEBOTTteam/Acebott" target="_blank" rel="noopener">Extensión de MakeCode</a> (Acebott.ts y AcebottOled.ts).</li><li>Songle Relay. Hoja del SRD-05VDC-SL-C, resumida en <a href="https://lcsc.com/product-detail/Power-Relays_Ningbo-Songle-Relay-SRD-05VDC-SL-C_C35449.html" target="_blank" rel="noopener">LCSC</a>.</li><li>Código Escuela 4.0. Ficha L3P10 de la caja de ACEBOTT.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-5-4.html"><small>Anterior</small>5.4 Relé y bomba</a>
+  <a href="ruta.html#etapa-6"><small>Volver a</small>La etapa 6 de la ruta</a>
+  <a href="lab-6-2.html"><small>Siguiente</small>6.2 Robot explorador</a>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l6-1.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

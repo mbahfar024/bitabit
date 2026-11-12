@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carrera de siguelíneas | Bit a bit</title>
+<meta name="description" content="Laboratorio 6.4: Dos micro:bit trabajan juntas: la de salida envía un 1 por radio y empieza a cronometrar; el robot arranca, sigue la línea y, cuando sus sensores L2 y R2 ven a la vez la franja de meta, se para y envía un 2. La de salida calcula el tiempo y lo enseña.">
+<link rel="stylesheet" href="assets/fuentes.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="marco cab-in">
+    <a class="marca" href="index.html" aria-label="Bit a bit, inicio"><span class="led-matriz" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="marca-txt">Bit a bit</span></a>
+    <nav class="cab-nav" aria-label="Principal"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html" aria-current=page>Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+    <div class="cab-acciones">
+      <button type="button" class="boton-cab" id="abrirBuscador" aria-label="Buscar">Buscar <kbd>Ctrl K</kbd></button>
+      <button type="button" class="boton-cab" id="abrirMenu" aria-expanded="false" aria-controls="menuPanel">Menú</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden><nav class="marco" aria-label="Todas las páginas"><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav></div>
+</header>
+<main id="contenido" class="pagina-lab"><div class="marco">
+<div data-lab="6.4" hidden></div>
+<nav class="migas" aria-label="Estás en">
+  <a href="ruta.html">Ruta</a><span aria-hidden="true">/</span>
+  <a href="ruta.html#etapa-6">Etapa 6: Proyecto final y crea tu laboratorio</a><span aria-hidden="true">/</span>
+  <span>Carrera de siguelíneas</span>
+</nav>
+
+<header class="lab-cab">
+  <p class="lab-num">Laboratorio 6.4</p>
+  <h1>Carrera de siguelíneas</h1>
+  <p class="lab-sub">Dos micro:bit trabajan juntas: la de salida envía un 1 por radio y empieza a cronometrar; el robot arranca, sigue la línea y, cuando sus sensores L2 y R2 ven a la vez la franja de meta, se para y envía un 2. La de salida calcula el tiempo y lo enseña.</p>
+  <dl class="ficha-datos"><div><dt>Para</dt><dd>Grupos de ESO que han hecho los laboratorios 2.5 y 2.6</dd></div><div><dt>Material</dt><dd>Maqueen Plus V2 con su micro:bit, otra micro:bit con pilas para la salida, y una pista de cinta aislante negra con una franja de meta perpendicular</dd></div><div><dt>Programa</dt><dd>El robot espera el 1, sigue la línea con el ejemplo de DFRobot y avisa al llegar a la meta; la micro:bit de salida da la salida con A y cronometra</dd></div><div><dt>Referencia</dt><dd>Extensión del Maqueen Plus V2 (DFRobot), radio de MakeCode y laboratorios 2.5 y 2.6</dd></div></dl>
+</header>
+
+<section class="banco" aria-label="Laboratorio interactivo">
+  <div class="banco-grid">
+    <div class="escena-marco">
+      <div class="escena-barra" id="escenaBarra">
+        <div class="segmento" id="vistas" aria-label="Vista"><button type="button" data-vista="mesa" aria-pressed="true">Toda la pista</button><button type="button" data-vista="perfil" aria-pressed="false">De perfil</button><button type="button" data-vista="arriba" aria-pressed="false">Desde arriba</button><button type="button" data-vista="lado" aria-pressed="false">De cerca</button></div>
+        <div class="opciones" aria-label="Opciones de la vista"><button type="button" data-opcion="transparente" aria-pressed="true">Transparente</button><button type="button" data-opcion="nombres" aria-pressed="true">Nombres</button></div>
+      </div>
+      <div class="escena" id="escena" data-descripcion="La pista del laboratorio 2.5 con una franja negra de salida y meta. El Maqueen espera justo después de la franja y, al lado, la micro:bit de salida. Con los botones de encima del programa se ve el programa de cada una.">
+        <canvas id="lienzo" role="img" aria-label="La pista del laboratorio 2.5 con una franja negra de salida y meta. El Maqueen espera justo después de la franja y, al lado, la micro:bit de salida. Con los botones de encima del programa se ve el programa de cada una."></canvas>
+        <div class="etiquetas" id="etiquetas"></div>
+        <p class="escena-aviso led" id="escenaAviso" hidden></p>
+        <div class="botonera" aria-label="La micro:bit de salida"></div>
+        <div class="pieza-info" id="piezaInfo" hidden>
+          <button type="button" class="cerrar" id="piezaCerrar" aria-label="Cerrar">×</button>
+          <h3 id="piezaTitulo">Pieza</h3>
+          <p id="piezaTexto"></p>
+          <p class="uso" id="piezaUso"></p>
+        </div>
+      </div>
+      <p class="escena-pie" id="escenaPie">Pulsa «Dar la salida (A)» abajo. Con «Rápido (×4)» la vuelta se ve antes.</p>
+    </div>
+
+    <aside class="programa" aria-label="El programa">
+      <div class="programa-cab">
+        <div class="segmento" role="tablist" aria-label="Formato del programa">
+          <button type="button" role="tab" data-tab="bloques" aria-selected="true" aria-pressed="true">Bloques</button>
+          <button type="button" role="tab" data-tab="python" aria-selected="false" aria-pressed="false">Python</button>
+        </div>
+        <div class="segmento" id="idiomaBloques" aria-label="Idioma de los bloques">
+          <button type="button" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <div class="segmento" id="selPrograma" aria-label="Programa de cada placa"><button type="button" data-i="0" aria-pressed="true">El robot</button><button type="button" data-i="1" aria-pressed="false">La salida</button></div>
+      </div>
+      <div class="programa-cuerpo">
+        <div id="bloques"></div>
+        <pre class="codigo" id="python" hidden></pre>
+      </div>
+      <div class="programa-pie">
+        <button type="button" class="boton sec peq" id="copiarJS">Copiar para MakeCode (JavaScript)</button>
+        <button type="button" class="boton sec peq" id="copiarPython">Copiar Python</button>
+        <span id="copiadoAviso" aria-live="polite"></span>
+        <textarea id="copiaManual" class="campo" rows="4" hidden aria-label="Texto para copiar" style="width:100%"></textarea>
+      </div>
+    </aside>
+
+    <div class="mando">
+      <div class="mando-botones">
+        <button type="button" class="boton" id="btnPaso">Siguiente paso</button>
+        <button type="button" class="boton sec" id="btnAuto" aria-pressed="false"><span id="btnAutoTxt">Automático</span></button>
+        <button type="button" class="boton sec" id="btnReiniciar">Reiniciar</button>
+        <label class="sr" for="velocidad">Velocidad</label>
+        <select class="campo" id="velocidad">
+          <option value="0.25">Cámara lenta</option>
+          <option value="1" selected>Tiempo real</option>
+          <option value="4">Rápido (×4)</option>
+        </select>
+      </div>
+      <ol class="fases" id="fases" aria-label="Fases"><li data-fase="0">1. La salida envía un 1</li><li data-fase="1">2. El robot lo recibe y arranca</li><li data-fase="2">3. Sigue la línea</li><li data-fase="3">4. Cruza la meta y avisa</li></ol>
+      <p class="narracion" id="narracion" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="paneles">
+    <section class="panel-lab" aria-labelledby="tMonitor">
+      <h2 id="tMonitor">Lo que pasa dentro</h2>
+      <div class="medidas"><div class="medida-item" data-mc="carrera"><span class="et">Variable carrera (robot)</span><span class="v num" data-m="carrera">—</span></div><div class="medida-item" data-mc="sensores"><span class="et">Sensores L2 L1 M R1 R2</span><span class="v num" data-m="sensores">—</span></div><div class="medida-item" data-mc="motores"><span class="et">Motores izquierdo y derecho</span><span class="v num" data-m="motores">—</span></div><div class="medida-item" data-mc="radio"><span class="et">Último mensaje por radio</span><span class="v num" data-m="radio">—</span></div><div class="medida-item" data-mc="crono"><span class="et">Lo que enseña la salida</span><span class="v num" data-m="crono">—</span></div><div class="medida-item" data-mc="real"><span class="et">Tiempo de verdad de la vuelta</span><span class="v num" data-m="real">—</span></div></div>
+    </section>
+    <section class="panel-lab" aria-labelledby="tRompelo">
+      <h2 id="tRompelo">Estropéalo a propósito</h2>
+      <div class="rompelo-grupo"><h3>Las velocidades del robot</h3><div class="segmento" data-control="velocidad" data-defecto="ejemplo" aria-label="Las velocidades del robot"><button type="button" data-valor="ejemplo" aria-pressed="true">Las del ejemplo (100, 160 y 30)</button><button type="button" data-valor="rapido" aria-pressed="false">Más rápido (255, 255 y 60)</button><button type="button" data-valor="todo" aria-pressed="false">Todo a tope (255, 255 y 200)</button></div></div><div class="rompelo-grupo"><h3>Grupo de radio del robot</h3><div class="segmento" data-control="grupo" data-defecto="1" aria-label="Grupo de radio del robot"><button type="button" data-valor="1" aria-pressed="true">Grupo 1, como la salida</button><button type="button" data-valor="2" aria-pressed="false">Grupo 2</button></div></div><div class="rompelo-grupo"><h3>«fijar carrera a…» al iniciar</h3><div class="segmento" data-control="salida" data-defecto="0" aria-label="«fijar carrera a…» al iniciar"><button type="button" data-valor="0" aria-pressed="true">A 0: espera la salida</button><button type="button" data-valor="1" aria-pressed="false">A 1: sale sin esperar</button></div></div>
+      <div class="explica" id="explica" aria-live="polite"></div>
+      <div><button type="button" class="boton sec peq" id="normalidad">Volver a la normalidad</button></div>
+    </section>
+  </div>
+</section>
+
+<div class="bloque">
+  <p class="etiqueta-seccion">La idea clave</p>
+  <p class="idea-clave">En una carrera, dos programas tienen que ponerse de acuerdo: la salida y el robot usan el mismo grupo de radio y los mismos números (1 para salir, 2 para la meta), y el tiempo solo es justo si el robot espera a la salida. Para ganar no basta con subir todos los números: el siguelíneas gira gracias a la diferencia entre sus dos ruedas.</p>
+</div>
+
+<section class="bloque" aria-labelledby="tError">
+  <p class="etiqueta-seccion">El error común</p>
+  <h2 id="tError">Subirlo todo a tope</h2>
+  <div class="dos-col" style="margin-top:16px">
+    <div class="medida"><p>Para ir más rápido apetece subir todos los números. Pero el robot gira porque una rueda va mucho más deprisa que la otra: si la rueda lenta de las curvas también se sube (255 y 200), apenas hay diferencia, el robot no puede girar lo bastante y en la primera curva se sale de la pista.</p><p>Se gana subiendo la recta y la rueda rápida, pero dejando la lenta baja (255, 255 y 60): así el robot sigue pudiendo girar cerrado. Hay que probar poco a poco, con pilas nuevas, para que todas las vueltas se puedan comparar.</p></div>
+    <div class="nota led">
+      <h3>Pruébalo</h3>
+      <p>Pon «Todo a tope» en la simulación, da la salida y mira la primera curva.</p>
+      <p style="margin-top:12px"><button type="button" class="boton peq" id="probarError">Probar en la simulación</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPractica">
+  <p class="etiqueta-seccion">La práctica con el material real</p>
+  <h2 id="tPractica">La carrera de la clase</h2>
+  <div class="dos-col" style="margin-top:18px">
+    <ol class="lista-pasos"><li><span>Haced la pista con cinta aislante negra y, al principio de una recta, una franja de meta perpendicular más ancha que el robot.</span></li><li><span>Pasad el programa del robot a su micro:bit y el de la salida a otra, con su portapilas. Comprobad que las dos usan el mismo grupo de radio, distinto del de los demás equipos.</span></li><li><span>Poned el robot justo después de la franja, mirando hacia la pista. Pulsad A en la micro:bit de salida.</span></li><li><span>Cuando el robot cruce la franja, se parará y la salida enseñará el tiempo. Apuntadlo.</span></li><li><span>Cambiad las velocidades, de una en una, y apuntad cada vuelta. Gana el tiempo más bajo sin salirse.</span></li></ol>
+    <div class="panel" style="align-self:start">
+      <h3 style="margin-bottom:10px">Antes de dar la práctica por hecha</h3>
+      <ul class="comprobacion" id="comprobacion"><li><label><input type="checkbox"> El robot no arranca hasta que pulsamos A.</label></li><li><label><input type="checkbox"> Se para en la meta y la salida enseña el tiempo.</label></li><li><label><input type="checkbox"> Hemos probado al menos tres velocidades.</label></li><li><label><input type="checkbox"> Nuestro mejor tiempo sin salirnos está apuntado.</label></li></ul>
+      <p class="dato-fuente" style="margin-top:12px">Se guarda en este navegador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tPreguntas">
+  <p class="etiqueta-seccion">Tres preguntas</p>
+  <h2 id="tPreguntas">¿Lo has entendido?</h2>
+  <form class="preguntas" style="margin-top:18px" onsubmit="return false"><fieldset class="pregunta" data-q="q1" data-correcta="a" data-explicacion="Si los grupos no coinciden, el robot ignora el 1. Y sin pilas, la micro:bit de salida no envía nada."><legend>1. El robot no arranca al pulsar A. ¿Qué miras primero?</legend><label class="opcion"><input type="radio" name="q1" value="a"><span>Las pilas de la salida y que las dos micro:bit tengan el mismo grupo de radio.</span></label><label class="opcion"><input type="radio" name="q1" value="b"><span>La cinta de la pista.</span></label><label class="opcion"><input type="radio" name="q1" value="c"><span>El sensor M.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q2" data-correcta="b" data-explicacion="La línea es estrecha y va por el centro del robot. Una franja ancha y atravesada es lo único que tapa los dos sensores de los lados al mismo tiempo."><legend>2. ¿Por qué la meta se detecta con L2 y R2 a la vez?</legend><label class="opcion"><input type="radio" name="q2" value="a"><span>Porque M no funciona.</span></label><label class="opcion"><input type="radio" name="q2" value="b"><span>Porque siguiendo la línea casi nunca la ven los dos sensores de fuera a la vez: solo pasa en la franja perpendicular.</span></label><label class="opcion"><input type="radio" name="q2" value="c"><span>Porque son más rápidos.</span></label><p class="respuesta" hidden></p></fieldset><fieldset class="pregunta" data-q="q3" data-correcta="b" data-explicacion="El cronómetro empieza cuando se pulsa A. Si el robot ya había salido, esa parte de la vuelta no cuenta: es una salida nula."><legend>3. Si el robot sale sin esperar el 1, ¿qué pasa con el tiempo?</legend><label class="opcion"><input type="radio" name="q3" value="a"><span>Nada.</span></label><label class="opcion"><input type="radio" name="q3" value="b"><span>La salida empieza a contar cuando ya iba en marcha: el tiempo sale menor que el de verdad.</span></label><label class="opcion"><input type="radio" name="q3" value="c"><span>Sale mayor.</span></label><p class="respuesta" hidden></p></fieldset></form>
+  <div class="hecho-caja" style="margin-top:22px">
+    <button type="button" class="boton" id="marcarHecho">Marcar como hecho</button>
+    <span id="estadoHecho"></span>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tModelo">
+  <p class="etiqueta-seccion">Qué es real y qué es aproximado</p>
+  <h2 id="tModelo">Un modelo simplificado, con lo dudoso a la vista</h2>
+  <div class="real-aprox" style="margin-top:18px">
+    <div class="panel"><h3 style="margin-bottom:10px">Sale de la placa y del programa reales</h3><ul><li>El siguelíneas es el ejemplo oficial de la extensión del Maqueen Plus V2 (velocidades 100, 160 y 30), como en el 2.5.</li><li>L2 y R2 están a los lados, delante de las ruedas; L1, M y R1, en fila detrás de la rueda de apoyo (DFRobot y los robots del instituto).</li><li>«radio enviar número» y «al recibir radio» funcionan entre micro:bit del mismo grupo, como en el 2.6.</li><li>«tiempo de ejecución (ms)» cuenta los milisegundos desde que se encendió la micro:bit: restando el del principio, sale lo que ha durado la vuelta.</li><li>El programa es el que se ve en bloques y en Python.</li></ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Aproximado en la simulación</h3><ul><li>La velocidad de las ruedas con cada orden y lo que tardan las lecturas por I2C, como en el 2.5.</li><li>Los tiempos de vuelta y dónde se sale el robot: dependen de las pilas, de las ruedas y del suelo.</li><li>Que la radio llegue siempre y enseguida: en un aula con muchas micro:bit puede perderse algún mensaje.</li></ul></div>
+  </div>
+</section>
+
+<section class="bloque" aria-labelledby="tFuentes">
+  <p class="etiqueta-seccion">Fuentes</p>
+  <h2 id="tFuentes" class="sr">Fuentes</h2>
+  <ul class="fuentes"><li>DFRobot. <a href="https://github.com/DFRobot/pxt-DFRobot_MaqueenPlus_v20" target="_blank" rel="noopener">pxt-DFRobot_MaqueenPlus_v20</a> (ejemplo «Line-tracking Robot»).</li><li>Microsoft. <a href="https://makecode.microbit.org/reference/radio" target="_blank" rel="noopener">MakeCode: radio</a> y <a href="https://makecode.microbit.org/reference/input/running-time" target="_blank" rel="noopener">running time</a>.</li><li>Bit a bit. Laboratorios 2.5 y 2.6, con sus fuentes.</li></ul>
+</section>
+
+<nav class="bloque navegacion-lab" aria-label="Laboratorios cercanos">
+  <a href="lab-6-3.html"><small>Anterior</small>6.3 Semáforo de ruido del aula</a>
+  <a href="ruta.html#etapa-6"><small>Volver a</small>La etapa 6 de la ruta</a>
+  <div><small>Siguiente</small>Es el último</div>
+</nav>
+</div></main>
+<footer class="pie">
+  <div class="marco">
+    <div class="pie-in">
+      <div>
+        <p class="pie-marca">Bit a bit</p>
+        <p>Robótica con micro:bit para ESO, hecha en el IES Fuente Nueva (Morón de la Frontera) con el material del programa Código Escuela 4.0.</p>
+      </div>
+      <nav aria-label="Explora"><h2>Explora</h2><a href="empieza.html">Empieza</a><a href="ruta.html">Ruta</a><a href="laboratorios.html">Laboratorios</a><a href="proyecto-final.html">Proyecto final</a><a href="glosario.html">Glosario</a></nav>
+      <nav aria-label="Más"><h2>Más</h2><a href="material.html">Material del aula</a><a href="seguridad.html">Componentes y seguridad</a><a href="crea-tu-laboratorio.html">Crea tu laboratorio</a><a href="profesorado.html">Para el profesorado</a><a href="creditos.html">Créditos y fuentes</a></nav>
+    </div>
+    <p class="pie-nota">Los laboratorios son modelos simplificados y marcan lo que no se ha podido comprobar. micro:bit es una marca de la Micro:bit Educational Foundation; Maqueen, de DFRobot. Enlaces revisados el 27 de octubre de 2026.</p>
+  </div>
+</footer>
+<script src="assets/labs/l6-4.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

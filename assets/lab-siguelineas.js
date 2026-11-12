@@ -9,7 +9,7 @@
       __defProp(target, name, { get: all[name], enumerable: true });
   };
 
-  // ../../../../tmp/bitabit-myq0224i/engine.js
+  // ../../../../tmp/bitabit-drfee7xs/engine.js
   function enBrillo(x2, y2) {
     for (const b2 of BRILLOS) if (Math.hypot(x2 - b2.x, y2 - b2.y) <= b2.r) return true;
     return false;
@@ -119,7 +119,7 @@
   }
   var DOC, APROX, GEOM_SENSORES, BRILLOS, PATRON_OK, TAU, Pista, CIRCUITO, MESA, SALIDA_S, Siguelineas;
   var init_engine = __esm({
-    "../../../../tmp/bitabit-myq0224i/engine.js"() {
+    "../../../../tmp/bitabit-drfee7xs/engine.js"() {
       DOC = {
         sensores: ["L2", "L1", "M", "R1", "R2"],
         // El chip del Maqueen (dirección I2C 0x10) responde en el registro 0x1D con
@@ -638,7 +638,7 @@
     }
   });
 
-  // ../../../../tmp/bitabit-myq0224i/vendor/three.module.min.js
+  // ../../../../tmp/bitabit-drfee7xs/vendor/three.module.min.js
   var three_module_min_exports = {};
   __export(three_module_min_exports, {
     ACESFilmicToneMapping: () => nt,
@@ -3957,7 +3957,7 @@
   }
   var t, e, n, i, r, s, a, o, l, c, h, u, d, p, m, f, g, _, v, x, y, M2, S2, b, E, T, w, A, R, C, P, L, I, U, N, D, O, F, B, z, H, V, k, G, W, X, j, q, Y, Z, J, K, $, Q, tt, et, nt, it, rt, st, at, ot, lt, ct, ht, ut, dt, pt, mt, ft, gt, _t, vt, xt, yt, Mt, St, bt, Et, Tt, wt, At, Rt, Ct, Pt, Lt, It, Ut, Nt, Dt, Ot, Ft, Bt, zt, Ht, Vt, kt, Gt, Wt, Xt, jt, qt, Yt, Zt, Jt, Kt, $t, Qt, te, ee, ne, ie, re, se, ae, oe, le, ce, he, ue, de, pe, me, fe, ge, _e, ve, xe, ye, Me, Se, be, Ee, Te, we, Ae, Re, Ce, Pe, Le, Ie, Ue, Ne, De, Oe, Fe, Be, ze, He, Ve, ke, Ge, We, Xe, je, qe, Ye, Ze, Je, Ke, $e, Qe, tn, en, nn, rn, sn, an, on, ln, cn, hn, un, dn, pn, mn, fn, gn, _n, vn, xn, yn, Mn, Sn, bn, En, Tn, wn, An, Rn, Cn, Pn, Ln, In, Un, Nn, Dn, On, Fn, Bn, zn, Hn, Vn, kn, Gn, Wn, Qn, ti, ei, ni, ri, li, hi, ui, di, pi, mi, _i, vi, xi, yi, Si, bi, Ei, Ti, wi, Ai, Ri, Ci, Pi, Li, Ii, Ui, Ni, Di, Oi, Fi, Bi, zi, Hi, Vi, ki, Gi, Wi, Xi, ji, qi, Yi, Zi, Ki, $i, Qi, tr, er, nr, ir, rr, sr, ar, or, lr, cr, hr, ur, dr, pr, mr, fr, gr, _r, vr, xr, yr, Mr, Sr, br, Er, Tr, wr, Ar, Rr, Cr, Pr, Lr, Ir, Ur, Nr, Dr, Or, Fr, Br, zr, Hr, Vr, kr, Gr, Wr, Xr, jr, qr, Yr, Zr, Kr, $r, Qr, ts, es, ns, as, os, ls, cs, hs, us, ds, ps, ms, fs, gs, _s, vs, xs, ys, Ms, Ss, bs, Es, Ts, ws, As, Rs, Cs, Ps, Ls, Is, Us, Ns, Ds, Os, Fs, Bs, zs, Hs, Vs, ks, Gs, Ws, Xs, qs, Ks, $s, Qs, ta, ea, na, ia, ra, sa, aa, oa, la, ca, ha, ua, ma, fa, ga, _a, va, Ta, wa, Aa, Ra, Ca, Pa, La, Ia, Ua, Na, Da, Oa, Ka, $a, Qa, to, eo, no, io, ro, so, ao, oo, Ko, $o, Qo, tl, il, sl, al, pl, fl, _l, Sl, bl, El, Il, Fl, Bl, Gl, Wl, Xl, jl, ql, Jl, Kl, $l, Ql, tc, ec, nc, ic, rc, sc, ac, oc, lc, cc, hc, uc, dc, pc, mc, fc, gc, _c, vc, yc, Mc, Sc, bc, Ec, Tc, wc, Ac, Rc, Cc, Pc, Lc, Ic, Uc, Nc, Dc, Oc, Fc, Bc, zc, Hc, Vc, kc, Gc, Wc, Xc, jc, Zc, Jc, Kc, $c, Qc, th, eh, nh, ih, rh, sh, ah, oh, ch, hh, uh, dh, ph, mh, fh, gh, _h, vh, xh, yh, Mh, Sh, bh, Eh, Th, wh, Rh, Ch, Ph, Lh, Ih, Uh, Nh, Dh, Oh, Bh, zh, Hh, Vh, kh, jh, qh, Yh, Zh, Jh, Kh, $h, Qh, tu, eu, nu, iu, ru, su, au, ou, lu, cu, hu, uu, du, pu, mu, fu, Hu, Gu, Wu, Xu, ju, qu, Yu, Zu, Ju, Ku, $u, Qu, td, nd, id, rd, sd, ad, od, ld, cd, hd, ud, dd2, vd, xd, yd, Md, Sd, bd, Ed, Td, wd, Ad, Rd, Cd, Pd, Ld, Ud, Nd, Dd, Od, Fd, Bd, zd, Hd, Vd, kd, Gd, Wd, Xd, jd, qd, Yd, Zd, Jd, Kd, $d, Qd, tp, ep, np, ip, rp, sp, ap, op, lp, cp, hp, up, dp, pp, mp, fp, gp, _p, vp, xp, yp, Mp, Sp, bp, Ep, Tp, wp, Ap, Cp, Pp, Lp, Ip, Up, Np, Dp, Op, Fp, Bp, zp, Hp, Vp, kp, Gp, Wp, Xp, jp, qp, Yp, Zp, Jp, Kp, $p, Qp, tm, em, nm, im, rm, om, lm, cm, hm, um, dm, pm, mm, fm, gm, _m, vm, xm, Mm, Sm, bm, Em, Tm, wm, Am, Rm, Cm, Pm, Lm, Im, Um, Nm, Om, Fm, Bm, zm, Hm, Vm, km, Gm, Wm, Xm;
   var init_three_module_min = __esm({
-    "../../../../tmp/bitabit-myq0224i/vendor/three.module.min.js"() {
+    "../../../../tmp/bitabit-drfee7xs/vendor/three.module.min.js"() {
       t = "160";
       e = { LEFT: 0, MIDDLE: 1, RIGHT: 2, ROTATE: 0, DOLLY: 1, PAN: 2 };
       n = { ROTATE: 0, PAN: 1, DOLLY_PAN: 2, DOLLY_ROTATE: 3 };
@@ -14063,7 +14063,7 @@
     }
   });
 
-  // ../../../../tmp/bitabit-myq0224i/lab/maqueen-modelo.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/maqueen-modelo.js
   function caja(THREE, w2, h2, d2, mat) {
     return new THREE.Mesh(new THREE.BoxGeometry(w2, h2, d2), mat);
   }
@@ -14463,7 +14463,7 @@
   }
   var PUNTOS;
   var init_maqueen_modelo = __esm({
-    "../../../../tmp/bitabit-myq0224i/lab/maqueen-modelo.js"() {
+    "../../../../tmp/bitabit-drfee7xs/lab/maqueen-modelo.js"() {
       init_engine();
       PUNTOS = {
         microbit: { x: 50, y: 82, z: 0 },
@@ -14483,7 +14483,7 @@
     }
   });
 
-  // ../../../../tmp/bitabit-myq0224i/escena3d.js
+  // ../../../../tmp/bitabit-drfee7xs/escena3d.js
   var escena3d_exports = {};
   __export(escena3d_exports, {
     PIEZAS: () => PIEZAS,
@@ -15305,7 +15305,7 @@
   }
   var PRIORIDAD, PIEZAS;
   var init_escena3d = __esm({
-    "../../../../tmp/bitabit-myq0224i/escena3d.js"() {
+    "../../../../tmp/bitabit-drfee7xs/escena3d.js"() {
       init_three_module_min();
       init_engine();
       init_maqueen_modelo();
@@ -15389,7 +15389,7 @@
     }
   });
 
-  // ../../../../tmp/bitabit-myq0224i/vista2d.js
+  // ../../../../tmp/bitabit-drfee7xs/vista2d.js
   var vista2d_exports = {};
   __export(vista2d_exports, {
     crearVista2D: () => crearVista2D
@@ -15582,15 +15582,15 @@
     };
   }
   var init_vista2d = __esm({
-    "../../../../tmp/bitabit-myq0224i/vista2d.js"() {
+    "../../../../tmp/bitabit-drfee7xs/vista2d.js"() {
       init_engine();
     }
   });
 
-  // ../../../../tmp/bitabit-myq0224i/lab-siguelineas.js
+  // ../../../../tmp/bitabit-drfee7xs/lab-siguelineas.js
   init_engine();
 
-  // ../../../../tmp/bitabit-myq0224i/bloques.js
+  // ../../../../tmp/bitabit-drfee7xs/bloques.js
   var TXT = {
     es: {
       alIniciar: "al iniciar",
@@ -15770,7 +15770,7 @@ basic.forever(function () {
     return { resaltar, idiomaBloques };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/progreso.js
+  // ../../../../tmp/bitabit-drfee7xs/progreso.js
   var CLAVE = "bitabit.progreso.v1";
   function leerProgreso() {
     try {
@@ -15797,7 +15797,7 @@ basic.forever(function () {
     return guardarProgreso(p2);
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab-siguelineas.js
+  // ../../../../tmp/bitabit-drfee7xs/lab-siguelineas.js
   var ID_LAB = "2.5-basico";
   var $2 = (s2) => document.querySelector(s2);
   var $$ = (s2) => [...document.querySelectorAll(s2)];

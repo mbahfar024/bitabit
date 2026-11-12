@@ -1,5 +1,5 @@
 (() => {
-  // ../../../../tmp/bitabit-myq0224i/engine.js
+  // ../../../../tmp/bitabit-drfee7xs/engine.js
   var DOC = {
     sensores: ["L2", "L1", "M", "R1", "R2"],
     // El chip del Maqueen (dirección I2C 0x10) responde en el registro 0x1D con
@@ -623,7 +623,7 @@
     return null;
   }
 
-  // ../../../../tmp/bitabit-myq0224i/vista2d.js
+  // ../../../../tmp/bitabit-drfee7xs/vista2d.js
   function crearVista2D({ canvas: canvas2, contenedor, sim, pista }) {
     const g = canvas2.getContext("2d");
     let W = 1;
@@ -812,7 +812,7 @@
     };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/portada.js
+  // ../../../../tmp/bitabit-drfee7xs/portada.js
   var canvas = document.getElementById("lienzoPortada");
   var caja = document.getElementById("pistaViva");
   var estado = document.getElementById("estadoPortada");

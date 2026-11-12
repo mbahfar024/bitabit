@@ -1,5 +1,5 @@
 (() => {
-  // ../../../../tmp/bitabit-myq0224i/mk/programa.js
+  // ../../../../tmp/bitabit-drfee7xs/mk/programa.js
   var E = (es, en, py, js) => ({ es, en, py, js });
   var ENUMS = {
     Button: { A: E("A", "A", "Button.A", "Button.A"), B: E("B", "B", "Button.B", "Button.B"), AB: E("A+B", "A+B", "Button.AB", "Button.AB") },
@@ -695,7 +695,7 @@ ${filas.join("\n")}
     };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/mk/maquina.js
+  // ../../../../tmp/bitabit-drfee7xs/mk/maquina.js
   var PASO = { paso: true };
   var Mundo = class {
     constructor({ fisica = null, pasoFisica = 2 } = {}) {
@@ -1104,7 +1104,7 @@ ${filas.join("\n")}
     }
   };
 
-  // ../../../../tmp/bitabit-myq0224i/mk/microbit.js
+  // ../../../../tmp/bitabit-drfee7xs/mk/microbit.js
   var FUENTE = [0, 0, 0, 0, 0, 8, 8, 8, 0, 8, 10, 74, 64, 0, 0, 10, 95, 234, 95, 234, 14, 217, 46, 211, 110, 25, 50, 68, 137, 51, 12, 146, 76, 146, 77, 8, 8, 0, 0, 0, 4, 136, 8, 8, 4, 8, 4, 132, 132, 136, 0, 10, 68, 138, 64, 0, 4, 142, 196, 128, 0, 0, 0, 4, 136, 0, 0, 14, 192, 0, 0, 0, 0, 8, 0, 1, 34, 68, 136, 16, 12, 146, 82, 82, 76, 4, 140, 132, 132, 142, 28, 130, 76, 144, 30, 30, 194, 68, 146, 76, 6, 202, 82, 95, 226, 31, 240, 30, 193, 62, 2, 68, 142, 209, 46, 31, 226, 68, 136, 16, 14, 209, 46, 209, 46, 14, 209, 46, 196, 136, 0, 8, 0, 8, 0, 0, 4, 128, 4, 136, 2, 68, 136, 4, 130, 0, 14, 192, 14, 192, 8, 4, 130, 68, 136, 14, 209, 38, 192, 4, 14, 209, 53, 179, 108, 12, 146, 94, 210, 82, 28, 146, 92, 146, 92, 14, 208, 16, 16, 14, 28, 146, 82, 82, 92, 30, 208, 28, 144, 30, 30, 208, 28, 144, 16, 14, 208, 19, 113, 46, 18, 82, 94, 210, 82, 28, 136, 8, 8, 28, 31, 226, 66, 82, 76, 18, 84, 152, 20, 146, 16, 16, 16, 16, 30, 17, 59, 117, 177, 49, 17, 57, 53, 179, 113, 12, 146, 82, 82, 76, 28, 146, 92, 144, 16, 12, 146, 82, 76, 134, 28, 146, 92, 146, 81, 14, 208, 12, 130, 92, 31, 228, 132, 132, 132, 18, 82, 82, 82, 76, 17, 49, 49, 42, 68, 17, 49, 53, 187, 113, 18, 82, 76, 146, 82, 17, 42, 68, 132, 132, 30, 196, 136, 16, 30, 14, 200, 8, 8, 14, 16, 8, 4, 130, 65, 14, 194, 66, 66, 78, 4, 138, 64, 0, 0, 0, 0, 0, 0, 31, 8, 4, 128, 0, 0, 0, 14, 210, 82, 79, 16, 16, 28, 146, 92, 0, 14, 208, 16, 14, 2, 66, 78, 210, 78, 12, 146, 92, 144, 14, 6, 200, 28, 136, 8, 14, 210, 78, 194, 76, 16, 16, 28, 146, 82, 8, 0, 8, 8, 8, 2, 64, 2, 66, 76, 16, 20, 152, 20, 146, 8, 8, 8, 8, 6, 0, 27, 117, 177, 49, 0, 28, 146, 82, 82, 0, 12, 146, 82, 76, 0, 28, 146, 92, 144, 0, 14, 210, 78, 194, 0, 14, 208, 16, 16, 0, 6, 200, 4, 152, 8, 8, 14, 200, 7, 0, 18, 82, 82, 79, 0, 17, 49, 42, 68, 0, 17, 49, 53, 187, 0, 18, 76, 140, 146, 0, 17, 42, 68, 152, 0, 30, 196, 136, 30, 6, 196, 140, 132, 134, 8, 8, 8, 8, 8, 24, 8, 12, 136, 24, 0, 0, 12, 131, 96];
   function columnasCaracter(ch) {
     let c = ch.charCodeAt(0);
@@ -1541,7 +1541,7 @@ ${filas.join("\n")}
     return placa;
   }
 
-  // ../../../../tmp/bitabit-myq0224i/progreso.js
+  // ../../../../tmp/bitabit-drfee7xs/progreso.js
   var CLAVE = "bitabit.progreso.v1";
   function leerProgreso() {
     try {
@@ -1568,7 +1568,7 @@ ${filas.join("\n")}
     return guardarProgreso(p);
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/base.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/base.js
   var $ = (s, el = document) => el.querySelector(s);
   var $$ = (s, el = document) => [...el.querySelectorAll(s)];
   var nf0 = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 0 });
@@ -1892,7 +1892,7 @@ ${filas.join("\n")}
     return { lab, ui };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/dibujos.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/dibujos.js
   var CONECTOR = [
     { p: "P3" },
     { p: "P0", anilla: "0" },
@@ -2028,7 +2028,7 @@ ${filas.join("\n")}
   .cota { fill: #c7ccc8; font: 600 14px/1 "Atkinson Hyperlegible Next", system-ui, sans-serif; }
 </style>`;
 
-  // ../../../../tmp/bitabit-myq0224i/lab/rotulos.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/rotulos.js
   var NS = "http://www.w3.org/2000/svg";
   var MARGEN = 6;
   var SEP = 18;
@@ -2269,7 +2269,7 @@ ${filas.join("\n")}
     return { definir, colocar, colocarCerca, items };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/escena2d.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/escena2d.js
   function crearEscena2D({ contenedor, ancho, alto, svg: marcado, rotulos = [], caja, alPulsar, alDibujar, valores, lados, vistaInicial = null, alCambiarVista, modoRotulos = "columnas", prohibidas = [], alinear = "centro" }) {
     var _a, _b;
     const NS2 = "http://www.w3.org/2000/svg";
@@ -2372,7 +2372,7 @@ ${filas.join("\n")}
     };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/banco.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/banco.js
   var ELEC = {
     vdd: 3.3,
     maxPin: 3.6,
@@ -2720,6 +2720,20 @@ ${filas.join("\n")}
   .horquilla { fill: #d9b25c; stroke: #8a6a24; stroke-width: 2; }
   .horquilla-punto { fill: #b98d33; }
   .corroida .horquilla { fill: #8f7a52; }
+  .mic { fill: #1c1f22; stroke: #000; stroke-width: 2; }
+  .mic-malla { fill: #3a4046; stroke: #6c757d; stroke-width: 1; stroke-dasharray: 2 3; }
+  .pot-azul { fill: #2f6fd1; stroke: #173b75; stroke-width: 2; }
+  .pot-tornillo { fill: #e9ecef; stroke: #8b96a0; stroke-width: 1.5; }
+  .pot-ranura { stroke: #6c757d; stroke-width: 2; }
+  .sensor-color { fill: #5b4a8a; }
+  .led-blanco { fill: #f4f6f2; stroke: #9aa39e; stroke-width: 2; }
+  .leds-on .led-blanco { fill: #ffffff; filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 3px #fffbe0); }
+  .lcd-marco { fill: #1b1d1f; stroke: #000; stroke-width: 2; }
+  .lcd-fondo { fill: #1d3fbf; }
+  .lcd-apagada .lcd-fondo { fill: #14234f; }
+  .oled-marco { fill: #111316; stroke: #000; stroke-width: 2; }
+  .oled-fondo { fill: #05070a; }
+  .pantalla-img { image-rendering: pixelated; }
   .destacado { filter: drop-shadow(0 0 6px #ffd65a) drop-shadow(0 0 2px #ffd65a); }
   path.destacado { stroke-width: 6; opacity: 1; }
   .aviso-peligro { fill: #ff3b30; font: 800 20px/1 "Archivo", system-ui, sans-serif; }
@@ -2893,7 +2907,7 @@ ${filas.join("\n")}
     };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/lab/acebott.js
+  // ../../../../tmp/bitabit-drfee7xs/lab/acebott.js
   var PINES_ANALOG = ["P0", "P1", "P2"];
   definirEnum("AnalogReadPin", Object.fromEntries(PINES_ANALOG.map((p) => [p, [p, p, `AnalogReadPin.${p}`, `AnalogReadPin.${p}`]])));
   definirEnum("BMP280_I2C_ADDRESS", { ADDR_0x76: ["ADDR_0x76", "ADDR_0x76"], ADDR_0x77: ["ADDR_0x77", "ADDR_0x77"] });
@@ -2905,6 +2919,49 @@ ${filas.join("\n")}
   B("Acebott.bmp280SetAddress", "sentencia", "BMP280 set address $0", [{ e: "BMP280_I2C_ADDRESS" }]);
   B("Acebott.Mosisture", "valor", "Mosisture Sensor at $0 get value", [{ e: "AnalogReadPin" }]);
   B("Acebott.SoundSensor", "valor", "Sound Sensor at $0 get value", [{ e: "AnalogReadPin" }]);
+  definirEnum("RGBChannel", { Red: ["R", "R"], Green: ["G", "G"], Blue: ["B", "B"] }, { ns: "Acebott" });
+  definirEnum(
+    "ColorName",
+    { Red: ["rojo", "rojo"], Green: ["verde", "verde"], Blue: ["azul", "azul"], Yellow: ["amarillo", "amarillo"], Purple: ["púrpura", "púrpura"], Cyan: ["cian", "cian"], White: ["blanco", "blanco"], Black: ["negro", "negro"] },
+    { ns: "Acebott" }
+  );
+  B("Acebott.colorDetect", "valor", "Color sensor detect color");
+  B("Acebott.getRGBValue", "valor", "Color sensor get $0 value", [{ e: "RGBChannel" }]);
+  B("Acebott.isColor", "bool", "The target is $0", [{ e: "ColorName" }]);
+  B("Acebott.LCD1602_Init", "sentencia", "LCD1602 initialization");
+  B("Acebott.LCD1602_ShowString", "sentencia", "LCD1602 at (x: $0 ,y: $1 ) show string $2", ["num", "num", "txt"]);
+  B("Acebott.LCD1602_ShowNumber", "sentencia", "LCD1602 at (x: $0 ,y: $1 ) show number $2", ["num", "num", "num"]);
+  B("Acebott.LCD1602_Clear", "sentencia", "LCD1602 clear screen");
+  B("Acebott.oledShowString", "sentencia", "OLED show string $0 at X $1 Y $2", ["txt", "num", "num"]);
+  B("Acebott.oledShowNumber", "sentencia", "OLED show number $0 at X $1 Y $2", ["num", "num", "num"]);
+  B("Acebott.oledClearLine", "sentencia", "OLED clear line at Y $0", ["num"]);
+  B("Acebott.oledClear", "sentencia", "OLED clear screen");
+  var FUENTE2 = "000000000000005F00000007000700147F147F14242A7F2A12231308646236495620500008070300001C2241000041221C002A1C7F1C2A08083E080800807030000808080808000060600020100804023E5149453E00427F400072494949462141494D331814127F1027454545393C4A49493141211109073649494936464949291E0000140000004034000000081422411414141414004122140802015909063E415D594E7C1211127C7F494949363E414141227F4141413E7F494949417F090909013E414151737F0808087F00417F41002040413F017F081422417F404040407F021C027F7F0408107F3E4141413E7F090909063E4151215E7F09192946264949493203017F01033F4040403F1F2040201F3F4038403F631408146303047804036159494D43007F4141410204081020004141417F04020102044040404040000307080020545478407F284444383844444428384444287F385454541800087E090218A4A49C787F0804047800447D40002040403D007F1028440000417F40007C047804787C080404783844444438FC1824241818242418FC7C08040408485454542404043F44243C4040207C1C2040201C3C4030403C44281028444C9090907C4464544C440008364100000077000000413608000201020402";
+  function columnas5x7(codigo2) {
+    if (codigo2 < 32 || codigo2 > 126) return [127, 65, 65, 65, 127];
+    const i = (codigo2 - 32) * 10;
+    return [0, 1, 2, 3, 4].map((k) => parseInt(FUENTE2.substr(i + k * 2, 2), 16));
+  }
+  var DIR = { bmp: 118, lcd: 39, oled: 60, color: 56 };
+  var NOMBRES_COLOR = { Red: "Rojo", Green: "Verde", Blue: "Azul", Yellow: "Amarillo", Purple: "Púrpura", Cyan: "Cian", White: "Blanco", Black: "Negro" };
+  function colorACEBOTT({ r, g, b }) {
+    const verde = g - 75;
+    const max = Math.max(r, verde, b) + 50;
+    const lim = (v) => Math.max(0, Math.min(255, v));
+    const R = lim(Math.round(r / max * 255));
+    const G = lim(Math.round(verde / max * 255));
+    const B2 = lim(Math.round((b - 40) / max * 255));
+    let nombre = "Desconocido";
+    if (R > 240 && B2 < 120 && G < 160) nombre = "Rojo";
+    else if (R < 100 && B2 < 200 && G > 100) nombre = "Verde";
+    else if (R < 100 && B2 > 240 && G < 200) nombre = "Azul";
+    else if (R > 140 && G > 140 && B2 < 140) nombre = "Amarillo";
+    else if (R > 180 && B2 > 180 && G < 180) nombre = "Púrpura";
+    else if (G > 180 && B2 > 180 && R < 180) nombre = "Cian";
+    else if (R > 250 && G > 250 && B2 > 250) nombre = "Blanco";
+    else if (R < 50 && G < 50 && B2 < 50) nombre = "Negro";
+    return { R, G, B: B2, nombre };
+  }
   function apiAcebott(bus = {}) {
     const estado = (pl) => {
       var _a;
@@ -2913,7 +2970,11 @@ ${filas.join("\n")}
         // la que usa la extensión si no se dice otra
         bmpIniciado: false,
         bmpCalibrado: false,
-        bmpP: 0
+        bmpP: 0,
+        // LCD 16 × 2 (HD44780 con adaptador I2C en la 0x27): memoria de 80 caracteres
+        lcd: { iniciado: false, ddram: Array(128).fill(32), ac: 0 },
+        // OLED SH1106 de 128 × 64: 8 páginas de 8 puntos de alto
+        oled: { iniciado: false, fb: new Uint8Array(128 * 8) }
       });
     };
     const leer = (pl, pin) => pl.microbit.api["pins.analogReadPin"](pl, [pin]);
@@ -2936,7 +2997,79 @@ ${filas.join("\n")}
       if (ok) a.bmpP = Math.round(bus.bmp280.presion());
       return { t, p: a.bmpP, ok };
     }
+    function lcdEscribir(pl, x, y, texto) {
+      const L = estado(pl).lcd;
+      if (!i2c(pl, DIR.lcd, "LCD") || !L.iniciado) return;
+      L.ac = (y > 0 ? 64 : 0) + Math.round(x);
+      for (const ch of String(texto)) {
+        L.ddram[L.ac & 127] = ch.charCodeAt(0) & 255;
+        L.ac = L.ac === 39 ? 64 : L.ac === 103 ? 0 : L.ac + 1;
+      }
+    }
+    function oled(pl) {
+      const O = estado(pl).oled;
+      const ok = i2c(pl, DIR.oled, "OLED");
+      if (!O.iniciado && ok) {
+        O.iniciado = true;
+        O.fb.fill(0);
+      }
+      return ok && O.iniciado ? O : null;
+    }
+    function oledTexto(pl, x, y, texto) {
+      const O = oled(pl);
+      if (!O) return;
+      x = Math.max(0, Math.min(122, Math.round(x)));
+      const pagina = Math.trunc(Math.max(0, Math.min(63, y)) / 8);
+      let dx = x;
+      for (const ch of String(texto)) {
+        if (dx > 122) return;
+        const cols = [...columnas5x7(ch.charCodeAt(0)), 0];
+        cols.forEach((c, k) => O.fb[pagina * 128 + dx + k] = c);
+        dx += 6;
+      }
+    }
+    function colorLeer(pl) {
+      const ok = i2c(pl, DIR.color, "color");
+      return colorACEBOTT(ok ? bus.color.crudo() : { r: 0, g: 0, b: 0 });
+    }
     return {
+      // Sensor de color
+      "Acebott.colorDetect": (pl) => {
+        const c = colorLeer(pl);
+        return `${c.nombre}(R-${c.R}, G-${c.G}, B-${c.B})`;
+      },
+      "Acebott.getRGBValue": (pl, [canal]) => {
+        const c = colorLeer(pl);
+        return canal === "Red" ? c.R : canal === "Green" ? c.G : c.B;
+      },
+      "Acebott.isColor": (pl, [color]) => colorLeer(pl).nombre === NOMBRES_COLOR[color],
+      // LCD
+      "Acebott.LCD1602_Init": (pl) => {
+        const L = estado(pl).lcd;
+        if (!i2c(pl, DIR.lcd, "LCD")) return;
+        L.iniciado = true;
+        L.ddram.fill(32);
+        L.ac = 0;
+      },
+      "Acebott.LCD1602_ShowString": (pl, [x, y, t]) => lcdEscribir(pl, x, y, t),
+      "Acebott.LCD1602_ShowNumber": (pl, [x, y, n]) => lcdEscribir(pl, x, y, String(n)),
+      "Acebott.LCD1602_Clear": (pl) => {
+        const L = estado(pl).lcd;
+        if (!i2c(pl, DIR.lcd, "LCD") || !L.iniciado) return;
+        L.ddram.fill(32);
+        L.ac = 0;
+      },
+      // OLED
+      "Acebott.oledShowString": (pl, [t, x, y]) => oledTexto(pl, x, y, t),
+      "Acebott.oledShowNumber": (pl, [n, x, y]) => oledTexto(pl, x, y, String(n)),
+      "Acebott.oledClearLine": (pl, [y]) => {
+        const O = oled(pl);
+        if (O) O.fb.fill(0, Math.trunc(Math.max(0, Math.min(63, y)) / 8) * 128, Math.trunc(Math.max(0, Math.min(63, y)) / 8) * 128 + 128);
+      },
+      "Acebott.oledClear": (pl) => {
+        var _a;
+        return (_a = oled(pl)) == null ? void 0 : _a.fb.fill(0);
+      },
       // (lectura / 1023) × 3,3 × 100, con dos decimales
       "Acebott.sensor_temperature": (pl, [pin]) => {
         const t = leer(pl, pin) / 1023 * 3.3 * 100;
@@ -2956,7 +3089,7 @@ ${filas.join("\n")}
     };
   }
 
-  // ../../../../tmp/bitabit-myq0224i/labs/l4-1.js
+  // ../../../../tmp/bitabit-drfee7xs/labs/l4-1.js
   var CUENTAS = {
     bien: (l) => P.op("/", P.op("*", l, 330), 1023),
     bruto: (l) => l,
